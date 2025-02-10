@@ -1,0 +1,582 @@
+/*  ==================== Hero Section Starts  ==================== */
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+}
+
+.hero-section video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: left;
+}
+
+.hero-content h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--sub-heading-text);
+}
+
+.hero-content h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--secondary-text);
+}
+
+.hero-content p {
+    font-size: 1rem;
+    color: var(--secondary-text);
+    margin-bottom: 20px;
+}
+
+.hero-buttons .btn {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 6px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+
+    .hero-buttons .btn {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+        margin: 5px 0;
+        display: block;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-content h1,
+    .hero-content h2,
+    .hero-content p {
+        text-align: center;
+    }
+
+    .hero-buttons {
+        text-align: center;
+    }
+}
+
+
+/*  ==================== Hero Section Ends  ==================== */
+
+
+/*============== Journey section  Start ==============*/
+
+.journey-section {
+    background-color: #1b1c22;
+    color: white;
+    margin-top: -50px;
+    padding-top: 100px;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    color: #d1d5db;
+}
+
+.journey-card {
+    /* background: #242529; */
+    /* Card background */
+    /* padding: 20px; */
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    /* overflow: hidden; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.journey-card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s ease;
+}
+
+.journey-card .card-content {
+    width: 200px;
+}
+
+.journey-card .journey-card-number {
+    position: absolute;
+    top: 20%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    font-size: 96px;
+    font-weight: bold;
+    color: black;
+    /* text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6); */
+    background: linear-gradient(90deg, #ff00ff, #00ffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: 2px solid transparent;
+    /* border-image: linear-gradient(90deg, #ff00ff, #00ffff); */
+    border-image-slice: 1;
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 2;
+}
+
+.card-image {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.card-image img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    /* border-radius: 10px; */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* Semi-transparent black background */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: opacity 0.3s ease;
+    /* border-radius: 10px; */
+    padding-top: 150px;
+}
+
+.card-image:hover .overlay {
+    opacity: 1;
+    /* Show overlay on hover */
+}
+
+.overlay-title {
+    font-size: 52px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.overlay-text {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.journey-card-btn {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: 0;
+    /* Align right */
+}
+
+.text-end .journey-card-btn {
+    text-align: right;
+    float: right;
+    /* Make the button float to the right */
+}
+
+
+/*============== Journey section  End ==============*/
+
+/*============ Card Queue Section start============*/
+.card-queue-section {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* scroll fixed */
+    overflow: hidden;
+    background: #1b1c22;
+    position: relative;
+    z-index: 999;
+}
+
+
+/* .card-container {
+        position: relative;
+        width: 1000px;
+        height: 450px;
+        margin: auto;
+      } */
+
+.card-container {
+    position: relative;
+    width: 1000px;
+    height: 450px;
+    margin: auto;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* .card-item {
+        position: absolute;
+        width: 300px;
+        height: 400px;
+        background: linear-gradient(to bottom, #ffffff, #042e73);
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        transition: transform 0.5s, z-index 0.5s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #000;
+      } */
+
+.card-item {
+    position: absolute;
+    width: 300px;
+    height: 400px;
+    background: linear-gradient(to bottom, #ffffff, #042e73);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.5s, z-index 0.5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    color: #fff;
+    overflow: hidden;
+}
+
+/* Client Image */
+.client-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #ffffff;
+}
+
+/* Client Name */
+.client-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+/* Client Comment */
+.client-comment {
+    font-size: 14px;
+    color: #ddd;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+/* Star Rating */
+.stars {
+    color: gold;
+    font-size: 20px;
+}
+
+
+/*============ Card Queue Section End============*/
+
+/*================== About Section Start==================*/
+
+.about-section {
+    position: relative;
+    background: url('/assets/frontend/media/pages/home/images/home_service.jpg') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    /* Full screen height */
+    display: flex;
+    flex-direction: column;
+    /* Align elements vertically */
+    justify-content: flex-start;
+    /* Keep heading at the top */
+    align-items: center;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+/* Overlay */
+.about-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent overlay */
+    z-index: 1;
+}
+
+/* Heading Styling */
+.about-section h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 2rem;
+    /* Space from the top */
+    z-index: 2;
+    /* Above overlay */
+}
+
+/* Button Styling */
+.button-row {
+    position: absolute;
+    bottom: 2rem;
+    /* Place button at the bottom */
+    left: 50%;
+    /* Move to the horizontal center */
+    transform: translateX(-50%);
+    /* Adjust for perfect center alignment */
+    z-index: 2;
+    /* Above overlay */
+}
+
+
+/*================== About Section End==================*/
+
+/*================== Stats Section Start==================*/
+.stats-section {
+    background: var(--secondary-bg);
+    /* White background */
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+
+}
+
+.stat-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card h3 {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--primary-text);
+    /* Root text color */
+    margin-bottom: 5px;
+}
+
+.stat-card p {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--secondary-text);
+    /* Root secondary text color */
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    /* Slight lift on hover */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+@media (max-width: 768px) {
+    .stats-section {
+        margin-top: 0;
+        /* Remove overlap on smaller screens */
+        padding: 10px 0;
+    }
+
+    .stat-card {
+        margin-bottom: 15px;
+    }
+
+    .stat-card h3 {
+        font-size: 28px;
+        /* Adjust font size */
+    }
+
+    .stat-card p {
+        font-size: 14px;
+    }
+}
+
+
+
+
+/*=============== Testimonials Section Start ===============*/
+.testimonials-section {
+    background: linear-gradient(135deg, #ffffff, #f0f6ff, #e8efff);
+    padding: 3rem 0;
+}
+
+.testimonials-section h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0040ff;
+}
+
+.testimonial-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    height: 150px;
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .testimonials-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .testimonial-card {
+        height: 120px;
+    }
+}
+
+/*=============== Testimonials Section End ===============*/
+
+
+/*========== Consultant Section Start==========*/
+.consultant-section {
+    position: relative;
+    height: 100vh;
+    background: url('/assets/frontend/media/pages/home/images/home_consult.jpg') no-repeat center center;
+    background-size: cover;
+    color: white;
+    padding: 4rem 1rem;
+}
+
+.consultant-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* Left Content */
+.subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    z-index: 2;
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    position: relative;
+    z-index: 2;
+}
+
+.consultant-name {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    z-index: 2;
+    margin-bottom: 2rem;
+}
+
+.btn-primary-custom {
+    background: linear-gradient(to right, #4bc2ff, #ff4bc2);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-primary-custom:hover {
+    background: linear-gradient(to left, #4bc2ff, #ff4bc2);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .consultant-section {
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .consultant-name {
+        font-size: 1.2rem;
+    }
+
+    .consultant-section img {
+        margin-top: 2rem;
+    }
+}
+
+
+/*========== Consultant Section End==========*/

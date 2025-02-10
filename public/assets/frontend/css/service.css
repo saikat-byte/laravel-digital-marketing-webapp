@@ -1,0 +1,257 @@
+
+/*============ Service Banner Start ============*/
+.service-banner {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--secondary-bg);
+}
+
+/* Left Column */
+.banner-left {
+    flex: 1;
+}
+
+.banner-left img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+/* Right Column */
+.banner-right {
+    background: linear-gradient(to right, #ffffffe5, #9c9bb4d6, #5d65dfed);
+    padding: 30px 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.banner-right h1 {
+    color: var(--sub-heading-text);
+}
+
+.banner-right h3 {
+    font-size: var(--font-large);
+    color: var(--secondary-text);
+}
+
+.banner-right h2 {
+    font-size: var(--font-medium);
+    color: var(--primary-text);
+}
+
+.banner-right p {
+    font-size: var(--font-medium);
+    color: var(--secondary-text);
+}
+
+.banner-right .btn-gradient {
+    padding: var(--btn-padding);
+    font-size: var(--font-medium);
+    border-radius: var(--btn-border-radius);
+    background: var(--primary-bg);
+    color: var(--white-color);
+}
+
+
+/*============== Card Slider ==============*/
+.card-slider-wrapper {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+.card-slider {
+    display: flex;
+    gap: 1rem;
+    animation: scroll 15s linear infinite;
+    will-change: transform;
+}
+
+.service-card {
+    background: var(--white-color);
+    border-radius: var(--btn-border-radius);
+    width: 200px;
+    height: 40vh;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow-light);
+    cursor: pointer;
+}
+
+.service-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--btn-border-radius);
+}
+
+.service-card .card-title {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    color: var(--btn-text-color);
+    font-weight: bold;
+    font-size: 1rem;
+    background: var(--linear-bg);
+    padding: 0.5rem 1rem;
+    border-radius: var(--btn-border-radius);
+    text-align: center;
+}
+
+.service-card .card-title:hover {
+    background: var(--btn-bg-color);
+    color: var(--primary-text);
+}
+
+/* Hover Pause */
+.card-slider-wrapper:hover .card-slider {
+    animation-play-state: paused;
+}
+
+
+/* Smooth Animation */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .service-card {
+        width: 250px;
+        height: 300px;
+    }
+}
+
+/*============ Service Banner End============*/
+
+
+
+/*==================== Why Choose Us Section Start ======================*/
+.why-choose-us {
+    background: var(--primary-bg);
+    padding: 5rem 0;
+}
+
+.video-container {
+    max-width: 800px;
+    margin: 2rem auto; /* Adds spacing around the container */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Softer and more professional shadow */
+    border-radius: 15px; /* Slightly rounded corners for elegance */
+    background-color: #1b1c22; /* A subtle background to blend with a modern UI */
+    overflow: hidden; /* Ensures content stays within rounded corners */
+    padding: 10px; /* Adds subtle internal spacing */
+}
+
+.video-container video {
+    width: 100%; /* Ensures the video takes full width */
+    border-radius: 10px; /* Smooth corners for the video */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for the video itself */
+}
+
+/*==================== Why Choose Us Section End ======================*/
+
+/* ==============Service Contact form Start ====================== */
+.service-contact{
+    background: var(--primary-bg);
+}
+/* ==============Service Contact form End ====================== */
+
+
+/* =========== FAQ Ask Question section Start=========== */
+/* FAQ Section */
+.faq-section {
+    background: none; /* Remove background */
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.faq-section h3 {
+    font-size: 1.8rem;
+    color: var(--heading-text);
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Accordion Item */
+.accordion-item {
+    border: none;
+    border-bottom: 2px solid var(--heading-text); /* Only bottom border */
+}
+
+.accordion-item:last-child {
+    border-bottom: none; /* Remove bottom border for the last item */
+}
+
+.accordion-header {
+    background: none; /* Remove background */
+    padding: 1rem 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.accordion-header:hover {
+    color: var(--primary-color);
+}
+
+.accordion-toggle {
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--heading-text);
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* Rotate Arrow When Active */
+.accordion-toggle.active .fa-caret-down {
+    transform: rotate(-180deg);
+}
+
+/* Accordion Content */
+.accordion-content {
+    display: none;
+    padding: 1rem 0;
+    font-size: 0.95rem;
+    color: var(--secondary-text);
+}
+
+.accordion-content p {
+    color: var(--heading-text);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .faq-section h3 {
+        font-size: 1.5rem; /* Adjust heading size */
+    }
+
+    .accordion-toggle {
+        font-size: 0.95rem; /* Adjust toggle size */
+    }
+}
+
+/* =========== FAQ Ask Question section End=========== */

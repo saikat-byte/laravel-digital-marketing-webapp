@@ -1,0 +1,242 @@
+/* Banner section Start */
+
+.banner-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url("/assets/frontend/media/pages/case_studies/images/banner_case_studies.jpg") no-repeat center center/cover;
+}
+
+/* overlay */
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--overlay-color);
+  z-index: 1;
+}
+
+.banner-content {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.banner-content h1 {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.banner-content h2 {
+  font-weight: 600;
+  font-size: 2rem;
+}
+
+.button-row {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+
+@media (max-width: 768px) {
+  .banner-section {
+    height: 70vh;
+  }
+
+  .banner-content {
+    width: 100%;
+  }
+
+  .banner-content h1 {
+    font-size: .7rem;
+  }
+
+  .banner-content h2 {
+    font-size: 1.2rem;
+  }
+}
+
+/*============= Banner section End =============*/
+
+/*============= Marketing section Start =============*/
+/*=== Gradient Column (Left) ===*/
+.gradient-col {
+  background: var(--linear-bg);
+}
+
+
+.logo-img {
+  max-width: 70px;
+  height: auto;
+}
+
+/* (hr) */
+.white-separator {
+  border: 0;
+  border-top: 3px solid #fff;
+  margin-top: 10px;
+}
+
+/*=== Content Column (Right) ===*/
+.content-col {
+  background-color: #cde5ff;
+}
+
+/* Triangle Icon (Heading left) */
+.triangle-icon {
+  width: 0;
+  height: 0;
+  border-left: 25px solid #144a9b;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+
+
+/* Images */
+.content-image {
+  max-width: 800px;
+  border-radius: 3px;
+}
+
+
+.btn-outline-primary {
+  border: 2px solid #144a9b;
+  color: #144a9b;
+}
+
+.btn-outline-primary:hover {
+  background-color: #144a9b;
+  color: #fff;
+}
+
+.right-side {
+  padding-right: 200px;
+}
+
+.right-side h2 {
+  font-size: 2rem;
+  color: #144a9b;
+}
+
+.left-side {
+  padding-left: 200px;
+}
+
+/* responsive*/
+@media (max-width: 768px) {
+
+  .gradient-col,
+  .content-col {
+    min-height: auto;
+  }
+
+  .triangle-icon {
+    margin-bottom: 10px;
+  }
+
+  .right-side {
+    padding-right: 0px;
+  }
+
+  .right-side h2 {
+    font-size: 1.2rem;
+  }
+
+  .content-image {
+    max-width: 100%;
+  }
+
+  .gradient-btn {
+    width: 200px;
+    margin-top: 10px;
+  }
+}
+
+/*============= Marketing section End =============*/
+
+/*============= Video ribbon section Start =============*/
+/* SECTION WRAPPER */
+.video-ribbon-section {
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* VIDEO COL */
+.video-col {
+  padding-left: 200px;
+  z-index: 2;
+}
+
+/* VIDEO WRAPPER */
+.video-wrapper {
+  width: 320px;
+  height: 180px;
+  background: #000;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* VIDEO ELEMENT */
+.video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* PLAY BUTTON */
+.play-button-wrapper {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+.play-btn-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* RIBBON COL */
+.ribbon-col {
+  z-index: 2;
+}
+
+/* RIBBON STYLE */
+.ribbon {
+  height: 100px;
+  /* ribbon height */
+  background: linear-gradient(to right, #a742f5, #19befa);
+  width: 100%;
+}
+
+/* SMALLER DEVICES (RESPONSIVE) */
+@media (max-width: 768px) {
+
+
+  .video-wrapper {
+    width: 100%;
+    height: auto;
+  }
+
+  .video-col {
+    padding-left: 0px;
+  }
+
+  .ribbon {
+    margin-top: 5px;
+    height: 80px;
+  }
+}
+
+
+/*============= Video ribbon section End =============*/

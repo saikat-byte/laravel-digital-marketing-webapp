@@ -1,0 +1,151 @@
+/* General Section Styling */
+
+/* ==================== Contact Hero Banner Start ================== */
+.contact-banner {
+    background: #000; 
+    position: relative;
+    overflow: hidden;
+  }
+
+  .banner-video {
+    width: 100%;
+    height: 100vh;         
+    object-fit: cover;     
+    display: block;
+  }
+  
+  /*Responsive */
+  @media (max-width: 992px) {
+    .banner-video {
+      height: 70vh; 
+    }
+  }
+  @media (max-width: 576px) {
+    .banner-video {
+      height: 60vh;
+    }
+  }
+  .banner-text {
+    z-index: 2;
+  }
+  
+/* ==================== Contact Hero Banner End ================== */
+/* ==================== Contact Page Form Right================== */
+
+.contact-page-form-right img{
+    width: 50px;
+    height: 50px;
+}
+.contact-page-form-right .location-mail-text-parent .location-mail-text-heading{
+   margin: 0px;
+   padding: 0px;
+}
+.contact-page-form-right .location-mail-text-parent .location-mail-text{
+   margin: 0px;
+   padding: 0px;
+   color: var(--heading-text);
+}
+.contact-page-form-right .location-mail-text-parent .location-mail-text-heading{
+   margin: 0px;
+   padding: 0px;
+   color: var(--sub-heading-text);
+}
+.contact-page-form-right .btn{
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 6px;
+}
+/* ==================== Contact Page Form Right End ================== */
+
+/* ==================== Collaborate Section Start ================== */
+.collaborate-section {
+    position: relative;
+    width: 100%;
+    height: 80vh; 
+    overflow: hidden;
+  }
+  .collaborate-section .collaborate-section-content{
+    padding-left: 13rem;
+    padding-bottom: 5rem;
+  }
+  .bg-image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+  }
+  
+  .gradient-overlay {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,255,0.6), rgba(0,255,255,0.2));
+  }
+  
+  /* Heading  */
+  .collab-heading {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    z-index: 2;
+  }
+  
+  .get-quote-btn {
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    z-index: 2; 
+  }
+  .get-quote-btn:hover {
+    background: #fff;
+    color: #000;
+  }
+  
+  /* Responsive */
+  @media (max-width: 992px) {
+    .collaborate-section {
+      height: 70vh;
+    }
+    .collab-heading {
+      font-size: 2rem;
+    }
+  }
+  @media (max-width: 576px) {
+    .collaborate-section {
+      height: 60vh;
+    }
+    .collab-heading {
+      font-size: 1.5rem;
+    }
+    .collaborate-section .collaborate-section-content{
+        padding-left: 3rem;
+        padding-bottom: 2rem;
+    }
+  }
+  
+/* ==================== Collaborate Section End ================== */
+
+/* ====================Client Logo section contact page Start ====================== */
+.client-logo-section-contact-page{
+    margin: 0px;
+    max-width: 100%;
+    background-color: var(--third-bg) !important;
+    border-radius: 0px;
+}
+/* ====================Client Logo section contact page End ====================== */

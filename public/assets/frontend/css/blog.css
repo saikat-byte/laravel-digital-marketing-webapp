@@ -1,0 +1,109 @@
+/* Blog banner start */
+.blog-banner {
+    background: var(--linear-bg);
+    padding: 60px 0;
+}
+.blog-posts .blog-title {
+ color: var(--sub-heading-text);       
+}
+.blog-posts .blog-text {
+ color: var(--heading-text);       
+}
+.blog-banner h1 {
+    font-size: 4.6rem;
+    font-weight: bold;
+}
+.blog-banner h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.blog-banner p {
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+.badge-images {
+    display: flex;
+    gap: 15px;
+}
+.badge-images img {
+    width: 120px;
+    height: auto;
+    border-radius: 10px;
+}
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+.fade-image {
+    max-width: 100%;
+    height: auto;
+    transition: opacity 0.5s ease-in-out;
+    position: relative;
+}
+
+/* ========Responsive ================= */
+
+@media (max-width: 768px){
+    .blog-banner h1{
+        font-size: 1.5rem;
+    }
+    .blog-banner .image-wrapper{
+        margin-top: 1rem;
+    }
+    .blog-banner .badge-images{
+        margin-top: 1rem;
+    }
+}
+
+/* Blog banner End */
+
+/* Blog card section start */
+.blog-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+.blog-card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 2px solid #eee;
+}
+.blog-meta {
+    font-size: 0.9rem;
+    color: #999;
+    margin: 10px 0;
+}
+.blog-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+.blog-text {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+}
+.read-more {
+    margin-top: 15px;
+}
+.pagination {
+    justify-content: center;
+    margin-top: 20px;
+}
+.pagination .page-link {
+    color: var(--third-bg);
+}
+.pagination .page-item.active .page-link {
+    background-color: var(--third-bg);
+    border-color: #007bff;
+    color: white;
+}
+/* Blog card section End */

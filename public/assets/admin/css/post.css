@@ -1,0 +1,75 @@
+
+.post_table {
+    table-layout: fixed;
+    width: 100%;
+}
+.post_table p {
+    margin: 0;
+    font-size: 10px !important;
+}
+
+.post_table th {
+    padding: 0px !important;
+    font-size: 10px !important;
+}
+
+.post_table th:nth-child(1),
+td:nth-child(1) {
+    width: 20px;
+    /* প্রথম কলামের প্রস্থ */
+}
+
+.post_table th,
+.post_table td {
+
+    vertical-align: middle;
+    text-align: center;
+    font-size: 13px !important;
+    width: 25%;
+}
+
+.post_table th hr,
+.post_table td hr {
+    margin: 5px;
+    height: 1px;
+    background-color: rgb(14, 14, 1);
+    border: none;
+}
+
+.post_table td img {
+    width: 100px;
+    cursor: pointer;
+}
+
+.post_table tr {
+    border-bottom: 1px solid #000;
+}
+
+.post_table td a {
+    text-decoration: none;
+    color: darkblue;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.post_table td a:hover {
+    color: darkcyan;
+
+
+}
+
+.zoom-image {
+    transition: transform 0.3s ease;
+    /* Transition effect for smooth zoom */
+    max-width: 300px;
+    /* Default size */
+    max-height: 150px;
+    /* Default size */
+}
+
+.zoom-image:hover {
+    transform: scale(2.5);
+    /* On hover, zoom in the image */
+    cursor: pointer;
+    /* Change cursor to pointer to indicate it's interactive */
+}
