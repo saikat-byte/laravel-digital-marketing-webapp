@@ -29,7 +29,6 @@ class CustomFieldTypeSeeder extends Seeder
             ['name' => 'File Upload', 'code' => 'file_upload'],
             ['name' => 'Password Field', 'code' => 'password_field'],
             ['name' => 'Color Picker', 'code' => 'color_picker'],
-            ['name' => 'Checkbox', 'code' => 'checkbox'],
         ];
 
 

@@ -202,14 +202,19 @@ class PageController extends Controller
         }
     }
 
-    // Toggle Page Status
     public function toggleStatus(Page $page)
     {
         $page->status = !$page->status;
         $page->save();
 
-        return response()->json(['success' => true, 'status' => $page->status]);
+        return response()->json([
+            'success' => true,
+            'status' => $page->status,
+            'message' => 'Page status updated successfully!'
+        ]);
     }
+
+
 
 
     public function trashed()

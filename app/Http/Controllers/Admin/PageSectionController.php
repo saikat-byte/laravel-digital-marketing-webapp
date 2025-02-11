@@ -25,6 +25,25 @@ class PageSectionController extends Controller
     }
 
 
+    // slug generate with page name
+
+    protected function uniquePageSectionSlug($pageSlug, $sectionSlug, $id = 0)
+    {
+        $slug = $pageSlug . '-' . $sectionSlug;
+        $original = $slug;
+        $count = 1;
+        while (
+            PageSection::where('page_id', request()->route('page')->id ?? 0)
+                ->where('slug', $slug)
+                ->where('id', '!=', $id)
+                ->exists()
+        ) {
+            $slug = $original . '-' . $count;
+            $count++;
+        }
+        return $slug;
+    }
+
     // Sectiion input form submit
     public function store(Request $request, Page $page)
     {
@@ -48,9 +67,20 @@ class PageSectionController extends Controller
         $section = new PageSection();
         $section->page_id = $page->id;
         $section->name = $request->name;
+
+
         // Generate slug from section name and store it in DB.
-        $section->slug = Str::slug($request->name);
+        // $section->slug = Str::slug($request->name);
+        // $section->code = $section->slug . '-' . uniqid();
+
+        // Generate slugs from page name and section name.
+        $pageSlug = Str::slug($page->name);
+        $sectionSlug = Str::slug($request->name);
+        $section->slug = $this->uniquePageSectionSlug($pageSlug, $sectionSlug);
         $section->code = $section->slug . '-' . uniqid();
+
+
+
         $section->type = $request->type;
         $section->heading = $request->heading;
         $section->sub_heading = $request->sub_heading;
@@ -64,13 +94,13 @@ class PageSectionController extends Controller
         $pageSlug = Str::slug($page->name);
         $sectionSlug = $section->slug; // already generated
 
-        // 1. Image Upload
+        //Image Upload
         if ($request->hasFile('image')) {
             $folder = "pages/{$pageSlug}/{$sectionSlug}/images";
             $section->image = $request->file('image')->store($folder, 'public');
         }
 
-        // 2. Multi-Image Upload
+        //Multi-Image Upload
         $multiImages = [];
         if ($request->hasFile('multi_image')) {
             $folder = "pages/{$pageSlug}/{$sectionSlug}/multi_images";
@@ -80,13 +110,13 @@ class PageSectionController extends Controller
         }
         $section->multi_image = json_encode($multiImages);
 
-        // 3. Video Upload
+        //Video Upload
         if ($request->hasFile('video')) {
             $folder = "pages/{$pageSlug}/{$sectionSlug}/videos";
             $section->video = $request->file('video')->store($folder, 'public');
         }
 
-        // 4. PDF (or other files) Upload – Stored in a 'files' folder
+        //PDF (or other files) Upload – Stored in a 'files' folder
         if ($request->hasFile('pdf')) {
             $folder = "pages/{$pageSlug}/{$sectionSlug}/files";
             $section->pdf = $request->file('pdf')->store($folder, 'public');
@@ -164,14 +194,11 @@ class PageSectionController extends Controller
         $section->button_2_text = $request->button_2_text;
         $section->button_2_link = $request->button_2_link;
 
-        // Generate new slug from updated section name.
-        // **Warning:** Changing slug here does not automatically move existing files.
-        $newSlug = Str::slug($request->name);
-        $section->slug = $newSlug; // Update slug in DB
-        $pageSlug = Str::slug($section->page->name);
-        $sectionSlug = $newSlug; // New dynamic folder
 
-        // 1. Single Image Update
+        $pageSlug = Str::slug($section->page->name);
+        $sectionSlug = $section->slug; // Use the previously stored slug
+
+        //Single Image Update
         if ($request->hasFile('image')) {
             if ($section->image && Storage::disk('public')->exists($section->image)) {
                 Storage::disk('public')->delete($section->image);
@@ -186,7 +213,7 @@ class PageSectionController extends Controller
             $section->image = null;
         }
 
-        // 2. Multi-Image Update
+        //Multi-Image Update
         $existingMultiImages = json_decode($section->multi_image, true) ?? [];
 
         // Process removal of existing multi images
@@ -212,7 +239,7 @@ class PageSectionController extends Controller
         }
         $section->multi_image = json_encode($existingMultiImages);
 
-        // 3. Video Update
+        // Video Update
         if ($request->hasFile('video')) {
             if ($section->video && Storage::disk('public')->exists($section->video)) {
                 Storage::disk('public')->delete($section->video);
@@ -227,7 +254,7 @@ class PageSectionController extends Controller
             $section->video = null;
         }
 
-        // 4. PDF Update
+        // Pdf/excel/others file Update
         if ($request->hasFile('pdf')) {
             if ($section->pdf && Storage::disk('public')->exists($section->pdf)) {
                 Storage::disk('public')->delete($section->pdf);
@@ -386,7 +413,7 @@ class PageSectionController extends Controller
         }
     }
 
-// restore
+    // restore
     public function restore($id)
     {
         try {
@@ -399,7 +426,7 @@ class PageSectionController extends Controller
         }
     }
 
-// force delete
+    // force delete
     public function forceDelete($id)
     {
         try {
@@ -412,7 +439,7 @@ class PageSectionController extends Controller
         }
     }
 
-// toggle visibility
+    // toggle visibility
     public function toggleVisibility(PageSection $section)
     {
         $section->update(['status' => !$section->status]);
@@ -423,6 +450,21 @@ class PageSectionController extends Controller
             'data' => $section
         ]);
     }
+
+    // Page section active inactive toggle
+    public function toggleStatus(PageSection $section)
+    {
+        // Toggle the status (if status is boolean: 1 becomes 0 and vice versa)
+        $section->status = !$section->status;
+        $section->save();
+
+        return response()->json([
+            'success' => true,
+            'status' => $section->status,
+            'message' => 'Section status updated successfully!'
+        ]);
+    }
+
 
 }
 

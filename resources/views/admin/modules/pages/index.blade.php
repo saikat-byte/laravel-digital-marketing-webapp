@@ -98,7 +98,7 @@
                     <table id="active-pages-table" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>SL</th>
                                 <th>Page Name</th>
                                 <th>Sections</th>
                                 <th>Status</th>
@@ -112,16 +112,16 @@
                                 <td>{{ $page->name }}</td>
                                 <td>{{ $page->sections_count }}</td>
                                 <td>
-                                    <button class="btn btn-sm toggle-status" data-id="{{ $page->id }}" onclick="togglePageStatus({{ $page->id }}, this)">
+                                    <button class="btn btn-sm toggle-status" data-id="{{ $page->id }}">
                                         <i class="fas fa-toggle-{{ $page->status ? 'on' : 'off' }} fa-2x {{ $page->status ? 'text-success' : 'text-danger' }}"></i>
                                     </button>
                                 </td>
                                 <td>
                                     <a href="{{ route('page.edit', $page->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                                    <form action="{{ route('page.soft-delete', $page->id) }}" method="POST" style="display:inline;">
+                                    <form action="{{ route('page.soft-delete', $page->id) }}" method="POST" class="delete-form" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -144,7 +144,7 @@
                     <table id="deleted-pages-table" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>SL</th>
                                 <th>Page Name</th>
                                 <th>Deleted At</th>
                                 <th>Actions</th>
@@ -180,7 +180,6 @@
 
 @push('custom_js')
 <script>
-
     // active pages
     $(document).ready(function() {
         $('#active-pages-table').DataTable({
@@ -193,6 +192,7 @@
             }
         });
 
+        // Delete page table
         $('#deleted-pages-table').DataTable({
             "pageLength": 5
             , "language": {
@@ -202,15 +202,80 @@
                 }
             }
         });
+
+        // Page active/inactive Toggle status button click event
+        $(document).on("click", ".toggle-status", function(e) {
+            e.preventDefault(); // Prevent default button behavior
+
+            var btn = $(this);
+            var pageId = btn.data("id");
+
+            $.ajax({
+                url: "/admin/page/" + pageId + "/toggle-status", // URL must match your route
+                type: "POST"
+                , data: {
+                    _token: "{{ csrf_token() }}" // CSRF token for security
+                }
+                , success: function(response) {
+                    if (response.success) {
+                        // Update the icon in the button based on new status
+                        var icon = btn.find("i");
+                        if (response.status) {
+                            icon.removeClass("fa-toggle-off text-danger").addClass("fa-toggle-on text-success");
+                        } else {
+                            icon.removeClass("fa-toggle-on text-success").addClass("fa-toggle-off text-danger");
+                        }
+                        // Optionally, you can show a success message via toastr or Swal
+                        toastr.success(response.message);
+                    } else {
+                        Swal.fire({
+                            icon: "error"
+                            , title: "Error!"
+                            , text: response.message
+                        });
+                    }
+                }
+                , error: function(xhr) {
+                    console.error(xhr.responseText);
+                    Swal.fire({
+                        icon: "error"
+                        , title: "Something Went Wrong!"
+                        , text: xhr.statusText
+                    });
+                }
+            });
+        });
+        // Delete form submission event handler
+        $(".delete-form").on("submit", function(e) {
+            e.preventDefault();
+            var form = this;
+
+            // SweetAlert confirmation modal
+            Swal.fire({
+                title: 'Are you sure?'
+                , text: "You won't be able to revert this!"
+                , icon: 'warning'
+                , showCancelButton: true
+                , confirmButtonColor: '#3085d6'
+                , cancelButtonColor: '#d33'
+                , confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // user confirm
+                    form.submit();
+                }
+            });
+        });
+
     });
 
 
     @if(session('success'))
-        toastr.success("{{ session('success') }}");
+    toastr.success("{{ session('success') }}");
     @endif
 
     @if(session('error'))
-        toastr.error("{{ session('error') }}");
+    toastr.error("{{ session('error') }}");
     @endif
 
 </script>

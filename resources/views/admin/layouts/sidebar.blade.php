@@ -58,7 +58,7 @@
                             </li>
 
                             {{-- Individual Pages for Quick Access --}}
-                            <li>
+                            <li style="padding-left: 20px;">
                                 <span class="sidebar-mini-icon">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </span>

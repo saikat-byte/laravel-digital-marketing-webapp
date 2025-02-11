@@ -80,6 +80,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/page/sections/{section}/edit', [PageSectionController::class, 'edit'])->name('page.sections.edit');
     Route::post('/page/sections/{section}/store-content', [PageSectionController::class, 'edit'])->name('page.sections.storeContent');
     Route::put('/page/sections/{section}/update-content', [PageSectionController::class, 'updateContent'])->name('page.sections.updateContent');
+    Route::post('/page-sections/{section}/toggle-status', [PageSectionController::class, 'toggleStatus'])->name('page.sections.toggle-status');
+
     // drag and drop
     Route::post('page/sections/reorder', [PageSectionController::class, 'reorder'])->name('page.sections.reorder');
 

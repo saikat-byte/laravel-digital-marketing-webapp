@@ -48,7 +48,7 @@
                     <h4 class="card-title">Manage Sections</h4>
                 </div>
                 <div class="card-body">
-                    <form id="sectionForm" action="{{ route('page.sections.store', $page->id) }}" method="POST" enctype="multipart/form-data" >
+                    <form id="sectionForm" action="{{ route('page.sections.store', $page->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="page_id" value="{{ $page->id }}">
 
@@ -187,12 +187,13 @@
                     <h4 class="card-title">Existing Sections</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered">
+                    <table id="exixting-sections-table" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>SL</th>
                                 <th>Section Name</th>
                                 <th>Type</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -203,11 +204,17 @@
                                 <td>{{ $section->name }}</td>
                                 <td>{{ ucfirst($section->type) }}</td>
                                 <td>
+                                    <!-- Toggle Button for Section Status -->
+                                    <button class="btn btn-sm toggle-section-status" data-id="{{ $section->id }}" onclick="toggleSectionStatus({{ $section->id }}, this)">
+                                        <i class="fas fa-toggle-{{ $section->status ? 'on' : 'off' }} fa-2x {{ $section->status ? 'text-success' : 'text-danger' }}"></i>
+                                    </button>
+                                </td>
+                                <td>
                                     <a href="{{ route('page.sections.edit', $section->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                                    <form action="{{ route('page.sections.soft-delete', $section->id) }}" method="POST" style="display:inline;">
+                                    <form action="{{ route('page.sections.soft-delete', $section->id) }}" method="POST" class="delete-form" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Soft Delete</button>
+                                        <button type="submit" class="btn btn-danger btn-sm">Soft Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -227,10 +234,10 @@
                     <h4 class="card-title text-danger">Trashed Sections</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered">
+                    <table id="trashed-sections-table" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>SL</th>
                                 <th>Section Name</th>
                                 <th>Deleted At</th>
                                 <th>Actions</th>
@@ -244,10 +251,10 @@
                                 <td>{{ $section->deleted_at->diffForHumans() }}</td>
                                 <td>
                                     <a href="{{ route('page.sections.restore', ['id' => $section->id]) }}" class="btn btn-warning btn-sm">Restore</a>
-                                    <form action="{{ route('page.sections.force-delete', ['id' => $section->id]) }}" method="POST" style="display:inline;">
+                                    <form action="{{ route('page.sections.force-delete', ['id' => $section->id]) }}" method="POST" class="delete-btn" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to permanently delete this section?')">Delete Permanently</button>
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete Permanently</button>
                                     </form>
                                 </td>
                             </tr>
@@ -325,4 +332,108 @@
 
 @push('custom_js')
 <script src="{{ asset('assets/admin/js/sections.js') }}"></script>
+<script src="{{ asset('assets/admin/js/sweetalert/delete_alert.js') }}"></script>
+
+<script>
+    // Existing section table pagination
+    $(document).ready(function() {
+        $('#exixting-sections-table').DataTable({
+            "pageLength": 10
+            , "language": {
+                "paginate": {
+                    "previous": "<i class='fas fa-angle-left'>"
+                    , "next": "<i class='fas fa-angle-right'>"
+                }
+            }
+        });
+
+        // Trashed section table pagination
+        $('#trashed-sections-table').DataTable({
+            "pageLength": 10
+            , "language": {
+                "paginate": {
+                    "previous": "<i class='fas fa-angle-left'>"
+                    , "next": "<i class='fas fa-angle-right'>"
+                }
+            }
+        });
+
+        // Page section active inactive toggle
+
+        // Instead of Inline event handler, event delegation
+        $(document).on("click", ".toggle-section-status", function(e) {
+            e.preventDefault(); // stop default action
+
+            var btn = $(this);
+            var sectionId = btn.data("id");
+
+            $.ajax({
+                url: "/admin/page-sections/" + sectionId + "/toggle-status", // route URL
+                type: "POST"
+                , data: {
+                    _token: "{{ csrf_token() }}"
+                }
+                , success: function(response) {
+                    if (response.success) {
+                        // icon update
+                        var icon = btn.find("i");
+                        if (response.status) {
+                            icon.removeClass("fa-toggle-off text-danger").addClass("fa-toggle-on text-success");
+                        } else {
+                            icon.removeClass("fa-toggle-on text-success").addClass("fa-toggle-off text-danger");
+                        }
+                        toastr.success("Section status updated successfully!");
+                    } else {
+                        Swal.fire({
+                            icon: "error"
+                            , title: "Error!"
+                            , text: response.message
+                        });
+                    }
+                }
+                , error: function(xhr) {
+                    console.error(xhr.responseText);
+                    Swal.fire({
+                        icon: "error"
+                        , title: "Something Went Wrong!"
+                        , text: xhr.statusText
+                    });
+                }
+            });
+        });
+
+        // Delete form submission event handler
+        $(".delete-form").on("submit", function(e) {
+            e.preventDefault();
+            var form = this;
+
+            // SweetAlert confirmation modal
+            Swal.fire({
+                title: 'Are you sure?'
+                , text: "You won't be able to revert this!"
+                , icon: 'warning'
+                , showCancelButton: true
+                , confirmButtonColor: '#3085d6'
+                , cancelButtonColor: '#d33'
+                , confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // user confirm
+                    form.submit();
+                }
+            });
+        });
+
+    });
+
+
+    @if(session('success'))
+    toastr.success("{{ session('success') }}");
+    @endif
+
+    @if(session('error'))
+    toastr.error("{{ session('error') }}");
+    @endif
+
+</script>
 @endpush
