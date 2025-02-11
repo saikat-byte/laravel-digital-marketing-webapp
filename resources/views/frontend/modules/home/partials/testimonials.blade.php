@@ -1,4 +1,4 @@
-<!-- Testimonials Section start-->
+<!-- Testimonials Section -->
 <section class="testimonials-section py-5">
     <div class="container">
         <!-- Heading -->
@@ -47,4 +47,3 @@
         </div>
     </div>
 </section>
-<!-- Testimonials Section end-->

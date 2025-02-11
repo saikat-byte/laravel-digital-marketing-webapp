@@ -148,7 +148,7 @@
     <!-- Common contact form End -->
 
     <!-- Watermark section Start -->
-    @include('frontend.layouts.common_section.water-mark-section')
+    @include('frontend.layouts.common-section.water-mark-section')
     <!-- Watermark Section End -->
 
     <!-- Collaborate Section Start -->

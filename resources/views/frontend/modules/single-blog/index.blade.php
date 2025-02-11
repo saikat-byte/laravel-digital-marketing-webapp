@@ -12,30 +12,17 @@
 <section class="single-blog-banner">
     <div class="container">
         <div class="single-blog-banner-content">
-            <h1>{{ $post->title }}</h1>
+            <h1>Blog Single</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <!-- Category name in breadcrumb -->
-                    <li class="breadcrumb-item">
-                        <a href="#">{{ $post->category->title }}</a>
-                    </li>
-
-                    <!-- Subcategory name in breadcrumb -->
-                    @if ($post->subcategory)
-                        <li class="breadcrumb-item">
-                            <a href="#">{{ $post->subcategory->title }}</a>
-                        </li>
-                    @endif
-
-                    <!-- Current page -->
-                    <li class="breadcrumb-item active" aria-current="page">{{ $post->title }}</li>
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">News details</li>
                 </ol>
             </nav>
         </div>
     </div>
 </section>
 <!-- Single Blog Page Banner Section End -->
-
 
 <!-- Single blog section start -->
 <section class="single-blog">
@@ -46,34 +33,33 @@
                 <div class="card">
                     <!-- Blog Header -->
                     <div class="blog-header">
-                        <img src="{{ asset('assets/image/postimage/original/' . $post->post_image) }}" alt="{{ $post->post_image }}">
+                        <img src="{{ asset('assets/frontend/media/pages/blog/images/social_media_marketing.jpg') }}" alt="Blog Header Image">
                     </div>
                     <div class="blog-content px-2 py-2">
                         <!-- Metadata -->
                         <div class="blog-meta py-1 px-1">
-                            <span class="px-1 py-2"><i class="bi bi-pencil"></i> {{ $post->category->title }}</span>
+                            <span class="px-1 py-2"><i class="bi bi-pencil"></i> Creativity</span>
                             <span class="px-1 py-2"><i class="bi bi-chat"></i> 5 Comments</span>
-                            <span class="px-1 py-2"><i class="bi bi-calendar"></i> {{ $post->created_at->format('d M Y') }}</span>
+                            <span class="px-1 py-2"><i class="bi bi-calendar"></i> 28th January</span>
                         </div>
 
                         <!-- Blog Title -->
-                        <h1 class="blog-title">{{ $post->title }}</h1>
+                        <h1 class="blog-title">Improve design with typography?</h1>
 
                         <!-- Blog Content -->
                         <div class="blog-content">
-                            {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p> --}}
-                            <blockquote>{{ $post->quote }}</blockquote>
-                            <p> {{ strip_tags($post->description) }}</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                            <blockquote>A brand for a company is like a reputation for a person...</blockquote>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab deleniti tempore sunt nemo impedit earum adipisci optio unde, quibusdam maiores eligendi hic explicabo temporibus illo voluptate quaerat, non officia rem cum expedita culpa, accusantium illum voluptas? Voluptate id laudantium sint nisi ullam corrupti. Quia amet eligendi iusto, labore fugit consectetur.</p>
                         </div>
 
                         <!-- Tags and Share Links -->
                         <div class="row mt-4">
                             <div class="col-md-6">
                                 <div class="tags">
-                                    @foreach($post->tag as $tag)
-                                    <span>{{ $tag->title }}</span>
-                                    @endforeach
-
+                                    <span>Advance</span>
+                                    <span>Landscape</span>
+                                    <span>Travel</span>
                                 </div>
                             </div>
                             <div class="col-md-6 text-md-end">
@@ -161,61 +147,38 @@
                 <div class="card latest-posts py-2 mb-3">
                     <h5 class="text-center">Latest Posts</h5>
                     <ul>
-                        @foreach ($posts as $post)
-                        @php
-                        // Extract the filename and extension from the post_image
-                        $filename = pathinfo($post->post_image, PATHINFO_FILENAME); // demo_1
-                        $extension = pathinfo($post->post_image, PATHINFO_EXTENSION); // webp
-
-                        // Construct the thumbnail image path
-                        $thumbnailImage = $filename . '_thumb.' . $extension; // demo_1_thumbnail.webp
-                        @endphp
                         <li class="latest-post-list">
-                            <img src="{{ asset('assets/image/postimage/thumbnail/' . $thumbnailImage) }}" alt="Post Image">
+                            <img src="{{ asset('assets/frontend/media/pages/blog/images/social_media_marketing.jpg') }}" alt="Post Image">
                             <div>
-                                <a href="{{ route('frontend.single.blog', $post->id) }}">{{ $post->title }}</a>
-                                <p class="text-muted">{{ $post->created_at->format('d M Y') }}</p>
+                                <a href="#">Thoughtful living in Los Angeles</a>
+                                <p class="text-muted">03 Mar 2018</p>
                             </div>
                         </li>
-                        @endforeach
-
+                        <li class="latest-post-list">
+                            <img src="{{ asset('assets/frontend/media/pages/blog/images/web_development.jpg') }}" alt="Post Image">
+                            <div>
+                                <a href="#">Thoughtful living in Los Angeles</a>
+                                <p class="text-muted">03 Mar 2018</p>
+                            </div>
+                        </li>
+                        <li class="latest-post-list">
+                            <img src="{{ asset('assets/frontend/media/pages/blog/images/youtube.jpg') }}" alt="Post Image">
+                            <div>
+                                <a href="#">Thoughtful living in Los Angeles</a>
+                                <p class="text-muted">03 Mar 2018</p>
+                            </div>
+                        </li>
                     </ul>
                 </div>
 
-                <!-- Category -->
-                <div class="card px-2 py-2">
-                    <h5 class="text-center">Category</h5>
-                    <div class="category-list">
-                        <div class="list-group">
-                            @foreach($categories as $index => $category)
-                                @php
-                                    $bgColor = $loop->iteration % 2 == 0 ? 'bg-primary text-white' : 'bg-success text-white';
-                                @endphp
-                                <!-- Category Title with Alternate Background Colors -->
-                                <a href="#category{{ $category->id }}" class="list-group-item list-group-item-action {{ $bgColor }}" data-bs-toggle="collapse" aria-expanded="false">
-                                    {{ $category->title }}
-                                </a>
-                                <!-- Subcategories -->
-                                <div class="collapse" id="category{{ $category->id }}">
-                                    @if($category->subcategories->count() > 0)
-                                        <ul class="list-group">
-                                            @foreach($category->subcategories as $subcategory)
-                                                <li class="list-group-item bg-light text-dark"><a href="#">{{ $subcategory->title }}</a></li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
                 <!-- Tags -->
                 <div class="card px-2 py-2">
-                    <h5 class="text-center">Tags cloud</h5>
+                    <h5>Tags</h5>
                     <div class="tags">
-                        @foreach($tags as $tag)
-                        <a href="#"> <span>{{ $tag->title }}</span></a>
-                        @endforeach
+                        <span>Web</span>
+                        <span>Agency</span>
+                        <span>Creative</span>
+                        <span>Design</span>
                     </div>
                 </div>
             </div>
@@ -225,23 +188,4 @@
     </div>
 </section>
 <!-- Single blog section start -->
-@endsection
-
-@section('custom_js')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var collapseTriggers = document.querySelectorAll('[data-bs-toggle="collapse"]');
-        collapseTriggers.forEach(function(trigger) {
-            trigger.addEventListener('click', function() {
-                var target = document.querySelector(trigger.getAttribute('href'));
-                if (target.classList.contains('show')) {
-                    target.classList.remove('show');
-                } else {
-                    target.classList.add('show');
-                }
-            });
-        });
-    });
-
-</script>
 @endsection

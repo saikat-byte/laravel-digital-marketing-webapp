@@ -1,7 +1,18 @@
-{{-- // resources/views/frontend/modules/index.blade.php --}}
 @extends('frontend.layouts.master-layout')
+@section('title', 'Home')
+{{-- @section('title', $seo->meta_title ?? $page->title)
 
-@section('title', $page->seo->meta_title ?? 'Home')
+@section('meta')
+<meta name="description" content="{{ $seo->meta_description ?? '' }}">
+<meta name="keywords" content="{{ $seo->meta_keywords ?? '' }}">
+<meta property="og:title" content="{{ $seo->og_title ?? '' }}">
+<meta property="og:description" content="{{ $seo->og_description ?? '' }}">
+<meta property="og:image" content="{{ asset('storage/' . $seo->og_image) }}">
+<meta name="twitter:title" content="{{ $seo->twitter_title ?? '' }}">
+<meta name="twitter:description" content="{{ $seo->twitter_description ?? '' }}">
+<meta name="twitter:image" content="{{ asset('storage/' . $seo->twitter_image) }}">
+<link rel="canonical" href="{{ $seo->canonical_url ?? url()->current() }}">
+@endsection --}}
 
 @section('custom_css')
 <link rel="stylesheet" href="{{ asset('assets/frontend/css/index.css') }}">
@@ -9,45 +20,65 @@
 
 @section('content')
 
-
-@foreach($sections as $sectionKey => $sectionData)
-@includeIf("frontend.modules.home.partials.{$sectionKey}", [$sectionKey => $sectionData])
+@foreach($sections as $section)
+    @includeIf("frontend.modules.home.partials.{$section->slug}", ['section' => $section])
 @endforeach
-
 @endsection
+
 @push('custom_js')
-<script src="{{ asset('assets/frontend/jquery/stats-number.js') }}"></script>
 <script>
+    // Card queue scroll
+
     $(document).ready(function() {
-        $('.client-logo-slider').slick({
-            slidesToShow: 4
-            , slidesToScroll: 1
-            , autoplay: true
-            , autoplaySpeed: 1000
-            , arrows: false
-            , dots: false
-            , responsive: [{
-                    breakpoint: 1024
-                    , settings: {
-                        slidesToShow: 3
-                    }
+        const $cardQueueSection = $("#cardQueueSection");
+        const $cardContainer = $("#cardContainer");
+        const $cards = $cardContainer.find(".card-item");
+
+        let currentIndex = 3; // middle card
+
+        function arrangeCards() {
+            $cards.each(function(i, card) {
+                let offset = i - currentIndex;
+                let scale = 1 - Math.abs(offset) * 0.1;
+                let translateX = offset * 100;
+                let zIndex = -Math.abs(offset);
+
+                // CSS property set by jquery
+                $(card).css({
+                    transform: `translateX(${translateX}px) scale(${scale})`
+                    , zIndex: zIndex
+                });
+            });
+        }
+        arrangeCards();
+
+        // scroll (wheel) event
+        $cardQueueSection.on("wheel", function(e) {
+            // jQuery scroll actual e.originalEvent.deltaY (We have to use it)
+            let deltaY = e.originalEvent.deltaY;
+
+            // scroll up
+            if (deltaY < 0) {
+                if (currentIndex > 0) {
+                    e.preventDefault();
+                    currentIndex--;
+                    arrangeCards();
                 }
-                , {
-                    breakpoint: 768
-                    , settings: {
-                        slidesToShow: 2
-                    }
+            }
+            // scroll down
+            else {
+                if (currentIndex < $cards.length - 1) {
+                    e.preventDefault();
+                    currentIndex++;
+                    arrangeCards();
                 }
-                , {
-                    breakpoint: 480
-                    , settings: {
-                        slidesToShow: 1
-                    }
-                }
-            ]
+            }
         });
     });
 
 </script>
+@endpush
 
+@push('custom_js')
+<script src="{{ asset('assets/frontend/jquery/stats-number.js') }}"></script>
 @endpush

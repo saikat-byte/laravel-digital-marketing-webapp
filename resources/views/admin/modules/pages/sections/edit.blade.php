@@ -91,14 +91,13 @@
                         </div>
 
                         <!-- Multi image update and preview  select preview-->
-
                         <div class="form-group">
                             <label>Update Multiple Images</label>
                             <input type="file" class="form-control" name="multi_image[]" multiple accept="image/*">
                             <div class="d-flex flex-wrap mt-2" id="multi-image-preview">
-                                @foreach(json_decode($section->multi_image, true) ?? [] as $image)
+                                @foreach($section->multi_image ?? [] as $image)
                                 <div class="position-relative m-1 multi-image-item">
-                                    <img src="{{ asset('storage/' . $image) }}" class="img-thumbnail" style="max-width: 100px;">
+                                    <img src="{{ asset('storage/' . $image) }}" class="img-thumbnail" alt="{{ $section->heading }}" style="max-width: 100px; margin: 5px;">
                                     <button type="button" class="btn btn-danger btn-sm remove-multi-image" data-image="{{ $image }}" style="position: absolute; top: 0; right: 0;">X</button>
                                 </div>
                                 @endforeach
@@ -174,7 +173,7 @@
                             @if($section->pdf)
                             <div class="mt-2">
                                 <a href="{{ asset('storage/' . $section->pdf) }}" target="_blank" class="btn btn-info">View PDF</a>
-                                <!-- প্রয়োজনে remove button এর জন্য hidden input (যেমন remove_pdf) যোগ করুন -->
+                                <!-- use hidden input to remove button (ex: remove_pdf)-->
                             </div>
                             @endif
                         </div>

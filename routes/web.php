@@ -3,13 +3,12 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Frontend\PageController as FrontendPageController;
 use App\Http\Controllers\Admin\PageSectionController;
-use App\Http\Controllers\Admin\PageSettingController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Frontend\HomeController;
-use App\Http\Controllers\Frontend\ServiceController;
 use App\Http\Controllers\Frontent\FrontendController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -27,18 +26,18 @@ use Illuminate\Support\Facades\Route;
 
 // Default Home Page (Root URL)
 Route::get('/', function () {
-    return redirect()->route('frontend.home', ['slug' => 'home']);
-})->name('frontend.home');
+    return redirect()->route('frontend.page.show', ['slug' => 'home']);
+})->name('frontend.page.show');
 
 // Frontend route
-Route::get('/{slug}', [HomeController::class, 'index'])->name('frontend.home');
-Route::get('/service', [FrontendController::class, 'service'])->name('frontend.service');
-Route::get('/case-studies', [FrontendController::class, 'caseStudies'])->name('frontend.case-studies');
-Route::get('/about', [FrontendController::class, 'about'])->name('frontend.about');
-Route::get('/contact', [FrontendController::class, 'contact'])->name('frontend.contact');
-Route::get('/blog', [FrontendController::class, 'blog'])->name('frontend.blog');
-Route::get('/single-blog/{id}', [FrontendController::class, 'singleBlog'])->name('frontend.single.blog');
-
+// Route::get('/{slug}', [HomeController::class, 'index'])->name('frontend.home');
+Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.page.show');
+// Route::get('/service', [FrontendController::class, 'service'])->name('frontend.service');
+// Route::get('/case-studies', [FrontendController::class, 'caseStudies'])->name('frontend.case-studies');
+// Route::get('/about', [FrontendController::class, 'about'])->name('frontend.about');
+// Route::get('/contact', [FrontendController::class, 'contact'])->name('frontend.contact');
+// Route::get('/blog', [FrontendController::class, 'blog'])->name('frontend.blog');
+// Route::get('/single-blog/{id}', [FrontendController::class, 'singleBlog'])->name('frontend.single.blog');
 
 
 // Admin dashboard

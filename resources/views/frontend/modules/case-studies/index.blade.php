@@ -152,7 +152,7 @@
 <!-- Video ribbon section End -->
 
 <!-- Watermark section Start -->
-@include('frontend.layouts.common_section.water-mark-section')
+@include('frontend.layouts.common-section.water-mark-section')
 <!-- Watermark Section End -->
 
 <!-- Common contact form start -->
@@ -235,7 +235,7 @@
 <!-- Common contact form End -->
 
 <!-- Download Section Start-->
-@include('frontend.layouts.common_section.download-section')
+@include('frontend.layouts.common-section.download-section')
 <!-- Download Section End-->
 
 @endsection

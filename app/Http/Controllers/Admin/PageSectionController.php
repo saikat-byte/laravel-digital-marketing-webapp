@@ -68,18 +68,11 @@ class PageSectionController extends Controller
         $section->page_id = $page->id;
         $section->name = $request->name;
 
-
-        // Generate slug from section name and store it in DB.
-        // $section->slug = Str::slug($request->name);
-        // $section->code = $section->slug . '-' . uniqid();
-
         // Generate slugs from page name and section name.
         $pageSlug = Str::slug($page->name);
         $sectionSlug = Str::slug($request->name);
         $section->slug = $this->uniquePageSectionSlug($pageSlug, $sectionSlug);
         $section->code = $section->slug . '-' . uniqid();
-
-
 
         $section->type = $request->type;
         $section->heading = $request->heading;
@@ -108,7 +101,10 @@ class PageSectionController extends Controller
                 $multiImages[] = $file->store($folder, 'public');
             }
         }
-        $section->multi_image = json_encode($multiImages);
+        // $section->multi_image = json_encode($multiImages);
+        $section->multi_image = $multiImages;
+
+
 
         //Video Upload
         if ($request->hasFile('video')) {
@@ -214,7 +210,7 @@ class PageSectionController extends Controller
         }
 
         //Multi-Image Update
-        $existingMultiImages = json_decode($section->multi_image, true) ?? [];
+        $existingMultiImages = $section->multi_image ?? [];
 
         // Process removal of existing multi images
         if ($request->has('removed_multi_images')) {
@@ -237,7 +233,7 @@ class PageSectionController extends Controller
                 $existingMultiImages[] = $file->store($folder, 'public');
             }
         }
-        $section->multi_image = json_encode($existingMultiImages);
+        $section->multi_image = $existingMultiImages;
 
         // Video Update
         if ($request->hasFile('video')) {

@@ -46,7 +46,7 @@
     <!-- Footer End-->
 
 
-    @include('frontend.includes.fooret-common-scripts')
+    @include('frontend.includes.footer-common-scripts')
 
     @stack('custom_js')
 </body>

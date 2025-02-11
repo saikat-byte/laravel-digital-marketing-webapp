@@ -1,48 +1,58 @@
-@if(!empty($journey))
+<!-- Journey section -->
 <section class="journey-section">
     <div class="container text-center">
-        <h2 class="section-title text-white mb-3">{{ $journey['title'] ?? 'Begin Your Journey to Success Today' }}</h2>
-        <p class="section-subtitle mb-5">{{ $journey['subtitle'] ?? "Here's the information you have been searching for" }}</p>
+        <!-- Section Heading -->
+        <h2 class="section-title text-white mb-3">Begin Your Journey to Success Today</h2>
+        <p class="section-subtitle mb-5">Here's the information you have been searching for</p>
 
-        @php
-            // কার্ডগুলোর JSON ডাটা আলাদাভাবে একত্রিত করে অ্যারে বানানো হচ্ছে
-            $cards = [];
-            foreach($journey as $key => $value) {
-                if(strpos($key, 'card_') === 0) { // শুধুমাত্র "card_" দিয়ে শুরু হওয়া ডাটা নেবে
-                    $decodedCard = json_decode($value, true);
-                    if ($decodedCard) {
-                        $cards[] = $decodedCard;
-                    }
-                }
-            }
-        @endphp
-
-
+        <!-- Cards -->
         <div class="row d-flex justify-content-center">
-            @if(count($cards) > 0)
-                @foreach($cards as $index => $card)
-                    <div class="col-md-3 p-0">
-                        <div class="journey-card">
-                            <div class="card-image">
-                                <img src="{{ asset('storage/'. ($card['image'] ?? 'default-image.jpg')) }}"
-                                     alt="{{ $card['title'] ?? 'Default Title' }}">
-                                <div class="overlay pe-3">
-                                    <div class="journey-card-number text-end">{{ $index + 1 }}</div>
-                                    <h3 class="overlay-title text-end">{{ $card['title'] ?? '' }}</h3>
-                                    <p class="overlay-text text-end">{{ $card['description'] ?? '' }}</p>
-                                    <a href="{{ url($card['button_link'] ?? '#') }}"
-                                       class="gradient-glow-button journey-card-btn">
-                                        {{ $card['button_text'] ?? 'Get Service' }}
-                                    </a>
-                                </div>
-                            </div>
+            <!-- Card 1 -->
+            <div class="col-md-3 p-0">
+                <div class="journey-card">
+                    <div class="card-image">
+                        <img src="{{ asset('assets/frontend/media/pages/home/images/journey_1.png') }}" alt="Startup Kickstart">
+                        <div class="overlay  pe-3">
+                            <div class="journey-card-number text-end">1</div>
+                            <h3 class="overlay-title text-end">Startup Kickstart</h3>
+                            <p class="overlay-text text-end">Affordable packages for small businesses and startups
+                                looking to
+                                grow quickly.</p>
+                            <a href="#" class="gradient-glow-button journey-card-btn">Get Service</a>
                         </div>
                     </div>
-                @endforeach
-            @else
-                <p class="text-white">No journey cards found.</p>
-            @endif
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-md-3 p-0">
+                <div class="journey-card">
+                    <div class="card-image">
+                        <img src="{{  asset('assets/frontend/media/pages/home/images/journey_2.png') }}" alt="Enterprise Expansion">
+                        <div class="overlay  pe-3">
+                            <div class="journey-card-number text-end">2</div>
+                            <h3 class="overlay-title text-end">Enterprise Expansion</h3>
+                            <p class="overlay-text text-end">Comprehensive services tailored for large-scale
+                                businesses.</p>
+                            <a href="#" class="gradient-glow-button journey-card-btn">Get Service</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-md-3 p-0">
+                <div class="journey-card">
+                    <div class="card-image">
+                        <img src="{{  asset('assets/frontend/media/pages/home/images/journey_3.png') }}" alt="Custom Solutions">
+                        <div class="overlay pe-3">
+                            <div class="journey-card-number text-end">3</div>
+                            <h3 class="overlay-title text-end">Custom Solutions</h3>
+                            <p class="overlay-text text-end">Flexible packages designed to fit unique needs and
+                                goals.</p>
+                            <a href="#" class="gradient-glow-button journey-card-btn">Get Service</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
-@endif

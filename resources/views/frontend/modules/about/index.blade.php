@@ -178,7 +178,7 @@
 <!-- About card section End -->
 
 <!-- Download Section Start-->
-    @include('frontend.layouts.common_section.download-section')
+    @include('frontend.layouts.common-section.download-section')
 <!-- Download Section End-->
 
 

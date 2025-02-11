@@ -38,6 +38,21 @@
                 </div>
             </div>
         </div>
+        {{-- Sidebar --}}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Instructions</h4>
+                </div>
+                <div class="card-body">
+                    <p><b>Page Name:</b> This is the page name displayed in the menu.</p>
+                    <p><b>Slug:</b> This will be auto-generated and cannot be changed.</p>
+                    <p><b>Page Title:</b> This is used for SEO optimization.</p>
+                    <p><b>Status:</b> If set to Inactive, the page will not be visible.</p>
+                    <p><b>Page Order:</b> Helps arrange the pages in the menu.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     {{-- Section Management --}}
@@ -177,11 +192,26 @@
                 </div>
             </div>
         </div>
+        {{-- Sidebar --}}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Instructions</h4>
+                </div>
+                <div class="card-body">
+                    <p><b>Page Name:</b> This is the page name displayed in the menu.</p>
+                    <p><b>Slug:</b> This will be auto-generated and cannot be changed.</p>
+                    <p><b>Page Title:</b> This is used for SEO optimization.</p>
+                    <p><b>Status:</b> If set to Inactive, the page will not be visible.</p>
+                    <p><b>Page Order:</b> Helps arrange the pages in the menu.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     {{-- Existing Sections List --}}
     <div class="row mt-4">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Existing Sections</h4>
@@ -192,6 +222,7 @@
                             <tr>
                                 <th>SL</th>
                                 <th>Section Name</th>
+                                <th>Section Slug</th>
                                 <th>Type</th>
                                 <th>Status</th>
                                 <th>Actions</th>
@@ -202,6 +233,7 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $section->name }}</td>
+                                <td>{{ $section->slug }}</td>
                                 <td>{{ ucfirst($section->type) }}</td>
                                 <td>
                                     <!-- Toggle Button for Section Status -->
@@ -228,7 +260,7 @@
 
     {{-- Trashed Sections --}}
     <div class="row mt-4">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title text-danger">Trashed Sections</h4>
