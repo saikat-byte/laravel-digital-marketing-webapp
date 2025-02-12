@@ -127,7 +127,9 @@ class PageSectionController extends Controller
                 }
             }
         }
-        $section->config = json_encode($configData);
+        // $section->config = json_encode($configData);
+        $section->config = $configData;
+
 
         $section->save();
 
@@ -143,7 +145,8 @@ class PageSectionController extends Controller
     public function edit(PageSection $section)
     {
         // ✅ Fetch Config Data (Custom Fields)
-        $config = $section->config ? json_decode($section->config, true) : ['fields' => []];
+        // $config = $section->config ? json_decode($section->config, true) : ['fields' => []];
+        $config = $section->config ?: ['fields' => []];
 
         // ✅ Fetch All Sections of the Same Page
         $sections = PageSection::where('page_id', $section->page_id)->orderBy('order')->get();
@@ -274,8 +277,8 @@ class PageSectionController extends Controller
                 }
             }
         }
-        $section->config = json_encode($configData);
-
+        // $section->config = json_encode($configData);
+        $section->config = $configData;
         $section->save();
 
         return response()->json([

@@ -1,4 +1,4 @@
-<!-- Hero Section Start-->
+@if($section->status == 1)
 <section id="section-{{ $section->id }}" class="hero-section">
     @if($section->video)
     <video autoplay loop muted>
@@ -33,4 +33,4 @@
         </div>
     </div>
 </section>
-<!-- Hero Section End-->
+@endif

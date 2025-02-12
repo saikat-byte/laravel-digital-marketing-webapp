@@ -25,6 +25,6 @@ class PageController extends Controller
             ->get();
 
         // ✅ Return View Dynamically
-        return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections'));
+        return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections','sectionImage'));
     }
 }

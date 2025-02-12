@@ -182,7 +182,9 @@
                             <label>Custom Fields</label>
                             <div id="custom-fields-container">
                                 @php
-                                $customFields = json_decode($section->config, true) ?? [];
+                                // $customFields = json_decode($section->config, true) ?? [];
+                                $customFields =$section->config;
+                                $config = $section->config ?: ['fields' => []];
                                 @endphp
                                 @foreach($customFields as $index => $fieldValue)
                                 <div class="d-flex mb-2 field-group">

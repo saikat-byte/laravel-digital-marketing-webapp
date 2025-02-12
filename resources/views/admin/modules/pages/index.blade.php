@@ -100,6 +100,7 @@
                             <tr>
                                 <th>SL</th>
                                 <th>Page Name</th>
+                                <th>Page Slug</th>
                                 <th>Sections</th>
                                 <th>Status</th>
                                 <th>Actions</th>
@@ -110,6 +111,7 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $page->name }}</td>
+                                <td>{{ $page->slug }}</td>
                                 <td>{{ $page->sections_count }}</td>
                                 <td>
                                     <button class="btn btn-sm toggle-status" data-id="{{ $page->id }}">

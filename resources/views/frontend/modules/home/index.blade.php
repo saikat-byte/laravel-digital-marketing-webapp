@@ -19,10 +19,13 @@
 @endsection
 
 @section('content')
-
+@if($page->status == 1)
 @foreach($sections as $section)
-    @includeIf("frontend.modules.home.partials.{$section->slug}", ['section' => $section])
+@includeIf("frontend.modules.home.partials.{$section->slug}", ['section' => $section])
 @endforeach
+@else
+@include('frontend.modules.maintanance.index')
+@endif
 @endsection
 
 @push('custom_js')
