@@ -78,7 +78,27 @@
                         </ul>
                     </div>
                 </li>
-
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#base">
+                        <i class="fas fa-th-large"></i>
+                        <p>Common section</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="base">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('common.section.index') }}">
+                                    <span class="sub-item">List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('common.section.create') }}">
+                                    <span class="sub-item">Create</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#base">
                         <i class="fas fa-th-large"></i>

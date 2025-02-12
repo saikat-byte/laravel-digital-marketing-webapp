@@ -129,8 +129,6 @@ class PageSectionController extends Controller
         }
         // $section->config = json_encode($configData);
         $section->config = $configData;
-
-
         $section->save();
 
         return response()->json([

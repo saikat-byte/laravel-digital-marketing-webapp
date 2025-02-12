@@ -1,5 +1,5 @@
 @if($section->status == 1)
-<section class="about-section">
+<section class="about-section" style="background-image: url('{{ asset('storage/' . $section->image) }}')">
     <div class="container about-content">
         <!-- Heading -->
         <div class="row">

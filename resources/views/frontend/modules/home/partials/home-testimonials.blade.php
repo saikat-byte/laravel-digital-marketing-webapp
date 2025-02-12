@@ -1,5 +1,6 @@
-<!-- Testimonials Section -->
-<section class="testimonials-section py-5">
+
+@if($section->status == 1)
+<section class="testimonials-section py-5" >
     <div class="container">
         <!-- Heading -->
         <div class="row text-center">
@@ -47,3 +48,4 @@
         </div>
     </div>
 </section>
+@endif

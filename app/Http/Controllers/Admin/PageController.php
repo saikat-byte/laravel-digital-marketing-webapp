@@ -11,7 +11,8 @@ use App\Services\PageService;
 use App\Http\Requests\PageRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Str;
+use Illuminate\Support\Str;
+
 class PageController extends Controller
 {
     protected $pageService;

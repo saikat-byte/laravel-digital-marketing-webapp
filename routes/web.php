@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CommonSectionController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Frontend\PageController as FrontendPageController;
 use App\Http\Controllers\Admin\PageSectionController;
@@ -30,14 +31,8 @@ Route::get('/', function () {
 })->name('frontend.page.show');
 
 // Frontend route
-// Route::get('/{slug}', [HomeController::class, 'index'])->name('frontend.home');
 Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.page.show');
-// Route::get('/service', [FrontendController::class, 'service'])->name('frontend.service');
-// Route::get('/case-studies', [FrontendController::class, 'caseStudies'])->name('frontend.case-studies');
-// Route::get('/about', [FrontendController::class, 'about'])->name('frontend.about');
-// Route::get('/contact', [FrontendController::class, 'contact'])->name('frontend.contact');
-// Route::get('/blog', [FrontendController::class, 'blog'])->name('frontend.blog');
-// Route::get('/single-blog/{id}', [FrontendController::class, 'singleBlog'])->name('frontend.single.blog');
+
 
 
 // Admin dashboard
@@ -71,9 +66,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/page/sections/{id}/restore', [PageSectionController::class, 'restore'])->name('page.sections.restore');
     // Section Permanent Delete
     Route::delete('/page/sections/{id}/force-delete', [PageSectionController::class, 'forceDelete'])->name('page.sections.force-delete');
-
     Route::post('/page/sections/{section}/delete-image', [PageSectionController::class, 'deleteImage'])->name('page.sections.delete-image');
     Route::post('/page/{page}/toggle-status', [PageController::class, 'toggleStatus'])->name('pages.toggle-status');
+
 
     // Page section Settings
     Route::get('/page/sections/{section}/edit', [PageSectionController::class, 'edit'])->name('page.sections.edit');
@@ -83,12 +78,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     // drag and drop
     Route::post('page/sections/reorder', [PageSectionController::class, 'reorder'])->name('page.sections.reorder');
-
     // toggle visibility
-    Route::post('sections/{section}/toggle-visibility', [PageSectionController::class, 'toggleVisibility'])
-        ->name('sections.toggle-visibility');
+    Route::post('sections/{section}/toggle-visibility', [PageSectionController::class, 'toggleVisibility'])->name('sections.toggle-visibility');
 
-
+    // Common section route
+    Route::get('common-sections', [CommonSectionController::class, 'index'])->name('common.section.index');
+    Route::get('common-sections/create', [CommonSectionController::class, 'create'])->name('common.section.create');
+    Route::post('common-sections', [CommonSectionController::class, 'store'])->name('common.section.store');
+    Route::get('common-sections/{id}/edit', [CommonSectionController::class, 'edit'])->name('common.section.edit');
+    Route::put('common-sections/{id}', [CommonSectionController::class, 'update'])->name('common.section.update');
+    Route::delete('common-sections/{id}/soft-delete', [CommonSectionController::class, 'softDelete'])->name('common.section.soft-delete');
+    Route::get('common-sections/{id}/restore', [CommonSectionController::class, 'restore'])->name('common.section.restore');
+    Route::delete('common-sections/{id}/force-delete', [CommonSectionController::class, 'forceDelete'])->name('common.section.force-delete');
 });
 
 

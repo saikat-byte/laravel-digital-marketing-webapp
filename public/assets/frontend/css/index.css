@@ -336,10 +336,9 @@
 
 .about-section {
     position: relative;
-    background: url('/assets/frontend/media/pages/home/images/home_service.jpg') no-repeat center center;
+    /* background: url('/assets/frontend/media/pages/home/images/home_service.jpg') no-repeat center center; */
     background-size: cover;
     height: 100vh;
-    /* Full screen height */
     display: flex;
     flex-direction: column;
     /* Align elements vertically */
@@ -497,7 +496,7 @@
 .consultant-section {
     position: relative;
     height: 100vh;
-    background: url('/assets/frontend/media/pages/home/images/home_consult.jpg') no-repeat center center;
+    /* background: url('/assets/frontend/media/pages/home/images/home_consult.jpg') no-repeat center center; */
     background-size: cover;
     color: white;
     padding: 4rem 1rem;

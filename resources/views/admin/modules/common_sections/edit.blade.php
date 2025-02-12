@@ -4,7 +4,7 @@
 <div class="page-inner">
     <div class="page-header d-flex justify-content-between align-items-center">
         <h3 class="fw-bold mb-3">Edit Section: {{ $section->name }}</h3>
-        <a href="{{ route('page.edit', $section->page_id) }}" class="btn btn-secondary">Back to Page</a>
+        <a href="{{ route('common.section.index') }}" class="btn btn-secondary">Back to Common Sections</a>
     </div>
 
     <div class="row">
@@ -14,13 +14,11 @@
                     <h4 class="card-title">Update Section Content</h4>
                 </div>
                 <div class="card-body">
-                    <form id="updateSectionForm" action="{{ route('page.sections.update', $section->id) }}" method="POST" enctype="multipart/form-data">
+                    <form id="updateSectionForm" action="{{ route('common.section.update', $section->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" name="page_id" value="{{ $section->page_id }}">
-                        <input type="hidden" name="section_id" value="{{ $section->id }}">
 
-                        {{-- ✅ Section Name --}}
+                        {{-- Section Basic Information --}}
                         <div class="form-group">
                             <label>Section Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $section->name) }}">
@@ -29,7 +27,7 @@
                             @enderror
                         </div>
 
-                        {{-- ✅ Section Type --}}
+                        {{-- Section Type --}}
                         <div class="form-group">
                             <label>Section Type <span class="text-danger">*</span></label>
                             <select name="type" class="form-control @error('type') is-invalid @enderror">
@@ -44,7 +42,7 @@
                             @enderror
                         </div>
 
-                        {{-- ✅ Heading, Sub-heading & Paragraph --}}
+                        {{-- Heading, Sub-heading & Paragraph --}}
                         <div class="form-group">
                             <label>Heading</label>
                             <input type="text" class="form-control @error('heading') is-invalid @enderror" name="heading" value="{{ old('heading', $section->heading) }}">
@@ -66,56 +64,47 @@
                             <span class="text-danger error-message">{{ $message }}</span>
                             @enderror
                         </div>
-                        <!-- Single image update and preview select preview-->
 
+                        {{-- Image Upload --}}
                         <div class="form-group">
                             <label>Update Image</label>
-                            <!-- File input -->
                             <input type="file" id="singleImageUpload" class="form-control @error('image') is-invalid @enderror" name="image" accept="image/*">
-
-                            <!-- Preview Container -->
                             <div id="singleImagePreview" class="mt-2">
                                 @if($section->image)
                                 <div class="position-relative d-inline-block">
                                     <img src="{{ asset('storage/' . $section->image) }}" class="img-thumbnail" style="max-width:200px;">
-                                    <!-- Remove button for existing image -->
                                     <button type="button" id="removeExistingImage" class="btn btn-danger btn-sm position-absolute" style="top: 0; right: 0;">X</button>
                                 </div>
                                 @endif
                             </div>
-                            <!-- Hidden input: set value "1" যদি existing image সরানোর নির্দেশ দিতে চান -->
                             <input type="hidden" id="remove_image" name="remove_image" value="0">
-
                             @error('image')
                             <span class="text-danger error-message">{{ $message }}</span>
                             @enderror
                         </div>
 
-                        <!-- Multi image update and preview  select preview-->
+                        {{-- Multi-Image Upload --}}
                         <div class="form-group">
                             <label>Update Multiple Images</label>
                             <input type="file" class="form-control" name="multi_image[]" multiple accept="image/*">
                             <div class="d-flex flex-wrap mt-2" id="multi-image-preview">
-                                @foreach($section->multi_image ?? [] as $image)
+                                @if($section->multi_image && is_array($section->multi_image))
+                                @foreach($section->multi_image as $image)
                                 <div class="position-relative m-1 multi-image-item">
                                     <img src="{{ asset('storage/' . $image) }}" class="img-thumbnail" alt="{{ $section->heading }}" style="max-width: 100px; margin: 5px;">
                                     <button type="button" class="btn btn-danger btn-sm remove-multi-image" data-image="{{ $image }}" style="position: absolute; top: 0; right: 0;">X</button>
                                 </div>
                                 @endforeach
+                                @endif
                             </div>
-                            <!-- Hidden input array to store removed image paths -->
+                            <!-- Hidden container to store paths of removed images -->
                             <div id="removed-multi-images-container"></div>
                         </div>
 
-                        {{-- ✅ Video Upload --}}
+                        {{-- Video Upload --}}
                         <div class="form-group">
                             <label>Update Video</label>
-                            <!-- Video file input -->
                             <input type="file" class="form-control @error('video') is-invalid @enderror" name="video" accept="video/*">
-                            @error('video')
-                            <span class="text-danger error-message">{{ $message }}</span>
-                            @enderror
-                            <!-- Preview Container -->
                             <div id="video-container" class="mt-2">
                                 @if($section->video)
                                 <div class="position-relative d-inline-block">
@@ -123,17 +112,31 @@
                                         <source src="{{ asset('storage/' . $section->video) }}" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
-                                    <!-- Remove button for existing video -->
                                     <button type="button" id="removeExistingVideo" class="btn btn-danger btn-sm position-absolute" style="top:5px; right:5px; padding:2px 5px; font-size:12px; border-radius:50%; z-index:9999;">X</button>
                                 </div>
                                 @endif
                             </div>
-                            <!-- Hidden input to signal removal of existing video -->
                             <input type="hidden" id="remove_video" name="remove_video" value="0">
+                            @error('video')
+                            <span class="text-danger error-message">{{ $message }}</span>
+                            @enderror
                         </div>
 
+                        {{-- PDF Upload --}}
+                        <div class="form-group">
+                            <label>Update PDF</label>
+                            <input type="file" class="form-control @error('pdf') is-invalid @enderror" name="pdf" accept=".pdf">
+                            @error('pdf')
+                            <span class="text-danger error-message">{{ $message }}</span>
+                            @enderror
+                            @if($section->pdf)
+                            <div class="mt-2">
+                                <a href="{{ asset('storage/' . $section->pdf) }}" target="_blank" class="btn btn-info">View PDF</a>
+                            </div>
+                            @endif
+                        </div>
 
-                        {{-- ✅ Buttons --}}
+                        {{-- Buttons --}}
                         <div class="form-group">
                             <label>Button 1 Text</label>
                             <input type="text" class="form-control @error('button_1_text') is-invalid @enderror" name="button_1_text" value="{{ old('button_1_text', $section->button_1_text) }}">
@@ -163,45 +166,36 @@
                             @enderror
                         </div>
 
-                        {{-- ✅ PDF Upload --}}
-                        <div class="form-group">
-                            <label>Update PDF</label>
-                            <input type="file" class="form-control @error('pdf') is-invalid @enderror" name="pdf" accept=".pdf">
-                            @error('pdf')
-                            <span class="text-danger error-message">{{ $message }}</span>
-                            @enderror
-                            @if($section->pdf)
-                            <div class="mt-2">
-                                <a href="{{ asset('storage/' . $section->pdf) }}" target="_blank" class="btn btn-info">View PDF</a>
-                                <!-- use hidden input to remove button (ex: remove_pdf)-->
-                            </div>
-                            @endif
-                        </div>
-                        {{-- ✅ Custom Fields --}}
+                        {{-- Custom Fields --}}
                         <div class="form-group">
                             <label>Custom Fields</label>
                             <div id="custom-fields-container">
                                 @php
-                                // $customFields = json_decode($section->config, true) ?? [];
-                                $customFields =$section->config;
-                                $config = $section->config ?: ['fields' => []];
+                                // Retrieve custom fields data from config; if not available, use empty array.
+                                $customFields = $section->config ?? [];
+                                if(!is_array($customFields)) {
+                                $customFields = json_decode($section->config, true) ?? [];
+                                }
                                 @endphp
-                                @foreach($customFields as $index => $fieldValue)
+                                @if(count($customFields) > 0)
+                                @foreach($customFields as $fieldName => $fieldValue)
                                 <div class="d-flex mb-2 field-group">
-                                    <input type="text" class="form-control" name="custom_fields[{{ $index }}][name]" value="{{ $index }}" placeholder="Field Name">
-                                    <select name="custom_fields[{{ $index }}][type]" class="form-control ml-2">
-                                        @foreach($customFieldType as $type)
-                                        <option value="{{ $type->code }}" {{ (isset($fieldValue['type']) && $fieldValue['type'] == $type->code) ? 'selected' : '' }}>
-                                            {{ $type->name }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                    <input type="text" class="form-control ml-2" name="custom_fields[{{ $index }}][value]" value="{{ $fieldValue }}" placeholder="Field Value">
+                                    <input type="text" class="form-control" name="custom_fields[{{ $loop->index }}][name]" value="{{ $fieldName }}" placeholder="Field Name">
+                                    <input type="text" class="form-control ml-2" name="custom_fields[{{ $loop->index }}][value]" value="{{ $fieldValue }}" placeholder="Field Value">
                                     <button type="button" class="btn btn-danger btn-sm remove-field ml-2">Remove</button>
                                 </div>
                                 @endforeach
+                                @else
+                                <div class="d-flex mb-2 field-group">
+                                    <input type="text" class="form-control" name="custom_fields[0][name]" placeholder="Field Name">
+                                    <input type="text" class="form-control ml-2" name="custom_fields[0][value]" placeholder="Field Value">
+                                    <button type="button" class="btn btn-danger btn-sm remove-field ml-2">Remove</button>
+                                </div>
+                                @endif
                             </div>
+                            <button type="button" id="add-more-fields" class="btn btn-sm btn-success">+ Add More Field</button>
                         </div>
+
                         <button type="submit" class="btn btn-primary">Update Section</button>
                     </form>
                 </div>

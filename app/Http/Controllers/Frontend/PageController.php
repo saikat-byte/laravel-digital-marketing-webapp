@@ -23,6 +23,7 @@ class PageController extends Controller
             ->where('status', 1)
             ->orderBy('order')
             ->get();
+            $sectionImage = $sections->first()->image;
 
         // ✅ Return View Dynamically
         return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections','sectionImage'));
