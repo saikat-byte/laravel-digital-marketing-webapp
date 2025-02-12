@@ -276,4 +276,22 @@ class CommonSectionController extends Controller
         return redirect()->back()->with('success', 'Section permanently deleted!');
     }
 
+
+    // Toggle status
+    public function toggleStatus($id)
+    {
+        // Find the section by id
+        $section = CommonSection::findOrFail($id);
+
+        // Toggle the status (if status is boolean: 1 becomes 0 and vice versa)
+        $section->status = !$section->status;
+        $section->save();
+
+        return response()->json([
+            'success' => true,
+            'status'  => $section->status,
+            'message' => 'Section status updated successfully!'
+        ]);
+    }
+
 }

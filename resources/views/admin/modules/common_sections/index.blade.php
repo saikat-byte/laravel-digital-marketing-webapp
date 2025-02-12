@@ -34,6 +34,7 @@
                                 <td>{{ $section->slug }}</td>
                                 <td>{{ ucfirst($section->type) }}</td>
                                 <td>
+                                    <!-- Toggle Button for Section Status -->
                                     <button class="btn btn-sm toggle-section-status" data-id="{{ $section->id }}">
                                         <i class="fas fa-toggle-{{ $section->status ? 'on' : 'off' }} fa-2x {{ $section->status ? 'text-success' : 'text-danger' }}"></i>
                                     </button>
@@ -190,20 +191,19 @@
 
         // Instead of Inline event handler, event delegation
         $(document).on("click", ".toggle-section-status", function(e) {
-            e.preventDefault(); // stop default action
+            e.preventDefault();
 
             var btn = $(this);
             var sectionId = btn.data("id");
 
             $.ajax({
-                url: "/admin/page-sections/" + sectionId + "/toggle-status", // route URL
+                url: "/admin/common-sections/" + sectionId + "/toggle-status", // toggle-status
                 type: "POST"
                 , data: {
                     _token: "{{ csrf_token() }}"
                 }
                 , success: function(response) {
                     if (response.success) {
-                        // icon update
                         var icon = btn.find("i");
                         if (response.status) {
                             icon.removeClass("fa-toggle-off text-danger").addClass("fa-toggle-on text-success");
@@ -253,7 +253,6 @@
         });
 
     });
-
 
     @if(session('success'))
     toastr.success("{{ session('success') }}");

@@ -79,12 +79,12 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#base">
+                    <a data-bs-toggle="collapse" href="#common_section">
                         <i class="fas fa-th-large"></i>
                         <p>Common section</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="base">
+                    <div class="collapse" id="common_section">
                         <ul class="nav nav-collapse">
                             <li>
                                 <a href="{{ route('common.section.index') }}">
@@ -100,12 +100,12 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#base">
+                    <a data-bs-toggle="collapse" href="#category">
                         <i class="fas fa-th-large"></i>
                         <p>Category</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="base">
+                    <div class="collapse" id="category">
                         <ul class="nav nav-collapse">
                             <li>
                                 <a href="{{ route('category.index') }}">

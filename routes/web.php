@@ -90,6 +90,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::delete('common-sections/{id}/soft-delete', [CommonSectionController::class, 'softDelete'])->name('common.section.soft-delete');
     Route::get('common-sections/{id}/restore', [CommonSectionController::class, 'restore'])->name('common.section.restore');
     Route::delete('common-sections/{id}/force-delete', [CommonSectionController::class, 'forceDelete'])->name('common.section.force-delete');
+    Route::post('common-sections/{id}/toggle-status', [CommonSectionController::class, 'toggleStatus'])->name('common.section.toggle-status');
+
 });
 
 
