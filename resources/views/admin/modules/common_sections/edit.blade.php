@@ -166,34 +166,31 @@
                             @enderror
                         </div>
 
-                        {{-- Custom Fields --}}
+
+                        {{-- ✅ Custom Fields --}}
                         <div class="form-group">
                             <label>Custom Fields</label>
                             <div id="custom-fields-container">
                                 @php
-                                // Retrieve custom fields data from config; if not available, use empty array.
-                                $customFields = $section->config ?? [];
-                                if(!is_array($customFields)) {
-                                $customFields = json_decode($section->config, true) ?? [];
-                                }
+                                // $customFields = json_decode($section->config, true) ?? [];
+                                $customFields =$section->config;
+                                $config = $section->config ?: ['fields' => []];
                                 @endphp
-                                @if(count($customFields) > 0)
-                                @foreach($customFields as $fieldName => $fieldValue)
+                                @foreach($customFields as $index => $fieldValue)
                                 <div class="d-flex mb-2 field-group">
-                                    <input type="text" class="form-control" name="custom_fields[{{ $loop->index }}][name]" value="{{ $fieldName }}" placeholder="Field Name">
-                                    <input type="text" class="form-control ml-2" name="custom_fields[{{ $loop->index }}][value]" value="{{ $fieldValue }}" placeholder="Field Value">
+                                    <input type="text" class="form-control" name="custom_fields[{{ $index }}][name]" value="{{ $index }}" placeholder="Field Name">
+                                    <select name="custom_fields[{{ $index }}][type]" class="form-control ml-2">
+                                        @foreach($customFieldType as $type)
+                                        <option value="{{ $type->code }}" {{ (isset($fieldValue['type']) && $fieldValue['type'] == $type->code) ? 'selected' : '' }}>
+                                            {{ $type->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                    <input type="text" class="form-control ml-2" name="custom_fields[{{ $index }}][value]" value="{{ $fieldValue }}" placeholder="Field Value">
                                     <button type="button" class="btn btn-danger btn-sm remove-field ml-2">Remove</button>
                                 </div>
                                 @endforeach
-                                @else
-                                <div class="d-flex mb-2 field-group">
-                                    <input type="text" class="form-control" name="custom_fields[0][name]" placeholder="Field Name">
-                                    <input type="text" class="form-control ml-2" name="custom_fields[0][value]" placeholder="Field Value">
-                                    <button type="button" class="btn btn-danger btn-sm remove-field ml-2">Remove</button>
-                                </div>
-                                @endif
                             </div>
-                            <button type="button" id="add-more-fields" class="btn btn-sm btn-success">+ Add More Field</button>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Update Section</button>

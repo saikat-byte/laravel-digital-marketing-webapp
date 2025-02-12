@@ -158,15 +158,15 @@ class CommonSectionController extends Controller
         $section->button_2_text = $request->button_2_text;
         $section->button_2_link = $request->button_2_link;
 
-        // Use existing slug for folder structure
-        $sectionSlug = "common/{$section->slug}";
+        // Base folder using the slug
+        $baseFolder = "common/{$section->slug}";
 
         //Single Image Update
         if ($request->hasFile('image')) {
             if ($section->image && Storage::disk('public')->exists($section->image)) {
                 Storage::disk('public')->delete($section->image);
             }
-            $folder = "/{$sectionSlug}/images";
+            $folder = "/{$baseFolder}/images";
             $section->image = $request->file('image')->store($folder, 'public');
         }
         if ($request->input('remove_image') == '1') {
@@ -195,23 +195,43 @@ class CommonSectionController extends Controller
         }
         // Add new multi images if uploaded
         if ($request->hasFile('multi_image')) {
-            $folder = "common/{$sectionSlug}/multi_images";
+            $folder = "{$baseFolder}/multi_images";
             foreach ($request->file('multi_image') as $file) {
                 $existingMultiImages[] = $file->store($folder, 'public');
             }
         }
         $section->multi_image = $existingMultiImages;
 
-        // Video Upload
+
+        // Video Update
         if ($request->hasFile('video')) {
-            $videoFolder = $baseFolder . "/videos";
-            $section->video = $request->file('video')->store($videoFolder, 'public');
+            if ($section->video && Storage::disk('public')->exists($section->video)) {
+                Storage::disk('public')->delete($section->video);
+            }
+            $folder = "/{$baseFolder}/videos";
+            $section->video = $request->file('video')->store($folder, 'public');
+        }
+        if ($request->input('remove_video') == '1') {
+            if ($section->video && Storage::disk('public')->exists($section->video)) {
+                Storage::disk('public')->delete($section->video);
+            }
+            $section->video = null;
         }
 
-        // PDF Upload
+
+        // Pdf/excel/others file Update
         if ($request->hasFile('pdf')) {
-            $pdfFolder = $baseFolder . "/files";
-            $section->pdf = $request->file('pdf')->store($pdfFolder, 'public');
+            if ($section->pdf && Storage::disk('public')->exists($section->pdf)) {
+                Storage::disk('public')->delete($section->pdf);
+            }
+            $folder = "/$baseFolder/files";
+            $section->pdf = $request->file('pdf')->store($folder, 'public');
+        }
+        if ($request->input('remove_pdf') == '1') {
+            if ($section->pdf && Storage::disk('public')->exists($section->pdf)) {
+                Storage::disk('public')->delete($section->pdf);
+            }
+            $section->pdf = null;
         }
 
         // Custom Fields Update
