@@ -325,15 +325,14 @@ class PageSectionController extends Controller
     // update section content
     public function updateOrder(Request $request)
     {
-        foreach ($request->sections as $section) {
-            PageSection::where('id', $section['id'])->update(['order' => $section['order']]);
+        $order = $request->input('order') ?? [];
+        \Log::info('Order received in updateOrder:', $order);
+        foreach ($order as $index => $pageSectionId) {
+          PageSection::where('id', $pageSectionId)->update(['order' => $index]);
         }
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Sections reordered successfully!'
-        ]);
+        return response()->json(['success' => true, 'message' => 'Order updated successfully!']);
     }
+
 
     // delete image
     public function deleteImage(Request $request, PageSection $section)
@@ -378,24 +377,6 @@ class PageSectionController extends Controller
         }
     }
 
-    // Drag & Drop reorder
-    public function reorder(Request $request)
-    {
-        try {
-            DB::beginTransaction();
-
-            foreach ($request->orders as $sectionId => $order) {
-                PageSection::where('id', $sectionId)->update(['order' => $order]);
-            }
-
-            DB::commit();
-            return response()->json(['success' => true]);
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
-        }
-    }
 
     // soft delete
     public function softDelete($id)

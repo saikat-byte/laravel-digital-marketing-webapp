@@ -27,7 +27,7 @@ class PageController extends Controller
         $pages = Page::withCount('sections')->withTrashed()->get();
 
         $totalPages = Page::count();
-        $activePages = Page::where('status', 1)->count();
+        $activePages = Page::where('status', 1) ->orderBy('order', 'asc')->count();
         $totalSections = PageSection::count();
         $activeSections = PageSection::where('status', 1)->count();
 
@@ -65,7 +65,7 @@ class PageController extends Controller
 
     public function edit(Page $page)
     {
-        $activeSections = $page->sections()->whereNull('deleted_at')->get();
+        $activeSections = $page->sections()->whereNull('deleted_at')->orderBy('order', 'asc')->get();
         $trashedSections = $page->sections()->onlyTrashed()->get();
 
         $sectionTypes = DB::table('section_types')->get();
@@ -190,19 +190,23 @@ class PageController extends Controller
     }
 
 
-    // Soft Delete Page
-    public function destroy($id)
-    {
-        try {
-            $page = Page::findOrFail($id);
-            $page->delete(); // Soft Delete
+    // Order change using Drag and drop
 
-            return redirect()->route('page.index')->with('success', 'Page deleted successfully!');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Error deleting page: ' . $e->getMessage());
+    public function updateOrder(Request $request)
+    {
+        $order = $request->input('order') ?? [];
+        \Log::info('Order received in updateOrder:', $order);
+        foreach ($order as $index => $pageId) {
+            Page::where('id', $pageId)->update(['order' => $index]);
         }
+        return response()->json(['success' => true, 'message' => 'Order updated successfully!']);
     }
 
+
+
+
+
+    // Page Active inactive using toggle
     public function toggleStatus(Page $page)
     {
         $page->status = !$page->status;
@@ -216,6 +220,22 @@ class PageController extends Controller
     }
 
 
+    //
+
+
+
+    // Soft Delete Page
+    public function destroy($id)
+    {
+        try {
+            $page = Page::findOrFail($id);
+            $page->delete(); // Soft Delete
+
+            return redirect()->route('page.index')->with('success', 'Page deleted successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error deleting page: ' . $e->getMessage());
+        }
+    }
 
 
     public function trashed()

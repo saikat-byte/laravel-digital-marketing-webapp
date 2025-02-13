@@ -220,21 +220,28 @@
                     <table id="exixting-sections-table" class="table table-bordered">
                         <thead>
                             <tr>
+                                <th>Sort</th>
                                 <th>SL</th>
                                 <th>Section Name</th>
                                 <th>Section Slug</th>
                                 <th>Type</th>
+                                <th>Order</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody id="sectionsContainer">
                             @foreach($page->sections()->whereNull('deleted_at')->get() as $index => $section)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
+                            <tr data-id="{{ $section->id }}">
+                                <td>
+                                    <!-- Drag handle icon -->
+                                    <i class="fas fa-arrows-alt handle" style="cursor: move;"></i>
+                                </td>
+                                <td class="serial">{{ $index + 1 }}</td>
                                 <td>{{ $section->name }}</td>
                                 <td>{{ $section->slug }}</td>
                                 <td>{{ ucfirst($section->type) }}</td>
+                                <td>{{ ucfirst($section->order) }}</td>
                                 <td>
                                     <!-- Toggle Button for Section Status -->
                                     <button class="btn btn-sm toggle-section-status" data-id="{{ $section->id }}" onclick="toggleSectionStatus({{ $section->id }}, this)">
@@ -455,6 +462,46 @@
                 }
             });
         });
+
+        // Section drag and drop
+        $("#sectionsContainer").sortable({
+        handle: ".handle", // Use the handle class as drag handle
+        update: function(event, ui) {
+            var order = [];
+            // Update serial numbers in the UI and build order array
+            $("#sectionsContainer tr").each(function(index) {
+                var id = $(this).attr("data-id");
+                order.push(id);
+                // Update the serial number column (assuming it is in the second td with class 'serial')
+                $(this).find("td.serial").text(index + 1);
+            });
+            console.log("New order array:", order);
+
+            // AJAX call to update order in the DB
+            $.ajax({
+                url: "{{ route('page.sections.order') }}", // Your route for updating order
+                method: "POST",
+                data: {
+                    order: order,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if(response.success) {
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Failed to update order!");
+                    }
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                    toastr.error("Failed to update order!");
+                }
+            });
+        }
+    });
+
+
+
 
     });
 

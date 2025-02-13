@@ -1,5 +1,8 @@
   <!--   Core JS Files   -->
   <script src="{{ asset('assets/admin/js/core/jquery-3.7.1.min.js') }}"></script>
+  <!-- jQuery UI JS using for drag and drop-->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
   <script src="{{ asset('assets/admin/js/core/popper.min.js') }}"></script>
   <script src="{{ asset('assets/admin/js/core/bootstrap.min.js') }}"></script>
   <!-- Sweet Alert -->
@@ -22,32 +25,32 @@
   <!-- Kaiadmin JS -->
   <script src="{{ asset('assets/admin/js/kaiadmin.min.js') }}"></script>
   {{-- toaster --}}
-<!-- Add these just before closing body tag -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <!-- Add these just before closing body tag -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<script>
-    // Global axios configuration
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').content;
+  <script>
+      // Global axios configuration
+      axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').content;
 
-    // Toastr configuration
-    toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": true,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut",
-        "toastClass": 'dark-toast'
-    }
-</script>
+      // Toastr configuration
+      toastr.options = {
+          "closeButton": true
+          , "debug": false
+          , "newestOnTop": true
+          , "progressBar": true
+          , "positionClass": "toast-top-right"
+          , "preventDuplicates": false
+          , "onclick": null
+          , "showDuration": "300"
+          , "hideDuration": "1000"
+          , "timeOut": "5000"
+          , "extendedTimeOut": "1000"
+          , "showEasing": "swing"
+          , "hideEasing": "linear"
+          , "showMethod": "fadeIn"
+          , "hideMethod": "fadeOut"
+          , "toastClass": 'dark-toast'
+      }
 
+  </script>

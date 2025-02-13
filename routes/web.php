@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::delete('/page/{id}/soft-delete', [PageController::class, 'destroy'])->name('page.soft-delete');
     Route::get('/page/{id}/restore', [PageController::class, 'restore'])->name('page.restore');
     Route::delete('/page/{id}/force-delete', [PageController::class, 'forceDelete'])->name('page.force-delete');
+    Route::post('/pages/update-order', [PageController::class, 'updateOrder'])->name('pages.updateOrder');
 
     // Page Sections
     Route::post('/page/{page}/sections', [PageSectionController::class, 'store'])->name('page.sections.store');

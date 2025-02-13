@@ -98,20 +98,27 @@
                     <table id="active-pages-table" class="table table-bordered">
                         <thead>
                             <tr>
+                                <th>Sort</th>
                                 <th>SL</th>
                                 <th>Page Name</th>
                                 <th>Page Slug</th>
+                                <th>Order</th>
                                 <th>Sections</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="sortable-pages">
                             @foreach($pages->whereNull('deleted_at') as $index => $page)
-                            <tr>
+                            <tr data-id="{{ $page->id }}">
+                                <td>
+                                    <!-- Drag handle icon -->
+                                    <i class="fas fa-arrows-alt handle" style="cursor: move;"></i>
+                                </td>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $page->name }}</td>
                                 <td>{{ $page->slug }}</td>
+                                <td>{{ $page->order }}</td>
                                 <td>{{ $page->sections_count }}</td>
                                 <td>
                                     <button class="btn btn-sm toggle-status" data-id="{{ $page->id }}">
@@ -268,6 +275,43 @@
                 }
             });
         });
+
+
+        // Page Drag & Drop order change
+        $("#sortable-pages").sortable({
+        update: function(event, ui) {
+            // নতুন order array তৈরি করুন, যেখানে প্রতিটি <tr> এর data-id attribute ব্যবহার করা হয়েছে
+            var order = [];
+            $("#sortable-pages tr").each(function(index) {
+                order.push($(this).attr("data-id"));
+                // Update the serial number column (assuming first td is drag handle, second td is SL)
+                $(this).find("td:eq(1)").text(index + 1);
+                // যদি আপনার অন্য কোনো order column থাকে (যেমন, 5th td) তাহলে সেটিও আপডেট করুন
+                // $(this).find("td.order-column").text(index); // উদাহরণস্বরূপ
+            });
+            console.log("New order array:", order);
+            $.ajax({
+                url: "{{ route('pages.updateOrder') }}",
+                method: "POST",
+                data: {
+                    order: order,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    toastr.success(response.message);
+                    // এখানে পেজ reload না করেই, UI update হবে কারণ আমরা DOM-এ serial numbers আপডেট করেছি।
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                    toastr.error("Failed to update order!");
+                }
+            });
+        }
+    });
+
+
+
+
 
     });
 

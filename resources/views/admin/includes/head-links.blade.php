@@ -1,6 +1,8 @@
 <link rel="icon" href="{{ asset('assets/admin/img/cloudspace/cloudspace_favicon.png') }}" type="image/x-icon" />
   {{-- toaster --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+{{-- Jquery UI CSS using for drag and drop --}}
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- Fonts and icons -->
 <script src="{{ asset('assets/admin/js/plugin/webfont/webfont.min.js') }}"></script>
 <script>
