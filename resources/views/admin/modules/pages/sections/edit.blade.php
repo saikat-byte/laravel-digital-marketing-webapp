@@ -3,7 +3,7 @@
 @section('content')
 <div class="page-inner">
     <div class="page-header d-flex justify-content-between align-items-center">
-        <h3 class="fw-bold mb-3">Edit Section: {{ $section->name }}</h3>
+        <h3 class="fw-bold mb-3">Page name : {{ $section->page->name }}</h3>
         <a href="{{ route('page.edit', $section->page_id) }}" class="btn btn-secondary">Back to Page</a>
     </div>
 
@@ -11,7 +11,7 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Update Section Content</h4>
+                    <h4 class="card-title">Update Section {{ $section->name }}</h4>
                 </div>
                 <div class="card-body">
                     <form id="updateSectionForm" action="{{ route('page.sections.update', $section->id) }}" method="POST" enctype="multipart/form-data">
@@ -201,6 +201,7 @@
                                 </div>
                                 @endforeach
                             </div>
+                            <button type="button" id="add-more-fields" class="btn btn-sm btn-success">+ Add More Field</button>
                         </div>
                         <button type="submit" class="btn btn-primary">Update Section</button>
                     </form>

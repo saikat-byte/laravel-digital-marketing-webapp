@@ -6,8 +6,8 @@
         <!-- Content -->
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <h1 class="display-4 fw-bold">{{ $section->heading }}</h1>
-                <p class="lead mb-4">{{ $section->sub_heading }}</p>
+                <h1 class="display-4 fw-bold">{{ $downloadSection->heading }}</h1>
+                <p class="lead mb-4">{{ $downloadSection->sub_heading }}</p>
                 <!-- Input Group -->
                 <form action="">
                     <div class="input-group">
@@ -20,7 +20,7 @@
 
             <div class="col-lg-4">
                 <!-- Magazine Image -->
-                <img src="{{ asset('storage/' . $section->image) }}" alt="Magazine" class="magazine-image">
+                <img src="{{ asset('storage/' . $downloadSection->image) }}" alt="Magazine" class="magazine-image">
             </div>
         </div>
     </div>

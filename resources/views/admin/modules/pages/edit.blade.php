@@ -397,8 +397,6 @@
             }
         });
 
-        // Page section active inactive toggle
-
         // Instead of Inline event handler, event delegation
         $(document).on("click", ".toggle-section-status", function(e) {
             e.preventDefault(); // stop default action
@@ -499,8 +497,6 @@
             });
         }
     });
-
-
 
 
     });

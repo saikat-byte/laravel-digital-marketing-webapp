@@ -26,12 +26,15 @@ class PageController extends Controller
             ->get();
         $sectionImage = $sections->first()->image;
 
+        // all common section fetch
         $downloadSection = CommonSection::where('slug', 'download-section')
-        ->where('status', 1)
-        ->first();
-        // dd($sections);
+            ->where('status', 1)
+            ->first();
+        $contactForm = CommonSection::where('slug', 'contact-form')
+            ->where('status', 1)
+            ->first();
 
         // ✅ Return View Dynamically
-        return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections', 'sectionImage', 'downloadSection'));
+        return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections', 'sectionImage', 'downloadSection', 'contactForm'));
     }
 }

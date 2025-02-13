@@ -280,13 +280,12 @@
         // Page Drag & Drop order change
         $("#sortable-pages").sortable({
         update: function(event, ui) {
-            // নতুন order array তৈরি করুন, যেখানে প্রতিটি <tr> এর data-id attribute ব্যবহার করা হয়েছে
+
             var order = [];
             $("#sortable-pages tr").each(function(index) {
                 order.push($(this).attr("data-id"));
                 // Update the serial number column (assuming first td is drag handle, second td is SL)
                 $(this).find("td:eq(1)").text(index + 1);
-                // যদি আপনার অন্য কোনো order column থাকে (যেমন, 5th td) তাহলে সেটিও আপডেট করুন
                 // $(this).find("td.order-column").text(index); // উদাহরণস্বরূপ
             });
             console.log("New order array:", order);
@@ -299,7 +298,6 @@
                 },
                 success: function(response) {
                     toastr.success(response.message);
-                    // এখানে পেজ reload না করেই, UI update হবে কারণ আমরা DOM-এ serial numbers আপডেট করেছি।
                 },
                 error: function(xhr) {
                     console.error(xhr.responseText);

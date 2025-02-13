@@ -8,32 +8,28 @@
 
 @section('content')
 
-<!-- Service Banner Start-->
-@include('frontend.modules.service.partials.service-banner')
-<!-- Service Banner End-->
+@if($page->status == 1)
+    @foreach($sections as $index => $section)
+        {{-- Page-specific section include --}}
+        @includeIf("frontend.modules.{$page->slug}.partials.{$section->slug}", ['section' => $section])
 
-<!-- Why Choose Us Start-->
-@include('frontend.modules.service.partials.why-choose-us')
+        {{-- show order by common section --}}
+        @if($page->slug == 'home' && $index == 2 && $downloadSection)
+            @includeIf('frontend.modules.common.partials.download-section', ['section' => $downloadSection])
+        @endif
 
-<!-- Why Choose Us End-->
+        {{-- show order by common section --}}
+        @if($page->slug == 'home' && $index == 5 && $contactForm)
+            @includeIf('frontend.modules.common.partials.contact-form', ['section' => $contactForm])
+        @endif
+    @endforeach
+@else
+    @include('frontend.modules.maintanance.index')
+@endif
 
-<!-- Common contact form start -->
-@include('frontend.modules.service.partials.common-contact-form')
-<!-- Common contact form End -->
 
-<!-- Watermark section Start -->
-@include('frontend.layouts.common-section.water-mark-section')
-<!-- Watermark Section End -->
 
-<!-- FAQ Section Start-->
-@include('frontend.layouts.common-section.faq-section')
-<!-- FAQ Section Start-->
-
-<!-- Download Section Start-->
-@include('frontend.layouts.common-section.download-section')
-<!-- Download Section End-->
 @endsection
-
 @push('custom_js')
 <script>
     // card slider and accordion code and banner image change on hover
@@ -101,8 +97,8 @@
 @endpush
 
 @push('custom_js')
-    {{-- Frequently ask question (Accordion Code) --}}
-    <script src="{{ asset('assets/frontend/jquery/faq-ask.js') }}"></script>
-    {{-- video play button --}}
-    <script src="{{ asset('assets/frontend/jquery/video-play-btn.js') }}"></script>
+{{-- Frequently ask question (Accordion Code) --}}
+<script src="{{ asset('assets/frontend/jquery/faq-ask.js') }}"></script>
+{{-- video play button --}}
+<script src="{{ asset('assets/frontend/jquery/video-play-btn.js') }}"></script>
 @endpush
