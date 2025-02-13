@@ -9,8 +9,6 @@ use App\Http\Controllers\Admin\PageSectionController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\Frontend\HomeController;
-use App\Http\Controllers\Frontent\FrontendController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +36,7 @@ Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.p
 // Admin dashboard
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
+    /*========== Post ==========*/
     Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::resource('category', CategoryController::class);
     Route::resource('tag', TagController::class);
@@ -45,7 +44,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('sub-category', SubCategoryController::class);
     Route::resource('post', PostController::class);
 
-    // Pages
+    /*========== Pages==========*/
     Route::get('/pages', [PageController::class, 'index'])->name('page.index');
     Route::get('/page/create', [PageController::class, 'create'])->name('page.create');
     Route::post('/page', [PageController::class, 'store'])->name('page.store');
@@ -56,7 +55,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::delete('/page/{id}/force-delete', [PageController::class, 'forceDelete'])->name('page.force-delete');
     Route::post('/pages/update-order', [PageController::class, 'updateOrder'])->name('pages.updateOrder');
 
-    // Page Sections
+    /*========== Page Sections==========*/
     Route::post('/page/{page}/sections', [PageSectionController::class, 'store'])->name('page.sections.store');
     Route::put('/page/sections/{section}', [PageSectionController::class, 'update'])->name('page.sections.update');
     // drag and drop
@@ -71,7 +70,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::post('/page/{page}/toggle-status', [PageController::class, 'toggleStatus'])->name('pages.toggle-status');
 
 
-    // Page section Settings
+    /*========== Page section Settings==========*/
     Route::get('/page/sections/{section}/edit', [PageSectionController::class, 'edit'])->name('page.sections.edit');
     Route::post('/page/sections/{section}/store-content', [PageSectionController::class, 'edit'])->name('page.sections.storeContent');
     Route::put('/page/sections/{section}/update-content', [PageSectionController::class, 'updateContent'])->name('page.sections.updateContent');
@@ -82,7 +81,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     // toggle visibility
     Route::post('sections/{section}/toggle-visibility', [PageSectionController::class, 'toggleVisibility'])->name('sections.toggle-visibility');
 
-    // Common section route
+   /*==========Common section route==========*/
     Route::get('common-sections', [CommonSectionController::class, 'index'])->name('common.section.index');
     Route::get('common-sections/create', [CommonSectionController::class, 'create'])->name('common.section.create');
     Route::post('common-sections', [CommonSectionController::class, 'store'])->name('common.section.store');
