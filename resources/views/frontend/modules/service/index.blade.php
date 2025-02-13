@@ -9,22 +9,27 @@
 @section('content')
 
 @if($page->status == 1)
-    @foreach($sections as $index => $section)
-        {{-- Page-specific section include --}}
-        @includeIf("frontend.modules.{$page->slug}.partials.{$section->slug}", ['section' => $section])
+@foreach($sections as $index => $section)
+{{-- Page-specific section include --}}
+@includeIf("frontend.modules.{$page->slug}.partials.{$section->slug}", ['section' => $section])
 
-        {{-- show order by common section --}}
-        @if($page->slug == 'home' && $index == 2 && $downloadSection)
-            @includeIf('frontend.modules.common.partials.download-section', ['section' => $downloadSection])
-        @endif
+    {{-- show order by FAq section --}}
+    @if($page->slug == 'service' && $index == 2 && $watermark)
+    @includeIf('frontend.modules.common.partials.water-mark', ['section' => $watermark])
+    @endif
+    {{-- show order by FAq section --}}
+    @if($page->slug == 'service' && $index == 2 && $faq)
+    @includeIf('frontend.modules.common.partials.faq', ['section' => $faq])
+    @endif
 
-        {{-- show order by common section --}}
-        @if($page->slug == 'home' && $index == 5 && $contactForm)
-            @includeIf('frontend.modules.common.partials.contact-form', ['section' => $contactForm])
-        @endif
-    @endforeach
+    {{-- show order by common section --}}
+    @if($page->slug == 'service' && $index == 2 && $downloadSection)
+    @includeIf('frontend.modules.common.partials.download-section', ['section' => $downloadSection])
+    @endif
+
+@endforeach
 @else
-    @include('frontend.modules.maintanance.index')
+@include('frontend.modules.maintanance.index')
 @endif
 
 

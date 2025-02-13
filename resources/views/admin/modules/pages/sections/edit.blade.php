@@ -203,8 +203,15 @@
                             </div>
                             <button type="button" id="add-more-fields" class="btn btn-sm btn-success">+ Add More Field</button>
                         </div>
+
                         <button type="submit" class="btn btn-primary">Update Section</button>
                     </form>
+                    <!-- Hidden container for custom field type options -->
+                    <div id="customFieldOptions" style="display: none;">
+                        @foreach($customFieldType as $type)
+                        <option value="{{ $type->code }}">{{ $type->name }}</option>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

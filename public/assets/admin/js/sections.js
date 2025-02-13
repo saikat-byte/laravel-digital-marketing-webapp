@@ -137,26 +137,15 @@ $(document).ready(function () {
     // ----- Form Submission via AJAX -----
     $("#updateSectionForm, #sectionForm").on("submit", function (e) {
         e.preventDefault();
-        let optionsHtml = $("#customFieldOptions").html();
-        let newFieldHtml = `
-            <div class="d-flex mb-2 field-group">
-                <input type="text" class="form-control" name="custom_fields[${fieldIndex}][name]" placeholder="Enter Field Name">
-                <select name="custom_fields[${fieldIndex}][type]" class="form-control ml-2">
-                    ${optionsHtml}
-                </select>
-                <input type="text" class="form-control ml-2" name="custom_fields[${fieldIndex}][value]" placeholder="Field Value">
-                <button type="button" class="btn btn-danger btn-sm remove-field ml-2">Remove</button>
-            </div>
-        `;
-        $("#custom-fields-container").append(newFieldHtml);
-        fieldIndex++;
-        // form data has created
+
+        // Do not append any extra fields here!
         let formData = new FormData(this);
 
         // For update form, ensure _method is set to PUT if not already present
         if (!formData.has('_method') && $(this).attr('id') === 'updateSectionForm') {
             formData.append('_method', 'PUT');
         }
+
         $.ajax({
             url: $(this).attr("action"),
             method: "POST", // _method hidden input will indicate PUT for update
@@ -209,5 +198,6 @@ $(document).ready(function () {
             }
         });
     });
+
 
 });

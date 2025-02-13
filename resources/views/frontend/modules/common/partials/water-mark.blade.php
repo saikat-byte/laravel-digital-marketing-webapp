@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-12 text-center">
             <!-- Watermark -->
-            <h1 class="watermark-text">CLOUDSPACE SOLUTIONS</h1>
+            <h1 class="watermark-text">{{ $section->heading }}</h1>
         </div>
     </div>
 </section>
