@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\CommonSection;
 use App\Models\Page;
 use App\Models\PageSection;
 use App\Models\PageSeoSetting;
@@ -23,9 +24,14 @@ class PageController extends Controller
             ->where('status', 1)
             ->orderBy('order')
             ->get();
-            $sectionImage = $sections->first()->image;
+        $sectionImage = $sections->first()->image;
+
+        $downloadSection = CommonSection::where('slug', 'download-section')
+        ->where('status', 1)
+        ->first();
+        // dd($sections);
 
         // ✅ Return View Dynamically
-        return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections','sectionImage'));
+        return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections', 'sectionImage', 'downloadSection'));
     }
 }

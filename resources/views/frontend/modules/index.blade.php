@@ -22,16 +22,13 @@
 
 
 @if($page->status == 1)
+    @foreach($sections as $index => $section)
+    @if($section->slug == 'download-section')
+        @includeIf('frontend.modules.common.partials.download-section', ['section' => $section])
+    @else
+    @includeIf("frontend.modules.{$page->slug}.partials.{$section->slug}", ['section' => $section])
 
-@foreach($sections as $index => $section)
-        @includeIf("frontend.modules.{$page->slug}.partials.{$section->slug}", ['section' => $section])
-        @if($page->slug == 'home' && $index == 5 && $downloadSection)
-            {{-- download-section placed after 5 section --}}
-            @includeIf('frontend.modules.common.partials.download-section', ['section' => $downloadSection])
-        @endif
     @endforeach
-
-
 @else
 @include('frontend.modules.maintanance.index')
 @endif
