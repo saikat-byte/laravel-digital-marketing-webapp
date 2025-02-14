@@ -1,3 +1,7 @@
+@if($section->status == 1)
+    <!-- Three Part Section with Divider Lines -->
+
+
 <section class="contact-section">
     <div class="container-fluid">
         <div class="row d-flex justify-content-center align-items-center">
@@ -10,3 +14,4 @@
         </div>
     </div>
 </section>
+@endif

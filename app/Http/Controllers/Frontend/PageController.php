@@ -39,12 +39,16 @@ class PageController extends Controller
         $faq = CommonSection::where('slug', 'faq')
             ->where('status', 1)
             ->first();
-            // FAq section
+            // watermark section
         $watermark = CommonSection::where('slug', 'water-mark')
             ->where('status', 1)
             ->first();
+            // contact from details section
+        $contactFormRight = CommonSection::where('slug', 'contact-form-right')
+        ->where('status', 1)
+        ->first();
 
         // ✅ Return View Dynamically
-        return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections', 'sectionImage', 'downloadSection', 'contactForm', 'faq', 'watermark'));
+        return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections', 'sectionImage', 'downloadSection', 'contactForm', 'faq', 'watermark', 'contactFormRight'));
     }
 }

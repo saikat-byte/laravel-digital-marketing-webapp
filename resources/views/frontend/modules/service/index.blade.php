@@ -13,7 +13,7 @@
 {{-- Page-specific section include --}}
 @includeIf("frontend.modules.{$page->slug}.partials.{$section->slug}", ['section' => $section])
 
-    {{-- show order by FAq section --}}
+    {{-- show order by Watermark section --}}
     @if($page->slug == 'service' && $index == 2 && $watermark)
     @includeIf('frontend.modules.common.partials.water-mark', ['section' => $watermark])
     @endif
@@ -22,7 +22,7 @@
     @includeIf('frontend.modules.common.partials.faq', ['section' => $faq])
     @endif
 
-    {{-- show order by common section --}}
+    {{-- show order by download section --}}
     @if($page->slug == 'service' && $index == 2 && $downloadSection)
     @includeIf('frontend.modules.common.partials.download-section', ['section' => $downloadSection])
     @endif
