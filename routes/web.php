@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\PageSectionController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +31,11 @@ Route::get('/', function () {
 
 // Frontend route
 Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.page.show');
-
+// Blog
+Route::prefix('blog')->group(function(){
+    Route::get('/', [BlogController::class, 'index'])->name('frontend.blog-posts.index');
+    Route::get('/{slug}', [BlogController::class, 'show'])->name('blog.show');
+});
 
 
 // Admin dashboard

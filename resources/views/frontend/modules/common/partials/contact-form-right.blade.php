@@ -1,3 +1,5 @@
+@if($section->status == 1)
+
 @php
 $contactFormDetails = $contactFormRight['config'] ?? [];
 @endphp
@@ -26,3 +28,4 @@ $contactFormDetails = $contactFormRight['config'] ?? [];
         @endforeach
     </div>
 </div>
+@endif

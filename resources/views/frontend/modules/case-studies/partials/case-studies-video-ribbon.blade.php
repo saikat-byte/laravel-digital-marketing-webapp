@@ -1,3 +1,4 @@
+@if($section->status == 1)
 <!-- Video ribbon section Start -->
 <section class="video-ribbon-section position-relative">
     <!-- Container-fluid ribbon upto right screen -->
@@ -28,3 +29,4 @@
     </div>
 </section>
 <!-- Video ribbon section End -->
+@endif

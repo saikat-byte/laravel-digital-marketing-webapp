@@ -1,3 +1,4 @@
+@if($section->status == 1)
 <!-- Marketing section Start -->
 <section class="container-fluid">
     <div class="row">
@@ -55,3 +56,4 @@
     </div>
 </section>
 <!-- Marketing section End -->
+@endif

@@ -1,3 +1,4 @@
+@if($section->status == 1)
 <!-- Banner section Start -->
 <section class="banner-section d-flex align-items-center justify-content-center text-center" style="background-image: url('{{ asset('storage/' . $section->image) }}')">
     <div class="banner-overlay"></div>
@@ -19,3 +20,4 @@
     </div>
 </section>
 <!-- Banner section End -->
+@endif
