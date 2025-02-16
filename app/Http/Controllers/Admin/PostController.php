@@ -23,7 +23,7 @@ class PostController extends Controller
     public function index()
     {
         // User can see only their post section
-        $query = Post::with('category', 'subCategory', 'tag', 'user')->latest();
+        $query = Post::with('category', 'subCategory', 'tags', 'user')->latest();
         if (Auth::user()->role === User::USER) {
             $posts = $query->where('user_id', Auth::id())->paginate(20);
         } else {

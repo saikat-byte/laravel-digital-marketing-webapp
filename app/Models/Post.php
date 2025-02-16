@@ -33,6 +33,13 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    // comment relation
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->whereNull('parent_comment_id');
+    }
+
+
     // Helper method
 
     public function previous()

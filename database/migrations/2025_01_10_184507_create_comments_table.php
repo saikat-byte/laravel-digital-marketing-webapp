@@ -11,11 +11,14 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->id(); // Creates an unsignedBigInteger column named 'id'
-            $table->text('comment');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('post_id')->constrained('posts')->onDelete('cascade');
-            $table->boolean('status')->default(true);
+            $table->id();
+            // Post এর সাথে সম্পর্ক (foreign key)
+            $table->foreignId('post_id')->constrained()->cascadeOnDelete();
+            // Comment লেখার জন্য User এর সাথে সম্পর্ক (foreign key)
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            // যদি reply হিসেবে কোনো comment থাকে, তাহলে parent_comment_id (nullable)
+            $table->foreignId('parent_comment_id')->nullable()->constrained('comments')->cascadeOnDelete();
+            $table->text('content');
             $table->timestamps();
         });
     }

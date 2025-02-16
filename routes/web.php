@@ -9,7 +9,9 @@ use App\Http\Controllers\Admin\PageSectionController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Frontend\BlogController;
+use App\Http\Controllers\Frontend\UserAuthController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,19 +26,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-    // Default Home Page
-    Route::get('/', function () {
-        return redirect()->route('frontend.page.show', ['slug' => 'home']);
-    })->name('frontend.page.show');
+// Default Home Page
+Route::get('/', function () {
+    return redirect()->route('frontend.page.show', ['slug' => 'home']);
+})->name('frontend.page.show');
 
-    // Frontend route
-    Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.page.show');
-    // Blog
-    Route::get('/blog/posts', [BlogController::class, 'index'])->name('frontend.blog.index');
-    Route::get('/blog/search', [BlogController::class, 'search'])->name('frontend.blog.search');
-    Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('frontend.blog.show');
-    Route::get('/blog/single/search', [BlogController::class, 'singleSearch'])->name('frontend.singleblog.search');
+// Frontend route
+Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.page.show');
+// Blog
+Route::get('/blog/posts', [BlogController::class, 'index'])->name('frontend.blog.index');
+Route::get('/blog/search', [BlogController::class, 'search'])->name('frontend.blog.search');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('frontend.blog.show');
+Route::get('/blog/single/search', [BlogController::class, 'singleSearch'])->name('frontend.singleblog.search');
+// comment
+Route::post('/comment/{postId}', [CommentController::class, 'store'])->name('comment.store')->middleware('auth');
 
+
+// User authentication routes
+Route::get('/user/register', [UserAuthController::class, 'showRegistrationForm'])->name('user.registration'); // login page route
+Route::post('/user/register', [UserAuthController::class, 'registerStore'])->name('user.register.store');
+Route::get('/user/login', [UserAuthController::class, 'showLoginForm'])->name('user.login'); // login page route
+Route::post('/user/login', [UserAuthController::class, 'loginStore'])->name('user.login.store'); // login page route
 
 
 

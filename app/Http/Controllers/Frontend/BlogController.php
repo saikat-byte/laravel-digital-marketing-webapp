@@ -65,34 +65,76 @@ class BlogController extends Controller
     }
 
 
-    // Search
+    // blog Search
+    // public function search(Request $request)
+    // {
+    //     $query = $request->input('search');
+
+    //     // Posts search logic: title or description keyword match
+    //     $posts = Post::where('status', 1)
+    //         ->where(function ($q) use ($query) {
+    //             $q->where('title', 'like', "%{$query}%")
+    //                 ->orWhere('description', 'like', "%{$query}%");
+    //         })
+    //         ->orderBy('created_at', 'desc')
+    //         ->paginate(10);
+
+    //     // Sidebar data fetch
+    //     $categories = Category::where('status', 1)->get();
+    //     $tags = Tag::where('status', 1)->get();
+    //     $latestPosts = Post::where('status', 1)
+    //         ->orderBy('created_at', 'desc')
+    //         ->take(5)
+    //         ->get();
+
+    //     // blog page confirmation fetch
+    //     $page = Page::where('slug', 'blog')->first();
+
+    //     // Return view with search results; pass $query for display if needed
+    //     return view('frontend.modules.blog.index', compact('posts', 'categories', 'tags', 'latestPosts', 'page', 'query'));
+    // }
+
     public function search(Request $request)
-    {
-        $query = $request->input('search');
+{
+    $query   = $request->input('search'); // Keyword search, যদি থাকে
+    $tagSlug = $request->input('tag');     // Tag filter, যদি থাকে
 
-        // Posts search logic: title or description keyword match
-        $posts = Post::where('status', 1)
-            ->where(function ($q) use ($query) {
-                $q->where('title', 'like', "%{$query}%")
-                    ->orWhere('description', 'like', "%{$query}%");
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+    // Base query: শুধুমাত্র active posts
+    $postsQuery = Post::where('status', 1);
 
-        // Sidebar data fetch
-        $categories = Category::where('status', 1)->get();
-        $tags = Tag::where('status', 1)->get();
-        $latestPosts = Post::where('status', 1)
-            ->orderBy('created_at', 'desc')
-            ->take(5)
-            ->get();
-
-        // blog page confirmation fetch
-        $page = Page::where('slug', 'blog')->first();
-
-        // Return view with search results; pass $query for display if needed
-        return view('frontend.modules.blog.index', compact('posts', 'categories', 'tags', 'latestPosts', 'page', 'query'));
+    // যদি search query থাকে, তাহলে title এবং description-এর উপর ভিত্তি করে ফিল্টার করুন
+    if ($query) {
+        $postsQuery->where(function ($q) use ($query) {
+            $q->where('title', 'like', "%{$query}%")
+              ->orWhere('description', 'like', "%{$query}%");
+        });
     }
+
+    // যদি tag filter থাকে, তাহলে posts এর সাথে সম্পর্কিত ট্যাগগুলি খুঁজে বের করুন
+    if ($tagSlug) {
+        $postsQuery->whereHas('tags', function ($q) use ($tagSlug) {
+            $q->where('slug', $tagSlug);
+        });
+    }
+
+    // Order এবং paginate করুন
+    $posts = $postsQuery->orderBy('created_at', 'desc')->paginate(10);
+
+    // Sidebar-এর জন্য অতিরিক্ত ডেটা fetch
+    $categories = Category::where('status', 1)->get();
+    $tags       = Tag::where('status', 1)->get();
+    $latestPosts = Post::where('status', 1)
+                       ->orderBy('created_at', 'desc')
+                       ->take(5)
+                       ->get();
+
+    // Blog page configuration fetch (যদি প্রয়োজন হয়)
+    $page = Page::where('slug', 'blog')->first();
+
+    // Return view with all variables; pass both $query and $tagSlug for display purposes
+    return view('frontend.modules.blog.index', compact('posts', 'categories', 'tags', 'latestPosts', 'page', 'query', 'tagSlug'));
+}
+
 
     // single search
 

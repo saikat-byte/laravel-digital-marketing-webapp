@@ -121,15 +121,22 @@
                 <!-- Write Comment Section -->
                 <div class="write-comment mt-4 card px-2 py-2">
                     <h4>Write a Comment</h4>
-                    <form action="" method="POST">
-                        {{-- {{ route('comment.store', $post->id) }} --}}
-                        @csrf
-                        <input type="text" class="form-control mb-3" placeholder="Name" name="name">
-                        <input type="email" class="form-control mb-3" placeholder="Email" name="email">
-                        <textarea class="form-control mb-3" placeholder="Comment" name="content"></textarea>
-                        <button type="submit" class="gradient-glow-button">Submit Message</button>
-                    </form>
+                    <h6 class="px-2">{{ $post->comments ? $post->comments->count() : 0 }} Comments</h6>
+                    @if(Auth::check())
+                        <form action="{{ route('comment.store', $post->id) }}" method="POST">
+                            @csrf
+                            <input type="text" class="form-control mb-3" placeholder="Name" value="{{ Auth::user()->name }}" readonly>
+                            <input type="email" class="form-control mb-3" placeholder="Email" value="{{ Auth::user()->email }}" readonly>
+                            <textarea name="content" class="form-control mb-3" placeholder="Comment" required></textarea>
+                            <button type="submit" class="gradient-glow-button">Submit Comment</button>
+                        </form>
+                    @else
+                        <p>
+                            Please <a href="{{ route('login') }}">login</a> or <a href="{{ route('register') }}">register</a> to comment.
+                        </p>
+                    @endif
                 </div>
+
             </div>
             <!-- End Main Blog Content -->
 
@@ -150,13 +157,35 @@
                     <ul class="list-unstyled">
                         @foreach($categories as $category)
                             <li>
-                                <a href="{{ route('frontend.blog.search', ['category' => $category->slug]) }}">
+                                <!-- Parent category link with collapse toggle -->
+                                <a href="{{ route('frontend.blog.search', ['category' => $category->slug]) }}"
+                                   data-bs-toggle="collapse"
+                                   data-bs-target="#subCategory{{ $category->id }}"
+                                   aria-expanded="false"
+                                   aria-controls="subCategory{{ $category->id }}">
                                     {{ $category->title }}
+                                    @if($category->subcategories->count())
+                                        <i class="bi bi-caret-down-fill"></i>
+                                    @endif
                                 </a>
+
+                                <!-- Subcategories list; collapsible -->
+                                @if($category->subcategories->count())
+                                    <ul class="list-unstyled collapse" id="subCategory{{ $category->id }}">
+                                        @foreach($category->subcategories as $subCategory)
+                                            <li class="ms-3">
+                                                <a href="{{ route('frontend.blog.search', ['category' => $category->slug, 'subcategory' => $subCategory->slug]) }}">
+                                                    {{ $subCategory->title }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
                             </li>
                         @endforeach
                     </ul>
                 </div>
+
 
                 <!-- Latest Posts Widget -->
                 <div class="card latest-posts py-2 mb-3">

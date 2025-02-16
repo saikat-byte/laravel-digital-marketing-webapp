@@ -106,7 +106,7 @@
                                         $classes = ['text-bg-primary', 'text-bg-secondary', 'text-bg-dark', 'text-bg-danger', 'text-bg-warning', 'text-bg-info', ' text-bg-success']
                                         @endphp
 
-                                        @foreach ($post->tag as $tag)
+                                        @foreach ($post->tags as $tag)
 
                                         <a href="{{ route('tag.show', $tag->id) }}"> <span class="badge py-2  {{ $classes[random_int(0,6)] }} "> {{ $tag->title }}</span></a>
 
