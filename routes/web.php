@@ -24,18 +24,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Default Home Page (Root URL)
-Route::get('/', function () {
-    return redirect()->route('frontend.page.show', ['slug' => 'home']);
-})->name('frontend.page.show');
+    // Default Home Page
+    Route::get('/', function () {
+        return redirect()->route('frontend.page.show', ['slug' => 'home']);
+    })->name('frontend.page.show');
 
-// Frontend route
-Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.page.show');
-// Blog
-Route::prefix('blog')->group(function(){
-    Route::get('/', [BlogController::class, 'index'])->name('frontend.blog-posts.index');
-    Route::get('/{slug}', [BlogController::class, 'show'])->name('blog.show');
-});
+    // Frontend route
+    Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.page.show');
+    // Blog
+    Route::get('/blog/posts', [BlogController::class, 'index'])->name('frontend.blog.index');
+    Route::get('/blog/search', [BlogController::class, 'search'])->name('frontend.blog.search');
+    Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('frontend.blog.show');
+    Route::get('/blog/single/search', [BlogController::class, 'singleSearch'])->name('frontend.singleblog.search');
+
+
 
 
 // Admin dashboard
@@ -86,7 +88,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     // toggle visibility
     Route::post('sections/{section}/toggle-visibility', [PageSectionController::class, 'toggleVisibility'])->name('sections.toggle-visibility');
 
-   /*==========Common section route==========*/
+    /*==========Common section route==========*/
     Route::get('common-sections', [CommonSectionController::class, 'index'])->name('common.section.index');
     Route::get('common-sections/create', [CommonSectionController::class, 'create'])->name('common.section.create');
     Route::post('common-sections', [CommonSectionController::class, 'store'])->name('common.section.store');

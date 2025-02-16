@@ -20,7 +20,7 @@
                     <li class="nav-item"><a class="nav-link text-uppercase" href="{{ route('frontend.page.show', ['slug' => 'case-studies']) }}">Case Studies</a></li>
                     <li class="nav-item"><a class="nav-link text-uppercase" href="{{ route('frontend.page.show', ['slug' => 'contact']) }}">Contact</a></li>
                     <li class="nav-item"><a class="nav-link text-uppercase" href="{{ route('frontend.page.show', ['slug' => 'about']) }}">About</a></li>
-                    <li class="nav-item"><a class="nav-link text-uppercase" href="{{ route('frontend.blog-posts.index',['slug' => 'blog-post']) }}">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link text-uppercase" href="{{ route('frontend.blog.index') }}">Blog</a></li>
                 </ul>
             </div>
 

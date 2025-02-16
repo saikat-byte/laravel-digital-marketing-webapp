@@ -1,7 +1,7 @@
    /* Single blog section banner start */
    .single-blog-banner {
        position: relative;
-       background: url('/assets/frontend/media/pages/single_blog/images/single_blog_banner.jpg') no-repeat center center/cover;
+       /* background: url('/assets/frontend/media/pages/single_blog/images/single_blog_banner.jpg') no-repeat center center/cover; */
        height: 300px;
        color: #fff;
    }
