@@ -39,7 +39,9 @@ Route::get('/blog/search', [BlogController::class, 'search'])->name('frontend.bl
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('frontend.blog.show');
 Route::get('/blog/single/search', [BlogController::class, 'singleSearch'])->name('frontend.singleblog.search');
 // comment
-Route::post('/comment/{postId}', [CommentController::class, 'store'])->name('comment.store')->middleware('auth');
+Route::post('/comment/{postId}', [CommentController::class, 'store'])
+    ->name('comment.store')
+    ->middleware('auth');
 
 
 // User authentication routes

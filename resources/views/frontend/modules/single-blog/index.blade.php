@@ -34,9 +34,9 @@
                     <!-- Blog Header (Optional: You can also show a smaller image here if needed) -->
                     <div class="blog-header">
                         @if($post->post_image)
-                            <img src="{{ asset('assets/image/postimage/original/' . $post->post_image) }}" alt="{{ $post->title }}">
+                        <img src="{{ asset('assets/image/postimage/original/' . $post->post_image) }}" alt="{{ $post->title }}">
                         @else
-                            <img src="{{ asset('assets/frontend/media/pages/blog/images/default_blog.jpg') }}" alt="Blog Header Image">
+                        <img src="{{ asset('assets/frontend/media/pages/blog/images/default_blog.jpg') }}" alt="Blog Header Image">
                         @endif
                     </div>
                     <div class="blog-content px-2 py-2">
@@ -59,14 +59,14 @@
                         <!-- Blog Content -->
                         <div class="blog-content">
                             @if( $post->description)
-                                <p>{{  Str::limit(strip_tags($post->description), 20) }}</p>
+                            <p>{{ Str::limit(strip_tags($post->description), 20) }}</p>
                             @endif
                             @if($post->quote)
-                                <blockquote>{{ $post->quote }}</blockquote>
+                            <blockquote>{{ $post->quote }}</blockquote>
                             @endif
                             @if( $post->description)
                             <p>{{ strip_tags($post->description)}}</p>
-                        @endif
+                            @endif
                         </div>
 
                         <!-- Tags and Share Links -->
@@ -74,13 +74,13 @@
                             <div class="col-md-6">
                                 <div class="tags">
                                     @if($post->tags && $post->tags->count())
-                                        @foreach ($post->tags as $tag)
-                                            <a href="{{ route('frontend.blog.search', ['tag' => $tag->slug]) }}">
-                                                <span>{{ $tag->title }}</span>
-                                            </a>
-                                        @endforeach
+                                    @foreach ($post->tags as $tag)
+                                    <a href="{{ route('frontend.blog.search', ['tag' => $tag->slug]) }}">
+                                        <span>{{ $tag->title }}</span>
+                                    </a>
+                                    @endforeach
                                     @else
-                                        <span>No tags</span>
+                                    <span>No tags</span>
                                     @endif
                                 </div>
                             </div>
@@ -100,29 +100,91 @@
                 <div class="card my-3">
                     <div class="pagination-links mt-4 d-flex justify-content-between px-2 py-2 my-3">
                         @if($previousPost = $post->previous()) {{-- Assuming helper method --}}
-                            <a href="{{ route('frontend.blog.show', $previousPost->slug) }}">← Previous Post</a>
+                        <a href="{{ route('frontend.blog.show', $previousPost->slug) }}">← Previous Post</a>
                         @else
-                            <span class="text-muted">No previous post</span>
+                        <span class="text-muted">No previous post</span>
                         @endif
                         @if($nextPost = $post->next()) {{-- Assuming helper method --}}
-                            <a href="{{ route('frontend.blog.show', $nextPost->slug) }}">Next Post →</a>
+                        <a href="{{ route('frontend.blog.show', $nextPost->slug) }}">Next Post →</a>
                         @else
-                            <span class="text-muted">No next post</span>
+                        <span class="text-muted">No next post</span>
                         @endif
                     </div>
                 </div>
 
-                <!-- Comments Section (If implemented) -->
-                <div class="comment-section card px-2 py-2 mt-5">
-                    <h6 class="px-2">{{ $post->comments ? $post->comments->count() : '0' }} Comments</h6>
-                    {{-- Comments loop here --}}
-                </div>
 
                 <!-- Write Comment Section -->
                 <div class="write-comment mt-4 card px-2 py-2">
                     <h4>Write a Comment</h4>
-                    <h6 class="px-2">{{ $post->comments ? $post->comments->count() : 0 }} Comments</h6>
-                    @if(Auth::check())
+                    <!-- যদি total_comments attribute ব্যবহার না করেন, তাহলে নিচের কোড ব্যবহার করুন: -->
+                    <h6 class="px-2">{{ $post->comments->count() }} Comments</h6>
+
+                    <!-- Display existing comments -->
+                    @foreach($post->comments as $comment)
+                    @php
+                    // Calculate parent comment user image path
+                    $parentImage = trim($comment->user->image_path);
+                    if(empty($parentImage)) {
+                    $parentImage = 'assets/image/profile-picture/profile-picture.jpg';
+                    }
+                    @endphp
+                    <div class="comment-box my-2">
+                        <img src="{{ asset($parentImage) }}" alt="User" class="rounded-circle" width="50">
+
+                        <div class="ms-2">
+                            <h5>{{ $comment->user->name }}</h5>
+                            <p class="text-muted small">
+                                {{ $comment->user->country ?? 'Unknown' }} | Posted {{ $comment->created_at->format('d M, Y') }}
+                            </p>
+                            <p>{{ $comment->content }}</p>
+                            <button class="btn btn-sm btn-link reply-btn" data-comment-id="{{ $comment->id }}">Reply</button>
+                        </div>
+                    </div>
+
+                    <!-- Nested Replies -->
+                    @if($comment->replies && $comment->replies->count())
+                    <div class="nested-comments ms-5">
+                        @foreach($comment->replies as $reply)
+                        @php
+                        // Calculate reply's user image path separately
+                        $replyImage = trim($reply->user->image_path);
+                        if(empty($replyImage)) {
+                        $replyImage = 'assets/image/profile-picture/profile-picture.jpg';
+                        }
+                        @endphp
+                        <div class="comment-box my-2">
+                            <img src="{{ asset($replyImage) }}" alt="User" class="rounded-circle" width="50">
+                            <div class="ms-2">
+                                <h5>{{ $reply->user->name }}</h5>
+                                <p class="text-muted small">
+                                    {{ $reply->user->country ?? 'Unknown' }} | Posted {{ $reply->created_at->format('d M, Y') }}
+                                </p>
+                                <p>{{ $reply->content }}</p>
+                                <button class="btn btn-sm btn-link reply-btn" data-comment-id="{{ $reply->id }}">Reply</button>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    @endif
+
+                    <!-- Hidden Reply Form for Each Comment -->
+                    <div class="reply-form mt-2 ms-5" id="reply-form-{{ $comment->id }}" style="display:none;">
+                        @if(Auth::check())
+                        <form action="{{ route('comment.store', $post->id) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="parent_comment_id" value="{{ $comment->id }}">
+                            <textarea name="content" class="form-control mb-2" placeholder="Write your reply here..." required></textarea>
+                            <button type="submit" class="btn btn-primary btn-sm">Submit Reply</button>
+                        </form>
+                        @else
+                        <p>Please <a href="{{ route('user.login') }}">login</a> to reply.</p>
+                        @endif
+                    </div>
+                    @endforeach
+
+                    <!-- Write Comment Form -->
+                    <div class="write-comment-form mt-4">
+                        @if(Auth::check())
                         <form action="{{ route('comment.store', $post->id) }}" method="POST">
                             @csrf
                             <input type="text" class="form-control mb-3" placeholder="Name" value="{{ Auth::user()->name }}" readonly>
@@ -130,12 +192,12 @@
                             <textarea name="content" class="form-control mb-3" placeholder="Comment" required></textarea>
                             <button type="submit" class="gradient-glow-button">Submit Comment</button>
                         </form>
-                    @else
-                        <p>
-                            Please <a href="{{ route('login') }}">login</a> or <a href="{{ route('register') }}">register</a> to comment.
-                        </p>
-                    @endif
+                        @else
+                        <p>Please <a href="{{ route('user.login') }}">login</a> or <a href="{{ route('user.register') }}">register</a> to comment.</p>
+                        @endif
+                    </div>
                 </div>
+
 
             </div>
             <!-- End Main Blog Content -->
@@ -156,32 +218,28 @@
                     <h5>Categories</h5>
                     <ul class="list-unstyled">
                         @foreach($categories as $category)
-                            <li>
-                                <!-- Parent category link with collapse toggle -->
-                                <a href="{{ route('frontend.blog.search', ['category' => $category->slug]) }}"
-                                   data-bs-toggle="collapse"
-                                   data-bs-target="#subCategory{{ $category->id }}"
-                                   aria-expanded="false"
-                                   aria-controls="subCategory{{ $category->id }}">
-                                    {{ $category->title }}
-                                    @if($category->subcategories->count())
-                                        <i class="bi bi-caret-down-fill"></i>
-                                    @endif
-                                </a>
-
-                                <!-- Subcategories list; collapsible -->
+                        <li>
+                            <!-- Parent category link with collapse toggle -->
+                            <a href="{{ route('frontend.blog.search', ['category' => $category->slug]) }}" data-bs-toggle="collapse" data-bs-target="#subCategory{{ $category->id }}" aria-expanded="false" aria-controls="subCategory{{ $category->id }}">
+                                {{ $category->title }}
                                 @if($category->subcategories->count())
-                                    <ul class="list-unstyled collapse" id="subCategory{{ $category->id }}">
-                                        @foreach($category->subcategories as $subCategory)
-                                            <li class="ms-3">
-                                                <a href="{{ route('frontend.blog.search', ['category' => $category->slug, 'subcategory' => $subCategory->slug]) }}">
-                                                    {{ $subCategory->title }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                                <i class="bi bi-caret-down-fill"></i>
                                 @endif
-                            </li>
+                            </a>
+
+                            <!-- Subcategories list; collapsible -->
+                            @if($category->subcategories->count())
+                            <ul class="list-unstyled collapse" id="subCategory{{ $category->id }}">
+                                @foreach($category->subcategories as $subCategory)
+                                <li class="ms-3">
+                                    <a href="{{ route('frontend.blog.search', ['category' => $category->slug, 'subcategory' => $subCategory->slug]) }}">
+                                        {{ $subCategory->title }}
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ul>
+                            @endif
+                        </li>
                         @endforeach
                     </ul>
                 </div>
@@ -192,17 +250,17 @@
                     <h5 class="text-center">Latest Posts</h5>
                     <ul>
                         @foreach($latestPosts as $latest)
-                            <li class="latest-post-list">
-                                @if($latest->post_image)
-                                    <img src="{{ asset('assets/image/postimage/thumbnail/' . pathinfo($latest->post_image, PATHINFO_FILENAME) . '_thumb.' . pathinfo($latest->post_image, PATHINFO_EXTENSION)) }}" alt="{{ $latest->title }}">
-                                @else
-                                    <img src="{{ asset('assets/frontend/media/pages/blog/images/default_blog.jpg') }}" alt="{{ $latest->title }}">
-                                @endif
-                                <div>
-                                    <a href="{{ route('frontend.blog.show', $latest->slug) }}">{{ $latest->title }}</a>
-                                    <p class="text-muted">{{ $latest->created_at->format('d M, Y') }}</p>
-                                </div>
-                            </li>
+                        <li class="latest-post-list">
+                            @if($latest->post_image)
+                            <img src="{{ asset('assets/image/postimage/thumbnail/' . pathinfo($latest->post_image, PATHINFO_FILENAME) . '_thumb.' . pathinfo($latest->post_image, PATHINFO_EXTENSION)) }}" alt="{{ $latest->title }}">
+                            @else
+                            <img src="{{ asset('assets/frontend/media/pages/blog/images/default_blog.jpg') }}" alt="{{ $latest->title }}">
+                            @endif
+                            <div>
+                                <a href="{{ route('frontend.blog.show', $latest->slug) }}">{{ $latest->title }}</a>
+                                <p class="text-muted">{{ $latest->created_at->format('d M, Y') }}</p>
+                            </div>
+                        </li>
                         @endforeach
                     </ul>
                 </div>
@@ -212,7 +270,7 @@
                     <h5>Tags</h5>
                     <div class="tags">
                         @foreach($tags as $tag)
-                            <a href="{{ route('frontend.blog.search', ['tag' => $tag->slug]) }}"><span>{{ $tag->title }}</span></a>
+                        <a href="{{ route('frontend.blog.search', ['tag' => $tag->slug]) }}"><span>{{ $tag->title }}</span></a>
                         @endforeach
                     </div>
                 </div>
@@ -226,5 +284,14 @@
 @endsection
 
 @push('custom_js')
-<script src="{{ asset('assets/frontend/jquery/blog.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('.reply-btn').on('click', function() {
+            var commentId = $(this).data('comment-id');
+            $('#reply-form-' + commentId).toggle();
+        });
+    });
+
+</script>
+
 @endpush

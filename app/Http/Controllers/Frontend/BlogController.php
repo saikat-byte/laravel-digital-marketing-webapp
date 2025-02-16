@@ -166,13 +166,19 @@ class BlogController extends Controller
             $categories = Category::where('status', 1)->get();
             $tags = Tag::where('status', 1)->get();
 
+            // comment
+            $totalComments = $post->comments()->count()
+            + $post->comments()->with('replies')->get()->sum(function($comment) {
+                return $comment->replies->count();
+            });
+
             // Return the single blog page view with the found post's data.
             return view('frontend.modules.single-blog.index', compact(
                 'post',
                 'relatedPosts',
                 'latestPosts',
                 'categories','bannerImage',
-                'tags'
+                'tags', 'totalComments'
             ));
         } else {
             // post not found

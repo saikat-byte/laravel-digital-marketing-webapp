@@ -36,8 +36,20 @@ class Post extends Model
     // comment relation
     public function comments()
     {
+        // শুধুমাত্র মূল comments (যাদের parent_comment_id null)
         return $this->hasMany(Comment::class)->whereNull('parent_comment_id');
     }
+
+    // all comments
+    public function getTotalCommentsAttribute()
+    {
+        $topLevelCount = $this->comments()->count();
+        $replyCount = $this->comments()->with('replies')->get()->sum(function ($comment) {
+            return $comment->replies->count();
+        });
+        return $topLevelCount + $replyCount;
+    }
+
 
 
     // Helper method
