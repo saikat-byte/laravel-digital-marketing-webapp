@@ -24,6 +24,10 @@
                             </h2>
                             <form action="#" method="POST">
                                 @csrf
+                                <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
+                                {{-- <input type="hidden" name="post_slug" value="{{ $post->slug }}"> --}}
+
+
                                 <div class="row gy-2 overflow-hidden">
                                     <div class="col-12">
                                         <div class="form-floating mb-3">

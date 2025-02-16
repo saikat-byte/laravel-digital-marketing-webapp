@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Frontend\CommentController;
+use App\Http\Controllers\Admin\AdminCommentController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\UserAuthController;
 use App\Http\Controllers\ProfileController;
@@ -41,6 +42,9 @@ Route::get('/blog/single/search', [BlogController::class, 'singleSearch'])->name
 // comment
 Route::post('/comment/{postId}', [CommentController::class, 'store'])
     ->name('comment.store')
+    ->middleware('auth');
+    Route::post('/comments/{postId}', [CommentController::class, 'store'])
+    ->name('admin.comment.store')
     ->middleware('auth');
 
 
@@ -110,6 +114,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('common-sections/{id}/restore', [CommonSectionController::class, 'restore'])->name('common.section.restore');
     Route::delete('common-sections/{id}/force-delete', [CommonSectionController::class, 'forceDelete'])->name('common.section.force-delete');
     Route::post('common-sections/{id}/toggle-status', [CommonSectionController::class, 'toggleStatus'])->name('common.section.toggle-status');
+
+    // comment management
+    Route::get('/comments', [AdminCommentController::class, 'index'])->name('admin.comments.index');
+    // Additional routes for updating status, deleting, etc.
+    Route::patch('/comments/{id}/approve', [AdminCommentController::class, 'approve'])->name('admin.comments.approve');
+    Route::delete('/comments/{id}', [AdminCommentController::class, 'destroy'])->name('admin.comments.destroy');
+
+
 
 });
 

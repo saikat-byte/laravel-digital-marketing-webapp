@@ -12,13 +12,15 @@ return new class extends Migration {
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            // Post এর সাথে সম্পর্ক (foreign key)
+            // relation with post
             $table->foreignId('post_id')->constrained()->cascadeOnDelete();
-            // Comment লেখার জন্য User এর সাথে সম্পর্ক (foreign key)
+            // relation with user to write comment
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            // যদি reply হিসেবে কোনো comment থাকে, তাহলে parent_comment_id (nullable)
+            // reply comment parent_comment_id (nullable)
             $table->foreignId('parent_comment_id')->nullable()->constrained('comments')->cascadeOnDelete();
             $table->text('content');
+            $table->integer('rating')->nullable();
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

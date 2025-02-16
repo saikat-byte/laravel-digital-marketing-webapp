@@ -36,7 +36,7 @@ class Post extends Model
     // comment relation
     public function comments()
     {
-        // শুধুমাত্র মূল comments (যাদের parent_comment_id null)
+        // Main comment comments ( parent_comment_id null)
         return $this->hasMany(Comment::class)->whereNull('parent_comment_id');
     }
 
@@ -50,6 +50,12 @@ class Post extends Model
         return $topLevelCount + $replyCount;
     }
 
+
+    // comment approved
+    public function approvedComments()
+    {
+        return $this->hasMany(Comment::class)->where('status', 1);
+    }
 
 
     // Helper method

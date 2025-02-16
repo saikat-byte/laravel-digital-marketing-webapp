@@ -80,7 +80,7 @@
                 </li>
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#common_section">
-                        <i class="fas fa-th-large"></i>
+                        <i class="fas fa-puzzle-piece"></i>
                         <p>Common section</p>
                         <span class="caret"></span>
                     </a>
@@ -178,6 +178,22 @@
                             <li>
                                 <a href="{{ route('post.create') }}">
                                     <span class="sub-item">Create</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#comment">
+                        <i class="fas fa-comment"></i>
+                        <p>Comments</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="comment">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('admin.comments.index') }}">
+                                    <span class="sub-item">List</span>
                                 </a>
                             </li>
                         </ul>

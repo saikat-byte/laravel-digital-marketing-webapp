@@ -12,24 +12,21 @@ class CommentController extends Controller
     // Ensure only authenticated users can store comments
     public function store(Request $request, $postId)
     {
-        // Check if user is logged in (middleware 'auth' usually handles this)
-        if (!Auth::check()) {
-            return redirect()->route('user.login')->with('error', 'You must be logged in to comment.');
-        }
-
-        // Validate input
         $request->validate([
             'content' => 'required|string',
+            'rating'  => 'nullable|integer|min:1|max:5',
         ]);
 
-        // Create the comment
         Comment::create([
             'post_id'           => $postId,
             'user_id'           => Auth::id(),
-            'parent_comment_id' => $request->input('parent_comment_id'), // For reply, if provided
+            'parent_comment_id' => $request->input('parent_comment_id'), // null if top-level
             'content'           => $request->input('content'),
+            'rating'            => $request->input('rating'), // সঠিকভাবে insert হবে
+            'status'            => 0, // pending
         ]);
 
-        return redirect()->back()->with('success', 'Comment submitted successfully.');
+        return redirect()->back()->with('success', 'Comment submitted successfully and is pending approval.');
     }
+
 }

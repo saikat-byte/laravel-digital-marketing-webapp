@@ -31,7 +31,7 @@ class BlogController extends Controller
     public function show($slug)
     {
         // Single blog post fetch
-        $post = Post::where('slug', $slug)->firstOrFail();
+        $post = Post::with('approvedComments')->where('slug', $slug)->firstOrFail();
 
         // Banner: single blog page banner image clicked post image
         $bannerImage = $post->post_image

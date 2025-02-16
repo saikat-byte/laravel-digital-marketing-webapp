@@ -116,26 +116,35 @@
                 <!-- Write Comment Section -->
                 <div class="write-comment mt-4 card px-2 py-2">
                     <h4>Write a Comment</h4>
-                    <!-- যদি total_comments attribute ব্যবহার না করেন, তাহলে নিচের কোড ব্যবহার করুন: -->
-                    <h6 class="px-2">{{ $post->comments->count() }} Comments</h6>
+                    <!-- Display total approved comment count -->
+                    <h6 class="px-2">{{ ($post->approvedComments ?? collect())->count() }} Comments</h6>
 
-                    <!-- Display existing comments -->
-                    @foreach($post->comments as $comment)
+
+                    <!-- Display existing approved comments -->
+                    @foreach($post->approvedComments ?? collect() as $comment)
                     @php
                     // Calculate parent comment user image path
                     $parentImage = trim($comment->user->image_path);
                     if(empty($parentImage)) {
+                    // Fallback: default image path (ensure this file exists in public/assets/image/profile-picture/)
                     $parentImage = 'assets/image/profile-picture/profile-picture.jpg';
                     }
                     @endphp
                     <div class="comment-box my-2">
                         <img src="{{ asset($parentImage) }}" alt="User" class="rounded-circle" width="50">
-
                         <div class="ms-2">
                             <h5>{{ $comment->user->name }}</h5>
                             <p class="text-muted small">
-                                {{ $comment->user->country ?? 'Unknown' }} | Posted {{ $comment->created_at->format('d M, Y') }}
+                                @for ($i = 1; $i <= 5; $i++) @if($comment->rating >= $i)
+                                    <i class="fas fa-star text-warning"></i>
+                                    @else
+                                    <i class="far fa-star text-warning"></i>
+                                    @endif
+                                    @endfor
+                                    | Posted {{ $comment->created_at->format('d M, Y') }}
                             </p>
+
+
                             <p>{{ $comment->content }}</p>
                             <button class="btn btn-sm btn-link reply-btn" data-comment-id="{{ $comment->id }}">Reply</button>
                         </div>
@@ -146,7 +155,7 @@
                     <div class="nested-comments ms-5">
                         @foreach($comment->replies as $reply)
                         @php
-                        // Calculate reply's user image path separately
+                        // Calculate reply's user image path
                         $replyImage = trim($reply->user->image_path);
                         if(empty($replyImage)) {
                         $replyImage = 'assets/image/profile-picture/profile-picture.jpg';
@@ -168,7 +177,7 @@
                     @endif
 
                     <!-- Hidden Reply Form for Each Comment -->
-                    <div class="reply-form mt-2 ms-5" id="reply-form-{{ $comment->id }}" style="display:none;">
+                    <div class="reply-form mt-2 ms-5" id="reply-form-{{ $comment->id }}" style="display: none;">
                         @if(Auth::check())
                         <form action="{{ route('comment.store', $post->id) }}" method="POST">
                             @csrf
@@ -185,18 +194,38 @@
                     <!-- Write Comment Form -->
                     <div class="write-comment-form mt-4">
                         @if(Auth::check())
-                        <form action="{{ route('comment.store', $post->id) }}" method="POST">
+                        <form action="{{ route('admin.comment.store', $post->id) }}" method="POST">
                             @csrf
                             <input type="text" class="form-control mb-3" placeholder="Name" value="{{ Auth::user()->name }}" readonly>
                             <input type="email" class="form-control mb-3" placeholder="Email" value="{{ Auth::user()->email }}" readonly>
-                            <textarea name="content" class="form-control mb-3" placeholder="Comment" required></textarea>
+
+                            <!-- Rating Section -->
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">Rating</label>
+                                <div id="star-rating" style="font-size: 1.5rem; color: #ccc; cursor: pointer;">
+                                    <span class="star" data-value="1">&#9733;</span>
+                                    <span class="star" data-value="2">&#9733;</span>
+                                    <span class="star" data-value="3">&#9733;</span>
+                                    <span class="star" data-value="4">&#9733;</span>
+                                    <span class="star" data-value="5">&#9733;</span>
+                                </div>
+                                <!-- Hidden input to hold the selected rating value -->
+                                <input type="hidden" name="rating" id="rating" value="0">
+                            </div>
+
+                            <textarea name="content" class="form-control mb-3" placeholder="Comment" required>{{ old('content') }}</textarea>
                             <button type="submit" class="gradient-glow-button">Submit Comment</button>
                         </form>
                         @else
-                        <p>Please <a href="{{ route('user.login') }}">login</a> or <a href="{{ route('user.register') }}">register</a> to comment.</p>
+                        <div class="alert alert-info text-center">
+                            <p>Please <a href="{{ route('user.login') }}" class="btn btn-primary btn-sm">Login</a> or
+                                <a href="{{ route('user.registration') }}" class="btn btn-success btn-sm">Register</a> to comment.</p>
+                        </div>
                         @endif
                     </div>
+
                 </div>
+
 
 
             </div>
@@ -289,6 +318,42 @@
         $('.reply-btn').on('click', function() {
             var commentId = $(this).data('comment-id');
             $('#reply-form-' + commentId).toggle();
+        });
+
+        // rating
+
+        $('#star-rating .star').hover(function() {
+            var onStar = parseInt($(this).data('value'), 10);
+            $(this).parent().children('.star').each(function(index) {
+                if (index < onStar) {
+                    $(this).css('color', '#ffc107'); // Gold color for selected stars
+                } else {
+                    $(this).css('color', '#ccc');
+                }
+            });
+        }, function() {
+            // Reset to the selected rating after mouse leaves
+            var rating = parseInt($('#rating').val(), 10);
+            $(this).parent().children('.star').each(function(index) {
+                if (index < rating) {
+                    $(this).css('color', '#ffc107');
+                } else {
+                    $(this).css('color', '#ccc');
+                }
+            });
+        });
+
+        // Click event to set the rating
+        $('#star-rating .star').on('click', function() {
+            var selectedRating = parseInt($(this).data('value'), 10);
+            $('#rating').val(selectedRating);
+            $(this).parent().children('.star').each(function(index) {
+                if (index < selectedRating) {
+                    $(this).css('color', '#ffc107');
+                } else {
+                    $(this).css('color', '#ccc');
+                }
+            });
         });
     });
 

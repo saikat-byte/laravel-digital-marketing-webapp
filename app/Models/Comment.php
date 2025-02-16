@@ -9,15 +9,18 @@ class Comment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['post_id', 'user_id', 'parent_comment_id', 'content'];
+    protected $fillable = ['post_id', 'user_id', 'parent_comment_id', 'content', 'rating', 'status'];
+    protected $casts = [
+        'rating' => 'integer',
+    ];
 
-    // যে ব্যবহারকারী comment করেছে
+    // who using the comment
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // যে post এ comment করা হয়েছে
+    // post comment
     public function post()
     {
         return $this->belongsTo(Post::class);
@@ -29,9 +32,17 @@ class Comment extends Model
         return $this->hasMany(Comment::class, 'parent_comment_id');
     }
 
-    // Parent comment (যদি এই comment reply হয়)
+    // Parent comment reply
     public function parent()
     {
         return $this->belongsTo(Comment::class, 'parent_comment_id');
     }
+
+    // Approved comment
+public function approvedComments()
+{
+    return $this->hasMany(Comment::class)->where('status', 1);
+}
+
+
 }

@@ -29,9 +29,9 @@ class UserAuthController extends Controller
     public function registerStore(Request $request)
     {
         $request->validate([
-            'name'       => 'required|string|max:255',
-            'email'      => 'required|email|unique:users,email',
-            'password'   => 'required|confirmed|min:6',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed|min:6',
             'image_path' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             // 'iAgree'     => 'accepted',
         ]);
@@ -49,7 +49,7 @@ class UserAuthController extends Controller
 
                 // Set desired dimensions (উদাহরণ: 300x300)
                 $height = 300;
-                $width  = 300;
+                $width = 300;
 
                 // Define folder relative to public folder
                 $folder = 'assets/image/profile-picture/';
@@ -64,45 +64,57 @@ class UserAuthController extends Controller
             User::create($userData);
 
             return redirect()->route('user.login')
-                             ->with('success', 'Registration successful! Please login.');
+                ->with('success', 'Registration successful! Please login.');
         } catch (\Exception $e) {
             return redirect()->back()
-                             ->withInput()
-                             ->with('error', 'Error during registration: ' . $e->getMessage());
+                ->withInput()
+                ->with('error', 'Error during registration: ' . $e->getMessage());
         }
     }
 
 
     // show login form
 
-    public function showLoginForm(){
+    public function showLoginForm()
+    {
 
         return view('frontend.auth.user-login');
     }
 
     // login store
-    public function loginStore(Request $request){
-
+    public function loginStore(Request $request)
+    {
         // Validate login data
-    $credentials = $request->validate([
-        'email'    => 'required|email',
-        'password' => 'required|string',
-    ]);
+        $credentials = $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required|string',
+        ]);
 
-    // Try to authenticate the user
-    if (Auth::attempt($credentials, $request->filled('remember'))) {
-        // Regenerate session for security
-        $request->session()->regenerate();
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            $request->session()->regenerate();
 
-        // Redirect back to the previous page with success message
-        return redirect()->back()->with('success', 'You are now logged in to comment!');
+            // Get redirect_url from the form; if not provided, use post_slug to build single blog URL,
+            // Otherwise fallback to blog index page.
+            if ($request->filled('redirect_url')) {
+                $redirectUrl = $request->input('redirect_url');
+            } elseif ($request->filled('post_slug')) {
+                $redirectUrl = route('frontend.blog.show', ['slug' => $request->input('post_slug')]);
+            } else {
+                $redirectUrl = route('frontend.blog.index');
+            }
+
+            return redirect()->intended($redirectUrl)->with('success', 'You are now logged in to comment!');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->withInput($request->only('email'));
     }
 
-    // If authentication fails, redirect back with error
-    return back()->withErrors([
-        'email' => 'The provided credentials do not match our records.',
-    ])->withInput($request->only('email'));
-    }
+
+
+
+
 
 
 
