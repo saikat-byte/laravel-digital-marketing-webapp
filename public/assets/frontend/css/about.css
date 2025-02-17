@@ -3,6 +3,8 @@
     position: relative;
     background: url('/assets/frontend/media/pages/about/images/about.jpg') no-repeat center center/cover;
     height: 80vh;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .about-banner-overlay {

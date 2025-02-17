@@ -1,0 +1,51 @@
+
+/* Appointment banner start */
+
+.appointment-banner{
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    /* background: url("/assets/frontend/media/pages/case_studies/images/banner_case_studies.jpg") no-repeat center center/cover; */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+.appointment-booking {
+    background-color: #f8f9fa; /* light background */
+}
+
+.appointment-booking h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+
+}
+
+.appointment-booking .card {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.appointment-booking .card-title {
+    color: #0056b3;
+}
+
+.appointment-booking .form-control {
+    border-radius: 0.25rem;
+    font-size: 1rem;
+}
+
+.appointment-booking .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-size: 1.1rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+}
+
+.appointment-booking .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}

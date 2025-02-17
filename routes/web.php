@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAppointmentController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommonSectionController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Admin\AdminCommentController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Frontend\AppointmentController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\UserAuthController;
 use App\Http\Controllers\ProfileController;
@@ -43,7 +46,7 @@ Route::get('/blog/single/search', [BlogController::class, 'singleSearch'])->name
 Route::post('/comment/{postId}', [CommentController::class, 'store'])
     ->name('comment.store')
     ->middleware('auth');
-    Route::post('/comments/{postId}', [CommentController::class, 'store'])
+Route::post('/comments/{postId}', [CommentController::class, 'store'])
     ->name('admin.comment.store')
     ->middleware('auth');
 
@@ -54,6 +57,15 @@ Route::post('/user/register', [UserAuthController::class, 'registerStore'])->nam
 Route::get('/user/login', [UserAuthController::class, 'showLoginForm'])->name('user.login'); // login page route
 Route::post('/user/login', [UserAuthController::class, 'loginStore'])->name('user.login.store'); // login page route
 
+
+
+// Appointment booking (frontend)
+Route::middleware('auth')->group(function () {
+    // Show appointment booking form
+    Route::get('/appointment/book', [AppointmentController::class, 'create'])->name('appointment.create');
+    // Store appointment
+    Route::post('/appointment/book', [AppointmentController::class, 'store'])->name('appointment.store');
+});
 
 
 // Admin dashboard
@@ -121,8 +133,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::patch('/comments/{id}/approve', [AdminCommentController::class, 'approve'])->name('admin.comments.approve');
     Route::delete('/comments/{id}', [AdminCommentController::class, 'destroy'])->name('admin.comments.destroy');
 
+    // Appointment management
+    Route::get('/appointments', [AdminAppointmentController::class, 'index'])->name('admin.appointments.index');
+    Route::patch('/appointments/{id}/approve', [AdminAppointmentController::class, 'approve'])->name('admin.appointments.approve');
+    Route::delete('/appointments/{id}', [AdminAppointmentController::class, 'destroy'])->name('admin.appointments.destroy');
 
-
+    // Users management
+    Route::get('/users/list', [AdminUserController::class, 'index'])
+        ->name('admin.users.index');
+    // Edit User
+    Route::get('/users/{id}/edit', [AdminUserController::class, 'edit'])
+        ->name('admin.users.edit');
+    // Update User
+    Route::put('/users/{id}', [AdminUserController::class, 'update'])
+        ->name('admin.users.update');
 });
 
 

@@ -25,7 +25,7 @@
             </div>
 
             <!-- Consultation button -->
-            <a href="#" class="gradient-glow-button text-uppercase">Appointment</a>
+            <a href="{{ route('frontend.page.show', ['slug' => 'appointment']) }}" class="gradient-glow-button text-uppercase">Appointment</a>
         </div>
     </nav>
     <!-- Navbar End-->

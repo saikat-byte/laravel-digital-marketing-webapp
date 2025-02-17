@@ -199,6 +199,38 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#appointment">
+                        <i class="fas fa-calendar-check"></i>
+                        <p>Appointments</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="appointment">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('admin.appointments.index') }}">
+                                    <span class="sub-item">List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#users">
+                        <i class="fas fa-user"></i>
+                        <p>Users list</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="users">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('admin.users.index') }}">
+                                    <span class="sub-item">List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
