@@ -233,7 +233,7 @@
 .card-queue-section {
     width: 100%;
     height: 500px;
-    display: flex;              /* ঠিক আছে */
+    display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
@@ -241,15 +241,14 @@
   }
 
   .card-container {
-    position: relative;         /* Carousel effect-এর জন্য relative */
+    position: relative;
     width: 1000px;
     height: 450px;
     margin: auto;
-    /* flex/gap সরিয়ে দিন, কারণ আমরা absolute position ব্যবহার করবো */
   }
 
   .card-item {
-    position: absolute;         /* Carousel effect-এর জন্য absolute */
+    position: absolute;         /* Carousel effect absolute */
     width: 300px;
     height: 400px;
     background: linear-gradient(to bottom, #ffffff, #042e73);
@@ -257,18 +256,18 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     transition: transform 0.5s, z-index 0.5s;
 
-    /* ভেতরের কন্টেন্টকে কলাম হিসেবে সাজাবো */
+    /* content */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;   /* চাইলে flex-start ব্যবহার করে উপরে রাখতে পারেন */
+    justify-content: center;
     text-align: center;
 
     color: #fff;
-    font-size: 16px;          /* খুব বড় হলে লেআউট ভেঙে যেতে পারে, তাই 16px বা 18px রাখুন */
-    padding: 20px;            /* কিছু প্যাডিং রাখুন যাতে কন্টেন্ট ধারে-কাছে না থাকে */
-    box-sizing: border-box;    /* padding সহকারে সঠিকভাবে width ধরার জন্য */
-    overflow: hidden;         /* অতিরিক্ত কন্টেন্ট বেরিয়ে যাওয়া ঠেকাতে */
+    font-size: 16px;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   /* Client Image */

@@ -47,33 +47,25 @@
         const $cardContainer = $("#cardContainer");
         const $cards = $cardContainer.find(".card-item");
 
-        // কোন কার্ড এখন সামনে থাকবে (মধ্যখানে)
+
         let currentIndex = 0;
         const totalCards = $cards.length;
 
-        // কতদূর কার্ডগুলো সরবে (X direction), আর স্কেল কতটা কমবে ইত্যাদি কাস্টমাইজ করুন
-        const xOffset = 120; // প্রতিটি কার্ড কত px করে বাঁ/ডানে যাবে
-        const scaleFactor = 0.05; // প্রতিটি স্টেপে স্কেল কতটা কমবে
+        //(X direction)
+        const xOffset = 120;
+        const scaleFactor = 0.05;
 
-        // কার্ডগুলো arrange করার ফাংশন
+        // card arrange
         function arrangeCards() {
             $cards.each(function(i, card) {
-                // offset = এই কার্ড আর currentIndex এর মধ্যে ব্যবধান
-                // কিন্তু যাতে লুপ করে প্রথম কার্ড আবার সামনে আসে, সে জন্য mod ব্যবহার করা
-                // (i - currentIndex + totalCards) % totalCards => 0 থেকে totalCards-1 এর মধ্যে ঘুরবে
                 let offset = (i - currentIndex + totalCards) % totalCards;
 
-                // ধরুন ৭ টা কার্ড থাকলে offset হবে 0..6
-                // মাঝে ৩ টা করে দেখাতে চাইলে offset > 3 হলে আমরা সেটাকে নেগেটিভ করে দিই (যাতে বাঁ দিকেও দেখা যায়)
                 if (offset > totalCards / 2) {
                     offset = offset - totalCards;
-                    // এখন offset রেঞ্জ হবে -3..3 (যদি totalCards = 7)
                 }
 
-                // স্কেল ও translate বের করা
                 let scale = 1 - Math.abs(offset) * scaleFactor;
                 let translateX = offset * xOffset;
-                // zIndex ঠিক করে দিই, offset যত কম (0 এর কাছাকাছি), তত সামনে
                 let zIndex = 100 - Math.abs(offset);
 
                 // Style apply
@@ -84,10 +76,10 @@
             });
         }
 
-        // শুরুতেই কার্ডগুলো arrange করে নেব
+        // card arrange
         arrangeCards();
 
-        // Scroll event: স্ক্রল আপ/ডাউন করলে currentIndex বাড়াব বা কমাব
+        // Scroll event:
         $cardQueueSection.on("wheel", function(e) {
             e.preventDefault();
             let deltaY = e.originalEvent.deltaY;
@@ -104,8 +96,8 @@
             arrangeCards();
         });
 
+        /*============== Subscribe form subscription form ==============*/
 
-        // Subscribe form subscription form
         $('#subscribe-form').on('submit', function(e) {
             e.preventDefault();
             var form = $(this);
@@ -125,6 +117,22 @@
                     $('#subscribe-message').html('<div class="alert alert-danger">' + errorMsg + '</div>');
                 }
             });
+        });
+
+        /*============== client logo carousel ==============*/
+
+        $('.client-logo-slider').slick({
+            infinite: true
+            , slidesToShow: 5, // Dekhano logo er poriman (apnar design onujayi adjust korun)
+            slidesToScroll: 1
+            , autoplay: true
+            , autoplaySpeed: 0, // 0 mane continuously scroll
+            speed: 3000, // Animation er duration (milliseconds)
+            cssEase: 'linear', // Linear easing for continuous scroll
+            arrows: false, // Navigation arrow chalie din
+            dots: false
+            , pauseOnHover: false
+            , variableWidth: true // Jodi logo size onujayi vary kore
         });
 
     });
