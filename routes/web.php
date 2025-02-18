@@ -12,9 +12,11 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Admin\AdminCommentController;
+use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Frontend\AppointmentController;
 use App\Http\Controllers\Frontend\BlogController;
+use App\Http\Controllers\Frontend\SubscriberController;
 use App\Http\Controllers\Frontend\UserAuthController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +68,10 @@ Route::middleware('auth')->group(function () {
     // Store appointment
     Route::post('/appointment/book', [AppointmentController::class, 'store'])->name('appointment.store');
 });
+
+// Subscription management
+Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscriber.store');
+
 
 
 // Admin dashboard
@@ -147,6 +153,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     // Update User
     Route::put('/users/{id}', [AdminUserController::class, 'update'])
         ->name('admin.users.update');
+        // Subscription management for admin
+        Route::get('/subscribers', [AdminSubscriberController::class, 'index'])->name('admin.subscribers.index');
 });
 
 

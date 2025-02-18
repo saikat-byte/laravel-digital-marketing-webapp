@@ -24,14 +24,14 @@
 @if($page->status == 1)
 
 @foreach($sections as $index => $section)
-    @includeIf("frontend.modules.{$page->slug}.partials.{$section->slug}", ['section' => $section])
-    @if($page->slug == 'home' && $index == 5 && $downloadSection)
-    {{-- download-section placed after 5 section --}}
-    @includeIf('frontend.modules.common.partials.download-section', ['section' => $downloadSection])
-    @endif
+@includeIf("frontend.modules.{$page->slug}.partials.{$section->slug}", ['section' => $section])
+@if($page->slug == 'home' && $index == 5 && $downloadSection)
+{{-- download-section placed after 5 section --}}
+@includeIf('frontend.modules.common.partials.download-section', ['section' => $downloadSection])
+@endif
 @endforeach
 @else
-    @include('frontend.modules.maintanance.index')
+@include('frontend.modules.maintanance.index')
 @endif
 
 
@@ -41,7 +41,6 @@
 @push('custom_js')
 <script>
     // Card queue scroll
-
     $(document).ready(function() {
         const $cardQueueSection = $("#cardQueueSection");
         const $cardContainer = $("#cardContainer");
@@ -87,6 +86,30 @@
                 }
             }
         });
+
+
+        // Subscribe form subscription form
+        $('#subscribe-form').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            $.ajax({
+                url: form.attr('action')
+                , method: form.attr('method')
+                , data: form.serialize()
+                , success: function(response) {
+                    $('#subscribe-message').html('<div class="alert alert-success">' + response.message + '</div>');
+                    form.trigger("reset");
+                }
+                , error: function(xhr) {
+                    var errorMsg = 'Something went wrong.';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMsg = xhr.responseJSON.message;
+                    }
+                    $('#subscribe-message').html('<div class="alert alert-danger">' + errorMsg + '</div>');
+                }
+            });
+        });
+
     });
 
 </script>

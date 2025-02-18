@@ -37,12 +37,6 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    // public function create()
-    // {
-    //     $categories = Category::where('status', 1)->pluck('title', 'id');
-    //     $tags = Tag::where('status', 1)->select('id', 'title')->get();
-    //     return view('admin.modules.post.create', compact('categories', 'tags'));
-    // }
 
     public function create()
     {
@@ -101,7 +95,7 @@ class PostController extends Controller
             $post = Post::create($post_data);
 
             // Attach tags
-            $post->tag()->attach($request->input('tag_ids')); // 'tags' corresponds to the input name in your form
+            $post->tags()->attach($request->input('tag_ids')); // 'tags' corresponds to the input name in your form
 
             return redirect()->route('post.index')->with('success', 'Post created successfully');
 
@@ -215,7 +209,7 @@ class PostController extends Controller
         $post->sub_category_id = $request->input('sub_category_id');
         $post->status = $request->input('status');
         if ($request->has('tag_ids')) {
-            $post->tag()->sync($request->input('tag_ids'));  // This ensures old tags are removed and new ones are added
+            $post->tags()->sync($request->input('tag_ids'));  // This ensures old tags are removed and new ones are added
         }
 
 

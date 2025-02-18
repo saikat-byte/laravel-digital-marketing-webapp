@@ -96,13 +96,13 @@ class BlogController extends Controller
 
     public function search(Request $request)
 {
-    $query   = $request->input('search'); // Keyword search, যদি থাকে
-    $tagSlug = $request->input('tag');     // Tag filter, যদি থাকে
+    $query   = $request->input('search'); // Keyword search,
+    $tagSlug = $request->input('tag');     // Tag filter
 
-    // Base query: শুধুমাত্র active posts
+
     $postsQuery = Post::where('status', 1);
 
-    // যদি search query থাকে, তাহলে title এবং description-এর উপর ভিত্তি করে ফিল্টার করুন
+
     if ($query) {
         $postsQuery->where(function ($q) use ($query) {
             $q->where('title', 'like', "%{$query}%")
@@ -110,17 +110,17 @@ class BlogController extends Controller
         });
     }
 
-    // যদি tag filter থাকে, তাহলে posts এর সাথে সম্পর্কিত ট্যাগগুলি খুঁজে বের করুন
+    // tag filter
     if ($tagSlug) {
         $postsQuery->whereHas('tags', function ($q) use ($tagSlug) {
             $q->where('slug', $tagSlug);
         });
     }
 
-    // Order এবং paginate করুন
+    // Order paginate
     $posts = $postsQuery->orderBy('created_at', 'desc')->paginate(10);
 
-    // Sidebar-এর জন্য অতিরিক্ত ডেটা fetch
+    // Fetching data into sidebar
     $categories = Category::where('status', 1)->get();
     $tags       = Tag::where('status', 1)->get();
     $latestPosts = Post::where('status', 1)
@@ -128,7 +128,7 @@ class BlogController extends Controller
                        ->take(5)
                        ->get();
 
-    // Blog page configuration fetch (যদি প্রয়োজন হয়)
+    // Blog page configuration fetch
     $page = Page::where('slug', 'blog')->first();
 
     // Return view with all variables; pass both $query and $tagSlug for display purposes

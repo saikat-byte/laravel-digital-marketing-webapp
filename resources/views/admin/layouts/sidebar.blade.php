@@ -231,6 +231,22 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#subscribers">
+                        <i class="fas fa-user"></i>
+                        <p>Subscribers</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="subscribers">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('admin.subscribers.index') }}">
+                                    <span class="sub-item">List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

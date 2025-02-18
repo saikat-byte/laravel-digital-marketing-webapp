@@ -1,4 +1,3 @@
-
 @if($section->status == 1)
 
 <section class="download-section text-center text-white py-5">
@@ -9,13 +8,17 @@
                 <h1 class="display-4 fw-bold">{{ $downloadSection->heading }}</h1>
                 <p class="lead mb-4">{{ $downloadSection->sub_heading }}</p>
                 <!-- Input Group -->
-                <form action="">
+                <form action="{{ route('subscriber.store') }}" method="POST" id="subscribe-form">
+                    @csrf
                     <div class="input-group">
-
-                        <input type="email" class="form-control rounded-start" placeholder="ENTER YOUR EMAIL" aria-label="Email">
-                        <button class="btn btn-gradient" type="button">DOWNLOAD <span class="dropdown-toggle"></span></button>
+                        <input type="email" name="email" class="form-control rounded-start" value="{{ old('email') }}" placeholder="ENTER YOUR EMAIL" aria-label="Email">
+                        <button class="btn btn-gradient" type="submit">DOWNLOAD <span class="dropdown-toggle"></span></button>
                     </div>
+                    @error('email')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </form>
+                <div id="subscribe-message"></div>
             </div>
 
             <div class="col-lg-4">
