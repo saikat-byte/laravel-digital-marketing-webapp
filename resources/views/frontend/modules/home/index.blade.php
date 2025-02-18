@@ -40,51 +40,68 @@
 
 @push('custom_js')
 <script>
-    // Card queue scroll
     $(document).ready(function() {
+
+        // Card review section
         const $cardQueueSection = $("#cardQueueSection");
         const $cardContainer = $("#cardContainer");
         const $cards = $cardContainer.find(".card-item");
 
-        let currentIndex = 3; // middle card
+        // কোন কার্ড এখন সামনে থাকবে (মধ্যখানে)
+        let currentIndex = 0;
+        const totalCards = $cards.length;
 
+        // কতদূর কার্ডগুলো সরবে (X direction), আর স্কেল কতটা কমবে ইত্যাদি কাস্টমাইজ করুন
+        const xOffset = 120; // প্রতিটি কার্ড কত px করে বাঁ/ডানে যাবে
+        const scaleFactor = 0.05; // প্রতিটি স্টেপে স্কেল কতটা কমবে
+
+        // কার্ডগুলো arrange করার ফাংশন
         function arrangeCards() {
             $cards.each(function(i, card) {
-                let offset = i - currentIndex;
-                let scale = 1 - Math.abs(offset) * 0.1;
-                let translateX = offset * 100;
-                let zIndex = -Math.abs(offset);
+                // offset = এই কার্ড আর currentIndex এর মধ্যে ব্যবধান
+                // কিন্তু যাতে লুপ করে প্রথম কার্ড আবার সামনে আসে, সে জন্য mod ব্যবহার করা
+                // (i - currentIndex + totalCards) % totalCards => 0 থেকে totalCards-1 এর মধ্যে ঘুরবে
+                let offset = (i - currentIndex + totalCards) % totalCards;
 
-                // CSS property set by jquery
+                // ধরুন ৭ টা কার্ড থাকলে offset হবে 0..6
+                // মাঝে ৩ টা করে দেখাতে চাইলে offset > 3 হলে আমরা সেটাকে নেগেটিভ করে দিই (যাতে বাঁ দিকেও দেখা যায়)
+                if (offset > totalCards / 2) {
+                    offset = offset - totalCards;
+                    // এখন offset রেঞ্জ হবে -3..3 (যদি totalCards = 7)
+                }
+
+                // স্কেল ও translate বের করা
+                let scale = 1 - Math.abs(offset) * scaleFactor;
+                let translateX = offset * xOffset;
+                // zIndex ঠিক করে দিই, offset যত কম (0 এর কাছাকাছি), তত সামনে
+                let zIndex = 100 - Math.abs(offset);
+
+                // Style apply
                 $(card).css({
                     transform: `translateX(${translateX}px) scale(${scale})`
                     , zIndex: zIndex
                 });
             });
         }
+
+        // শুরুতেই কার্ডগুলো arrange করে নেব
         arrangeCards();
 
-        // scroll (wheel) event
+        // Scroll event: স্ক্রল আপ/ডাউন করলে currentIndex বাড়াব বা কমাব
         $cardQueueSection.on("wheel", function(e) {
-            // jQuery scroll actual e.originalEvent.deltaY (We have to use it)
+            e.preventDefault();
             let deltaY = e.originalEvent.deltaY;
 
-            // scroll up
+            // scroll up => previous card
             if (deltaY < 0) {
-                if (currentIndex > 0) {
-                    e.preventDefault();
-                    currentIndex--;
-                    arrangeCards();
-                }
+                currentIndex = (currentIndex - 1 + totalCards) % totalCards;
             }
-            // scroll down
+            // scroll down => next card
             else {
-                if (currentIndex < $cards.length - 1) {
-                    e.preventDefault();
-                    currentIndex++;
-                    arrangeCards();
-                }
+                currentIndex = (currentIndex + 1) % totalCards;
             }
+
+            arrangeCards();
         });
 
 

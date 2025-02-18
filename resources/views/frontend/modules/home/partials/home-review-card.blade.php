@@ -1,4 +1,3 @@
-
 <!-- Card queue review section start -->
 <section class="card-queue-section" id="cardQueueSection">
     <div class="card-container d-flex justify-content-center align-items-center" id="cardContainer">
@@ -47,4 +46,3 @@
     </div>
 </section>
 <!-- Card queue review section end -->
-
