@@ -14,6 +14,7 @@ use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Admin\AdminCommentController;
 use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\HeaderFooterController;
 use App\Http\Controllers\Frontend\AppointmentController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\SubscriberController;
@@ -153,8 +154,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     // Update User
     Route::put('/users/{id}', [AdminUserController::class, 'update'])
         ->name('admin.users.update');
-        // Subscription management for admin
-        Route::get('/subscribers', [AdminSubscriberController::class, 'index'])->name('admin.subscribers.index');
+    // Subscription management for admin
+    Route::get('/subscribers', [AdminSubscriberController::class, 'index'])->name('admin.subscribers.index');
+
+    // Display header & footer management page
+    Route::get('/header-footer', [HeaderFooterController::class, 'index'])->name('header_footer.index');
+    Route::post('/header-footer/update', [HeaderFooterController::class, 'update'])->name('header_footer.update');
 });
 
 

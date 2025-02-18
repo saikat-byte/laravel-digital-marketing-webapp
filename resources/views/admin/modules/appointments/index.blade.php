@@ -160,5 +160,7 @@
 
    });
 
+   @include('admin.partials.sweet-alert')
+
 </script>
 @endpush

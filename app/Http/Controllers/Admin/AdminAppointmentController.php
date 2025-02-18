@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\Footer;
 use Illuminate\Http\Request;
 
 class AdminAppointmentController extends Controller

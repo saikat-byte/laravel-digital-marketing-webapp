@@ -11,6 +11,7 @@
                         <p class="text-muted footer-left-heading ">Join our newsletter to stay up to date on features
                             and releases.</p>
                         <form>
+                            @csrf
                             <div class="row g-2 mb-3">
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" placeholder="Enter Your Name">

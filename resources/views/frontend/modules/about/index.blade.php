@@ -83,6 +83,29 @@
                 }
             }
         });
+
+
+         // Subscribe form subscription form
+         $('#subscribe-form').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            $.ajax({
+                url: form.attr('action')
+                , method: form.attr('method')
+                , data: form.serialize()
+                , success: function(response) {
+                    $('#subscribe-message').html('<div class="alert alert-success">' + response.message + '</div>');
+                    form.trigger("reset");
+                }
+                , error: function(xhr) {
+                    var errorMsg = 'Something went wrong.';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMsg = xhr.responseJSON.message;
+                    }
+                    $('#subscribe-message').html('<div class="alert alert-danger">' + errorMsg + '</div>');
+                }
+            });
+        });
     });
 
 </script>

@@ -221,4 +221,8 @@
 
 @push('custom_js')
 <script src="{{ asset('assets/admin/js/sections.js') }}"></script>
+<script>
+@include('admin.partials.sweet-alert')
+
+</script>
 @endpush

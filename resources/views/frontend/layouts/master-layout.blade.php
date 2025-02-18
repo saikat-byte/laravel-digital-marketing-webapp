@@ -35,15 +35,13 @@
 
 <body>
 
-    <!-- Navbar Start-->
-    @include('frontend.layouts.header')
-    <!-- Navbar End-->
+    <!-- Header -->
+    @include('frontend.modules.common.partials.header')
 
     @yield('content')
 
-    <!-- Footer Start-->
-    @include('frontend.layouts.footer')
-    <!-- Footer End-->
+    <!-- Footer -->
+    @include('frontend.modules.common.partials.footer')
 
 
     @include('frontend.includes.footer-common-scripts')

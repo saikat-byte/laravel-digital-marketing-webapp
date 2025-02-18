@@ -254,13 +254,8 @@
 
     });
 
-    @if(session('success'))
-    toastr.success("{{ session('success') }}");
-    @endif
+    @include('admin.partials.sweet-alert')
 
-    @if(session('error'))
-    toastr.error("{{ session('error') }}");
-    @endif
 
 </script>
 @endpush

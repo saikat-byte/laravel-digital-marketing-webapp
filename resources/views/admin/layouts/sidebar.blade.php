@@ -34,6 +34,23 @@
                     </span>
                     <h4 class="text-section">Content</h4>
                 </li>
+                {{-- Header & Footer management --}}
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#header_footer">
+                        <i class="fas fa-hand-point-right"></i>
+                        <p>Header & Footer</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="header_footer">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('header_footer.index') }}">
+                                    <span class="sub-item">Update Header & Footer</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 {{-- Pages Management Section --}}
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#pagesDropdown">

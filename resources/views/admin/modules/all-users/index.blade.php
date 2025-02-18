@@ -104,13 +104,8 @@
 
     });
 
-    @if(session('success'))
-    showAlert('success', "{{ session('success') }}");
-    @endif
+    @include('admin.partials.sweet-alert')
 
-    @if(session('error'))
-    showAlert('error', "{{ session('error') }}");
-    @endif
 
 </script>
 @endpush

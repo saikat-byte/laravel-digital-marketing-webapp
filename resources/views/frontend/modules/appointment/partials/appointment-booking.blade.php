@@ -8,9 +8,9 @@
                         <div class="text-center mb-4">
                             <h3 class="card-title">Book Your Appointment</h3>
                         </div>
-                        @if(session('success'))
+                        {{-- @if(session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
-                        @endif
+                        @endif --}}
                         @if($errors->any())
                         <div class="alert alert-danger">
                             <ul class="mb-0">
@@ -49,3 +49,4 @@
     </div>
 </section>
 @endif
+

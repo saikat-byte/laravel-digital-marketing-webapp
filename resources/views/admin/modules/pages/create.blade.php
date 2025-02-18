@@ -115,5 +115,7 @@
         document.getElementById("pageSlug").value = slug;
     });
 
+    @include('admin.partials.sweet-alert')
+
 </script>
 @endpush

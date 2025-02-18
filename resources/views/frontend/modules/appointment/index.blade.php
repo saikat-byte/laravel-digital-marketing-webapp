@@ -14,10 +14,10 @@
 @if($page->status == 1)
 
 @foreach($sections as $index => $section)
-    @includeIf("frontend.modules.{$page->slug}.partials.{$section->slug}", ['section' => $section])
+@includeIf("frontend.modules.{$page->slug}.partials.{$section->slug}", ['section' => $section])
 @endforeach
 @else
-    @include('frontend.modules.maintanance.index')
+@include('frontend.modules.maintanance.index')
 @endif
 
 @endsection
@@ -39,6 +39,8 @@
         , dateFormat: "H:i"
         , time_24hr: true
     });
+
+    @include('admin.partials.sweet-alert')
 
 </script>
 @endpush
