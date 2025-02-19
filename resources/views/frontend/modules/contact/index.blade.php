@@ -26,8 +26,28 @@
 @include('frontend.modules.maintanance.index')
 @endif
 
-
-
-
-
 @endsection
+
+@push('custom_js')
+<script>
+    $(document).ready(function() {
+        /*============== client logo carousel ==============*/
+
+        $('.client-logo-slider').slick({
+            infinite: true
+            , slidesToShow: 5, // Dekhano logo er poriman (apnar design onujayi adjust korun)
+            slidesToScroll: 1
+            , autoplay: true
+            , autoplaySpeed: 0, // 0 mane continuously scroll
+            speed: 3000, // Animation er duration (milliseconds)
+            cssEase: 'linear', // Linear easing for continuous scroll
+            arrows: false, // Navigation arrow chalie din
+            dots: false
+            , pauseOnHover: false
+            , variableWidth: true // Jodi logo size onujayi vary kore
+        });
+
+    });
+
+</script>
+@endpush

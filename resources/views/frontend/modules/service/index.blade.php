@@ -13,19 +13,19 @@
 {{-- Page-specific section include --}}
 @includeIf("frontend.modules.{$page->slug}.partials.{$section->slug}", ['section' => $section])
 
-    {{-- show order by Watermark section --}}
-    @if($page->slug == 'service' && $index == 2 && $watermark)
-    @includeIf('frontend.modules.common.partials.water-mark', ['section' => $watermark])
-    @endif
-    {{-- show order by FAq section --}}
-    @if($page->slug == 'service' && $index == 2 && $faq)
-    @includeIf('frontend.modules.common.partials.faq', ['section' => $faq])
-    @endif
+{{-- show order by Watermark section --}}
+@if($page->slug == 'service' && $index == 2 && $watermark)
+@includeIf('frontend.modules.common.partials.water-mark', ['section' => $watermark])
+@endif
+{{-- show order by FAq section --}}
+@if($page->slug == 'service' && $index == 2 && $faq)
+@includeIf('frontend.modules.common.partials.faq', ['section' => $faq])
+@endif
 
-    {{-- show order by download section --}}
-    @if($page->slug == 'service' && $index == 2 && $downloadSection)
-    @includeIf('frontend.modules.common.partials.download-section', ['section' => $downloadSection])
-    @endif
+{{-- show order by download section --}}
+@if($page->slug == 'service' && $index == 2 && $downloadSection)
+@includeIf('frontend.modules.common.partials.download-section', ['section' => $downloadSection])
+@endif
 
 @endforeach
 @else
@@ -37,7 +37,6 @@
 @endsection
 @push('custom_js')
 <script>
-    // card slider and accordion code and banner image change on hover
     $(document).ready(function() {
         // main image link collect
         let originalSrc = $("#bannerLeftImage").attr("src");
@@ -45,25 +44,18 @@
         // (card-slider এ Hover listener)
         $(".card-slider").on("mouseenter", ".service-card", function() {
             let hoveredImgSrc = $(this).find("img").attr("src");
-
-            // step by step fading effect
             $("#bannerLeftImage").fadeOut(300, function() {
-                // image source changes
-                $(this).attr("src", hoveredImgSrc);
-                // again fadein
-                $(this).fadeIn(1000);
+                $(this).attr("src", hoveredImgSrc).fadeIn(1000);
             });
         });
 
         $(".card-slider").on("mouseleave", ".service-card", function() {
-            // return fade
             $("#bannerLeftImage").fadeOut(300, function() {
-                $(this).attr("src", originalSrc);
-                $(this).fadeIn(300);
+                $(this).attr("src", originalSrc).fadeIn(300);
             });
         });
 
-        // ---- before slider code (Infinite Loop) ----
+        // ---- card-slider Infinite Loop (JS) ----
         const $slider = $(".card-slider");
         let $cards = $slider.find(".service-card");
         const cardWidth = $cards.outerWidth(true);
@@ -71,23 +63,28 @@
         // Clone cards for seamless loop
         $slider.append($cards.clone());
         $slider.append($cards.clone());
-        $cards = $slider.find(".service-card"); //new card update
+        $cards = $slider.find(".service-card");
 
         let translateX = 0;
-        const speed = 1; // scrolling speed
+        // speed
+        const speed = 1;
+        // width
+        const totalWidth = $cards.length * cardWidth;
 
         function animateSlider() {
             translateX -= speed;
-            if (Math.abs(translateX) >= $cards.length * cardWidth) {
+            // reset start
+            if (Math.abs(translateX) >= totalWidth / 3) {
                 translateX = 0;
             }
             $slider.css("transform", `translateX(${translateX}px)`);
-            requestAnimationFrame(animateSlider);
+
+            animationFrame = requestAnimationFrame(animateSlider);
         }
 
         let animationFrame = requestAnimationFrame(animateSlider);
 
-        // Pause animation on hover
+        // Hover
         $slider.hover(
             function() {
                 cancelAnimationFrame(animationFrame);
@@ -99,6 +96,7 @@
     });
 
 </script>
+
 @endpush
 
 @push('custom_js')

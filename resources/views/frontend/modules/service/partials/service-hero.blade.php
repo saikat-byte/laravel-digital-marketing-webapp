@@ -25,20 +25,19 @@
             $images = $section->multi_image;
             @endphp
 
-        <div class="card-slider">
-            @foreach($images as $index => $image)
+            <div class="card-slider">
+                @foreach($images as $index => $image)
                 @php
-                    // index start from 0
-                    $linkKey = 'card_links_' . ($index + 1);
-                    $link = $section->config[$linkKey] ?? '#';
+                // index start from 0
+                $linkKey = 'card_links_' . ($index + 1);
+                $link = $section->config[$linkKey] ?? '#';
                 @endphp
                 <div class="service-card">
                     <img src="{{ asset('storage/' . $image) }}" alt="Service Image">
                     <a href="{{ $link }}" target="_blank" class="card-title text-uppercase">{{ $linkKey }}</a>
                 </div>
-            @endforeach
-        </div>
-
+                @endforeach
+            </div>
         </div>
     </div>
 </section>

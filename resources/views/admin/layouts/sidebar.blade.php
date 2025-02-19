@@ -250,7 +250,7 @@
                 </li>
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#subscribers">
-                        <i class="fas fa-user"></i>
+                        <i class="fas fa-user-check"></i>
                         <p>Subscribers</p>
                         <span class="caret"></span>
                     </a>

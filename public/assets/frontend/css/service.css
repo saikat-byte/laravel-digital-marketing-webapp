@@ -1,4 +1,3 @@
-
 /*============ Service Banner Start ============*/
 .service-banner {
     position: relative;
@@ -70,27 +69,34 @@
 .card-slider {
     display: flex;
     gap: 1rem;
-    animation: scroll 15s linear infinite;
-    will-change: transform;
 }
 
 .service-card {
-    background: var(--white-color);
-    border-radius: var(--btn-border-radius);
+    background: #fff;
     width: 200px;
     height: 40vh;
     flex-shrink: 0;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     overflow: hidden;
     position: relative;
-    box-shadow: var(--shadow-light);
     cursor: pointer;
+    backface-visibility: hidden; /* helpful */
+    transform-style: preserve-3d;/* helpful */
+  }
+
+.card-slider,
+.service-card {
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    transform-style: preserve-3d;
 }
+
 
 .service-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: var(--btn-border-radius);
 }
 
 .service-card .card-title {
@@ -119,14 +125,14 @@
 
 
 /* Smooth Animation */
-@keyframes scroll {
+/* @keyframes scroll {
     0% {
         transform: translateX(0);
     }
 
     100% {
         transform: translateX(-100%);
-    }
+    } */
 }
 
 /* Responsive Design */
@@ -149,33 +155,44 @@
 
 .video-container {
     max-width: 800px;
-    margin: 2rem auto; /* Adds spacing around the container */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Softer and more professional shadow */
-    border-radius: 15px; /* Slightly rounded corners for elegance */
-    background-color: #1b1c22; /* A subtle background to blend with a modern UI */
-    overflow: hidden; /* Ensures content stays within rounded corners */
-    padding: 10px; /* Adds subtle internal spacing */
+    margin: 2rem auto;
+    /* Adds spacing around the container */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    /* Softer and more professional shadow */
+    border-radius: 15px;
+    /* Slightly rounded corners for elegance */
+    background-color: #1b1c22;
+    /* A subtle background to blend with a modern UI */
+    overflow: hidden;
+    /* Ensures content stays within rounded corners */
+    padding: 10px;
+    /* Adds subtle internal spacing */
 }
 
 .video-container video {
-    width: 100%; /* Ensures the video takes full width */
-    border-radius: 10px; /* Smooth corners for the video */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for the video itself */
+    width: 100%;
+    /* Ensures the video takes full width */
+    border-radius: 10px;
+    /* Smooth corners for the video */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow for the video itself */
 }
 
 /*==================== Why Choose Us Section End ======================*/
 
 /* ==============Service Contact form Start ====================== */
-.service-contact{
+.service-contact {
     background: var(--primary-bg);
 }
+
 /* ==============Service Contact form End ====================== */
 
 
 /* =========== FAQ Ask Question section Start=========== */
 /* FAQ Section */
 .faq-section {
-    background: none; /* Remove background */
+    background: none;
+    /* Remove background */
     padding-left: 3rem;
     padding-right: 3rem;
 }
@@ -191,15 +208,18 @@
 /* Accordion Item */
 .accordion-item {
     border: none;
-    border-bottom: 2px solid var(--heading-text); /* Only bottom border */
+    border-bottom: 2px solid var(--heading-text);
+    /* Only bottom border */
 }
 
 .accordion-item:last-child {
-    border-bottom: none; /* Remove bottom border for the last item */
+    border-bottom: none;
+    /* Remove bottom border for the last item */
 }
 
 .accordion-header {
-    background: none; /* Remove background */
+    background: none;
+    /* Remove background */
     padding: 1rem 0;
     cursor: pointer;
     display: flex;
@@ -246,11 +266,13 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .faq-section h3 {
-        font-size: 1.5rem; /* Adjust heading size */
+        font-size: 1.5rem;
+        /* Adjust heading size */
     }
 
     .accordion-toggle {
-        font-size: 0.95rem; /* Adjust toggle size */
+        font-size: 0.95rem;
+        /* Adjust toggle size */
     }
 }
 
