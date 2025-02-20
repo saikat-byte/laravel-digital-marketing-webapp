@@ -37,8 +37,15 @@ class PageController extends Controller
         // contact from details section
         $contactFormRight = CommonSection::where('slug', 'contact-form-right')->where('status', 1)->first();
 
+        // Posts
+        $posts = null;
+        if ($page->slug == 'case-studies') {
+            $posts = Post::orderBy('created_at', 'desc')->take(6)->get();
+
+        }
+
 
         // ✅ Return View Dynamically
-        return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections', 'sectionImage', 'downloadSection', 'contactForm', 'faq', 'watermark', 'contactFormRight'));
+        return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections', 'sectionImage', 'downloadSection', 'contactForm', 'faq', 'watermark', 'contactFormRight', 'posts'));
     }
 }
