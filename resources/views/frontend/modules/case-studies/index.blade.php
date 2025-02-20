@@ -9,7 +9,6 @@
 @section('content')
 
 
-
 @if($page->status == 1)
 @foreach($sections as $index => $section)
 {{-- Page-specific section include --}}
@@ -20,12 +19,10 @@
 @includeIf('frontend.modules.common.partials.water-mark', ['section' => $watermark])
 @endif
 
-
 {{-- show order by common section --}}
 @if($page->slug == 'case-studies' && $index == 3 && $downloadSection)
 @includeIf('frontend.modules.common.partials.download-section', ['section' => $downloadSection])
 @endif
-
 @endforeach
 @else
 @include('frontend.modules.maintanance.index')

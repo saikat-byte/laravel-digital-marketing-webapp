@@ -114,7 +114,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Footer Sections (JSON format)</label>
-                                <textarea name="footer[sections]" class="form-control" rows="5">{{ isset($footer) && $footer->sections ? json_encode($footer->sections, JSON_PRETTY_PRINT) : '' }}</textarea>
+                                <textarea name="footer[sections]" class="form-control" rows="10">{{ isset($footer) && $footer->sections ? json_encode($footer->sections, JSON_PRETTY_PRINT) : '' }}</textarea>
                                 <small class="form-text text-muted">
                                     Example structure:
                                     <pre>
@@ -138,7 +138,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Social Icons (JSON format)</label>
-                                <textarea name="footer[social_icons]" class="form-control" rows="3">{{ isset($footer) && $footer->social_icons ? json_encode($footer->social_icons, JSON_PRETTY_PRINT) : '' }}</textarea>
+                                <textarea name="footer[social_icons]" class="form-control" rows="10">{{ isset($footer) && $footer->social_icons ? json_encode($footer->social_icons, JSON_PRETTY_PRINT) : '' }}</textarea>
                                 <small class="form-text text-muted">
                                     Example: [{"icon": "fab fa-facebook", "url": "#"}, {"icon": "fab fa-instagram", "url": "#"}, {"icon": "fab fa-linkedin", "url": "#"}]
                                 </small>

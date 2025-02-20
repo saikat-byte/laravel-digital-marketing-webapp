@@ -127,6 +127,11 @@
   color: #144a9b;
 }
 
+.right-side .video-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+}
+
 .left-side {
   padding-left: 200px;
 }

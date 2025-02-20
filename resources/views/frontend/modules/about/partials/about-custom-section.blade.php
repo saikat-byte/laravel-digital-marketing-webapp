@@ -12,12 +12,9 @@
     </div>
     <div class="speech-box">
         <p>
-            Our passionate and pragmatic approach has enabled our clients to digitally transform their businesses
-            with cutting-edge technology. Our journey since conception has followed our vision to collaborate with
-            companies worldwide, whilst helping them experience the strength of technology in leading the evolution
-            of the industrial landscape.
+            {{ $section->paragraph }}
             <br><br>
-            <span>&mdash; Deborshee Bannerjee, CEO, Cloudspace</span>
+            <span>&mdash; {{ $section->sub_heading }}</span>
         </p>
     </div>
 </section>

@@ -34,7 +34,15 @@
 
                 <!-- Image -->
                 <div class="text-center my-3">
-                    <img src="{{ asset('storage/' . $section->image) }}" alt="Digital Marketing" class="img-fluid content-image">
+                    {{-- <img src="{{ asset('storage/' . $section->image) }}" alt="Digital Marketing" class="img-fluid content-image"> --}}
+                    <div class="video-wrapper position-relative">
+                        <video id="videoElement" class="w-100 rounded" src="{{ asset('storage/' . $section->video) }}" muted></video>
+                        <div id="playButtonWrapper" class="play-button position-absolute top-50 start-50 translate-middle">
+                            <button id="playButton" class="gradient-glow-button">
+                                <i id="playIcon" class="fa fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Paragraph 2 -->

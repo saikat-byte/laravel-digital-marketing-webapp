@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\CommonSection;
 use App\Models\Page;
 use App\Models\PageSection;
 use App\Models\PageSeoSetting;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -34,6 +36,7 @@ class PageController extends Controller
         $watermark = CommonSection::where('slug', 'water-mark')->where('status', 1)->first();
         // contact from details section
         $contactFormRight = CommonSection::where('slug', 'contact-form-right')->where('status', 1)->first();
+
 
         // ✅ Return View Dynamically
         return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections', 'sectionImage', 'downloadSection', 'contactForm', 'faq', 'watermark', 'contactFormRight'));
