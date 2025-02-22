@@ -19,6 +19,7 @@ class User extends Authenticatable
     {
         return $this->user_type === self::ADMIN;
     }
+
     /**
      * The attributes that are mass assignable.
      *

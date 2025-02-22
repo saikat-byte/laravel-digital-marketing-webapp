@@ -12,9 +12,10 @@ class IsAdmin
     public function handle(Request $request, Closure $next)
     {
 
-        if (Auth::check() && Auth::user()->isAdmin()) {
-            return $next($request);
-        }
-        return redirect()->route('login');
+
+       if (Auth::check() && Auth::user()->isAdmin()) {
+        return $next($request);
+    }
+    return redirect()->route('login');
     }
 }

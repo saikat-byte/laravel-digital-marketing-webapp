@@ -30,8 +30,15 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if (!auth()->user()->isAdmin()) {
+            auth()->logout();
+            return redirect()->back()
+                ->withErrors(['email' => 'You are not authorized to access the admin dashboard.']);
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
+
 
     /**
      * Destroy an authenticated session.

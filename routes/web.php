@@ -76,7 +76,7 @@ Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscri
 
 
 // Admin dashboard
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
 
     /*========== Post ==========*/
     Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
