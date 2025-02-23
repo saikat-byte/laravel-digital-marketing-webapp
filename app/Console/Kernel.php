@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         // check every minute
-        $schedule->command('appointment:send-reminders')->everyMinute();
+        $schedule->command('appointment:send-reminders')->dailyAt('09:00'); $schedule->command('appointment:send-reminders')->dailyAt('09:00');
     }
 
     /**

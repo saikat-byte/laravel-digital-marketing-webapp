@@ -4,26 +4,29 @@ namespace App\Mail;
 
 use App\Models\Appointment;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AppointmentConfirmation extends Mailable
+class AppointmentReschedule extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $appointment;
 
+    /**
+     * Create a new message instance.
+     */
     public function __construct(Appointment $appointment)
     {
         $this->appointment = $appointment;
     }
 
+    /**
+     * Build the message.
+     */
     public function build()
     {
-        return $this->subject('Appointment Confirmation')
-                    ->view('emails.appointment.confirmation');
+        return $this->subject('Your Appointment has been Rescheduled')
+                    ->view('emails.appointment.reschedule');
     }
 }

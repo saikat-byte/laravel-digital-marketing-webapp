@@ -13,13 +13,19 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('appointment_with')->nullable();
+            // যদি user registration থাকে, তাহলে:
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone')->nullable();
             $table->date('appointment_date');
-            $table->time('appointment_time');
-            $table->text('reason')->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->time('start_time');
+            // Optionally, end_time (or slot duration can be calculated)
+            $table->time('end_time')->nullable();
+            $table->string('status')->default('pending'); // pending, confirmed, canceled, rescheduled
+            $table->text('notes')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

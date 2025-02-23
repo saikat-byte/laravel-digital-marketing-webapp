@@ -1,6 +1,6 @@
 <!-- Footer -->
 @php
-    $footer = $footer ?? null;
+$footer = $footer ?? null;
 @endphp
 
 <footer class="footer pt-5">
@@ -31,18 +31,18 @@
                 </div>
                 <div class="social-icons mt-4">
                     @if(optional($footer)->social_icons)
-                        @foreach($footer->social_icons as $social)
-                            <a href="{{ $social['url'] }}"><i class="{{ $social['icon'] }}"></i></a>
-                        @endforeach
+                    @foreach($footer->social_icons as $social)
+                    <a href="{{ $social['url'] }}"><i class="{{ $social['icon'] }}"></i></a>
+                    @endforeach
                     @else
-                        <!-- Default icons -->
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#"><i class="fab fa-behance"></i></a>
-                        <a href="#"><i class="fab fa-x-twitter"></i></a>
-                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <!-- Default icons -->
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-behance"></i></a>
+                    <a href="#"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
                     @endif
                 </div>
             </div>
@@ -51,33 +51,35 @@
             <div class="col-lg-8 col-sm-12 footer-right">
                 <div class="row">
                     @if(optional($footer)->sections)
-                        @foreach($footer->sections as $sectionKey => $sectionData)
-                            <div class="col-lg-3 col-md-6 col-6 mb-4">
-                                <h6>{{ $sectionData['heading'] ?? ucfirst($sectionKey) }}</h6>
-                                <ul>
-                                    @if(isset($sectionData['links']) && is_array($sectionData['links']))
-                                        @foreach($sectionData['links'] as $link)
-                                            <li class="pt-3"><a href="{{ $link['url'] }}">{{ $link['text'] }}</a></li>
-                                        @endforeach
-                                    @endif
-                                </ul>
-                            </div>
-                        @endforeach
+                    @foreach($footer->sections as $sectionKey => $sectionData)
+                    <div class="col-lg-3 col-md-6 col-6 mb-4">
+                        <h6>{{ $sectionData['heading'] ?? ucfirst($sectionKey) }}</h6>
+                        <ul>
+                            @if(isset($sectionData['links']) && is_array($sectionData['links']))
+                            @foreach($sectionData['links'] as $link)
+                            <li class="pt-3"><a href="{{ $link['url'] }}">{{ $link['text'] }}</a></li>
+                            @endforeach
+                            @endif
+                        </ul>
+                    </div>
+                    @endforeach
                     @else
-                        <!-- Default sections if no data -->
-                        <div class="col-lg-3 col-md-6 col-6 mb-4">
-                            <h6>LOREM IPSUM</h6>
-                            <ul>
-                                <li class="pt-3"><a href="#">Lorem Ipsum</a></li>
-                                <li class="pt-3"><a href="#">Lorem Ipsum</a></li>
-                                <li class="pt-3"><a href="#">Lorem Ipsum</a></li>
-                                <li class="pt-3"><a href="#">Lorem Ipsum</a></li>
-                                <li class="pt-3"><a href="#">Lorem Ipsum</a></li>
-                            </ul>
-                        </div>
+                    <!-- Default sections if no data -->
+                    <div class="col-lg-3 col-md-6 col-6 mb-4">
+                        <h6>LOREM IPSUM</h6>
+                        <ul>
+                            <li class="pt-3"><a href="#">Lorem Ipsum</a></li>
+                            <li class="pt-3"><a href="#">Lorem Ipsum</a></li>
+                            <li class="pt-3"><a href="#">Lorem Ipsum</a></li>
+                            <li class="pt-3"><a href="#">Lorem Ipsum</a></li>
+                            <li class="pt-3"><a href="#">Lorem Ipsum</a></li>
+                        </ul>
+                    </div>
                     @endif
                 </div>
             </div>
+            <a href="#" id="backToTop"><i class="fa fa-arrow-up"></i></a>
+
         </div>
 
         <!-- Bottom Footer Section -->
@@ -88,3 +90,14 @@
         </div>
     </div>
 </footer>
+
+<!-- Footer -->
+<!-- Back to Top Icon (Always Visible) -->
+<a href="#" id="backToTop" class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+</a>
+
+<!-- WhatsApp Chat Icon (Always Visible on the Left) -->
+<a href="https://wa.me/8538896100" target="_blank" class="whatsapp-chat">
+    <i class="fab fa-whatsapp"></i>
+</a>

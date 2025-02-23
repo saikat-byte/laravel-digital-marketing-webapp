@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -7,23 +6,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class AdminUserController extends Controller
+class AdminProfileController extends Controller
 {
-    public function index()
+    public function edit()
     {
-        // user pagination
-        $users = User::paginate(20);
-        return view('admin.modules.all-users.index', compact('users'));
+        $user = auth()->user();
+        return view('admin.modules.admin-profile.edit', compact('user'));
     }
 
-    // User edit form
-    public function edit($id)
-    {
-        $user = User::findOrFail($id);
-        return view('admin.modules.all-users.edit', compact('user'));
-    }
-
-    // Update user information
+    // Update admin information by id
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -61,5 +52,4 @@ class AdminUserController extends Controller
 
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
-
 }

@@ -43,56 +43,44 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="basic-datatables" class="table table-bordered table-striped table-hover post_table">
+                        <table class="table table-bordered table-striped table-hover post_table" id="appointmentsTable">
                             <thead>
                                 <tr>
-                                    <th class="table-heading-text">ID</th>
-                                    <th class="table-heading-text">User</th>
-                                    <th class="table-heading-text">Appointment With</th>
-                                    <th class="table-heading-text">Date</th>
-                                    <th class="table-heading-text">Time</th>
-                                    <th class="table-heading-text">Reason</th>
-                                    <th class="table-heading-text">Status</th>
-                                    <th class="table-heading-text">Actions</th>
+                                    <th>SL</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Appointment Date</th>
+                                    <th>Start Time</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $sl = 1;
-                                @endphp
-                                @foreach($appointments as $appointment)
+                                @foreach($appointments as $index => $appointment)
                                 <tr>
-                                    <td>{{ $sl++ }}</td>
-                                    <td>{{ $appointment->user->name ?? 'Unknown' }}</td>
-                                    <td>{{ $appointment->appointment_with }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M, Y') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</td>
-                                    <td>{{ $appointment->reason }}</td>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $appointment->name }}</td>
+                                    <td>{{ $appointment->email }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('F j, Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($appointment->start_time)->format('g:i A') }}</td>
+                                    <td>{{ ucfirst($appointment->status) }}</td>
                                     <td>
-                                        @if($appointment->status == 1)
-                                        <span class="badge bg-success">Approved</span>
-                                        @elseif($appointment->status == 2)
-                                        <span class="badge bg-danger">Cancelled</span>
-                                        @else
-                                        <span class="badge bg-warning">Pending</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if($appointment->status == 0)
-                                        <form action="{{ route('admin.appointments.approve', $appointment->id) }}" method="POST" style="display:inline;">
+                                        <!-- Status Update Buttons -->
+                                        <form action="{{ route('admin.appointments.updateStatus', $appointment->id) }}" method="POST" class="d-inline update-status-form">
                                             @csrf
-                                            @method('PATCH')
-                                            <button type="submit" class="btn btn-sm btn-success" title="Approve">
-                                                <i class="fas fa-thumbs-up"></i>
-                                            </button>
+                                            <select name="status" class="form-control form-control-sm status-select" data-id="{{ $appointment->id }}">
+                                                <option value="confirmed" {{ $appointment->status == 'confirmed' ? 'selected' : '' }}>Confirm</option>
+                                                <option value="canceled" {{ $appointment->status == 'canceled' ? 'selected' : '' }}>Cancel</option>
+                                                <option value="rescheduled" {{ $appointment->status == 'rescheduled' ? 'selected' : '' }}>Reschedule</option>
+                                            </select>
                                         </form>
-                                        @endif
-                                        <form action="{{ route('admin.appointments.destroy', $appointment->id) }}" method="POST" style="display:inline;">
+
+                                        <!-- Edit and Delete Actions (if needed) -->
+                                        <a href="{{ route('admin.appointments.edit', $appointment->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                        <form action="{{ route('admin.appointments.destroy', $appointment->id) }}" method="POST" class="d-inline delete-form">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger delete-button" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -104,16 +92,13 @@
             </div>
         </div>
     </div>
-
-
-
 </div>
 
 @endsection
 
 @push('custom_js')
 <script>
- $(document).ready(function() {
+    $(document).ready(function() {
         // Initialize DataTables with selectors
         initializeDataTables({
             basicSelector: "#basic-datatables"
@@ -158,9 +143,62 @@
             });
         });
 
-   });
+    });
 
-   @include('admin.partials.sweet-alert')
+
+    $(document).ready(function(){
+    // Optionally, initialize DataTable for better UX
+    $('#appointmentsTable').DataTable();
+
+    // Status update via AJAX on change of select dropdown
+    $('.status-select').on('change', function(){
+        var select = $(this);
+        var appointmentId = select.data('id');
+        var newStatus = select.val();
+
+        $.ajax({
+            url: "{{ url('/admin/appointments') }}/" + appointmentId + "/update-status",
+            method: "POST",
+            data: {
+                status: newStatus,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function(response) {
+                if(response.success){
+                    toastr.success(response.message);
+                    // Optionally, update the status cell text or reload part of the table via AJAX
+                } else {
+                    toastr.error("Status update failed!");
+                }
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+                toastr.error("Something went wrong!");
+            }
+        });
+    });
+
+    // Delete confirmation (if needed)
+    $('.delete-form').on('submit', function(e) {
+        e.preventDefault();
+        var form = this;
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This action cannot be undone!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+});
+
+    @include('admin.partials.sweet-alert')
 
 </script>
 @endpush

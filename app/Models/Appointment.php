@@ -10,12 +10,9 @@ class Appointment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'appointment_with',
-        'appointment_date',
-        'appointment_time',
-        'reason',
-        'status',
+        'user_id', 'name', 'email', 'phone',
+        'appointment_date', 'start_time', 'end_time',
+        'status', 'notes'
     ];
 
     // relation with user

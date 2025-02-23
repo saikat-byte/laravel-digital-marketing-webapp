@@ -4,34 +4,20 @@
     <meta charset="utf-8">
     <title>Appointment Confirmation</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f4; }
-        .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; }
-        .header { text-align: center; }
-        .content { margin-top: 20px; }
-        .footer { margin-top: 30px; text-align: center; font-size: 0.9rem; color: #666; }
+        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+        .container { background: #ffffff; padding: 20px; border-radius: 8px; }
+        h1 { color: #0040ff; }
+        p { font-size: 16px; }
+        .button { background: #0040ff; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h2>{{ config('app.name') }}</h2>
-        </div>
-        <div class="content">
-            <p>Dear {{ $appointment->user->name }},</p>
-            <p>Your appointment has been successfully booked with the following details:</p>
-            <ul>
-                <li><strong>Date:</strong> {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M, Y') }}</li>
-                <li><strong>Time:</strong> {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</li>
-                <li><strong>Appointment With:</strong> {{ $appointment->appointment_with }}</li>
-                @if($appointment->reason)
-                    <li><strong>Reason:</strong> {{ $appointment->reason }}</li>
-                @endif
-            </ul>
-            <p>Your appointment is currently pending approval.</p>
-        </div>
-        <div class="footer">
-            <p>Thank you for choosing us.</p>
-        </div>
+        <h1>Appointment Confirmed!</h1>
+        <p>Dear {{ $appointment->name }},</p>
+        <p>Your appointment on {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('F j, Y') }} at {{ \Carbon\Carbon::parse($appointment->start_time)->format('g:i A') }} has been booked successfully.</p>
+        <p>We look forward to serving you.</p>
+        <p>Thank you!</p>
     </div>
 </body>
 </html>

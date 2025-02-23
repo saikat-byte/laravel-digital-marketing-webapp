@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Admin\AdminCommentController;
+use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\HeaderFooterController;
@@ -62,13 +63,11 @@ Route::post('/user/login', [UserAuthController::class, 'loginStore'])->name('use
 
 
 
-// Appointment booking (frontend)
-Route::middleware('auth')->group(function () {
-    // Show appointment booking form
-    Route::get('/appointment/book', [AppointmentController::class, 'create'])->name('appointment.create');
-    // Store appointment
-    Route::post('/appointment/book', [AppointmentController::class, 'store'])->name('appointment.store');
-});
+// Appointment booking form
+Route::get('/appointment', [AppointmentController::class, 'create'])->name('appointment.create');
+
+// Appointment book (form submission)
+Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
 
 // Subscription management
 Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscriber.store');
@@ -77,9 +76,25 @@ Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscri
 
 // Admin dashboard
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
+    /*========== Admin dashboard ==========*/
+    Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    /*========== Admin Profile view and edit page ==========*/
+    Route::get('/profile', [AdminProfileController::class, 'edit'])->name('admin.profile.edit');
+    Route::put('/profile/{id}', [AdminProfileController::class, 'update'])->name('admin.profile.update');
+
+
+
+    /*========== Users management ==========*/
+    Route::get('/users/list', [AdminUserController::class, 'index'])
+        ->name('admin.users.index');
+    // Edit User
+    Route::get('/users/{id}/edit', [AdminUserController::class, 'edit'])
+        ->name('admin.users.edit');
+    // Update User
+    Route::put('/users/{id}', [AdminUserController::class, 'update'])
+        ->name('admin.users.update');
 
     /*========== Post ==========*/
-    Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::resource('category', CategoryController::class);
     Route::resource('tag', TagController::class);
     Route::get('/get-subcategories/{id}', [SubCategoryController::class, 'getSubcategories']);
@@ -140,20 +155,24 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::patch('/comments/{id}/approve', [AdminCommentController::class, 'approve'])->name('admin.comments.approve');
     Route::delete('/comments/{id}', [AdminCommentController::class, 'destroy'])->name('admin.comments.destroy');
 
-    // Appointment management
-    Route::get('/appointments', [AdminAppointmentController::class, 'index'])->name('admin.appointments.index');
-    Route::patch('/appointments/{id}/approve', [AdminAppointmentController::class, 'approve'])->name('admin.appointments.approve');
-    Route::delete('/appointments/{id}', [AdminAppointmentController::class, 'destroy'])->name('admin.appointments.destroy');
 
-    // Users management
-    Route::get('/users/list', [AdminUserController::class, 'index'])
-        ->name('admin.users.index');
-    // Edit User
-    Route::get('/users/{id}/edit', [AdminUserController::class, 'edit'])
-        ->name('admin.users.edit');
-    // Update User
-    Route::put('/users/{id}', [AdminUserController::class, 'update'])
-        ->name('admin.users.update');
+    /*==========Appointment management==========*/
+    // appointment list
+    Route::get('/appointments', [AdminAppointmentController::class, 'index'])->name('admin.appointments.index');
+
+    // appointment status update (confirm, cancel, reschedule)
+    Route::post('/appointments/{id}/update-status', [AdminAppointmentController::class, 'updateStatus'])->name('admin.appointments.updateStatus');
+    // Appointment Edit route
+    Route::get('/appointments/{id}/edit', [AdminAppointmentController::class, 'edit'])
+        ->name('admin.appointments.edit');
+    // Appointment Update  route (PUT method)
+    Route::put('/appointments/{id}', [AdminAppointmentController::class, 'update'])
+        ->name('admin.appointments.update');
+    // Appointment Delete route
+    Route::delete('/appointments/{id}', [AdminAppointmentController::class, 'destroy'])
+        ->name('admin.appointments.destroy');
+
+
     // Subscription management for admin
     Route::get('/subscribers', [AdminSubscriberController::class, 'index'])->name('admin.subscribers.index');
 
@@ -163,14 +182,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 });
 
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.modules.dashboard');
-})->name('admin.dashboard');
+// Route::get('/admin/dashboard', function () {
+//     return view('admin.modules.dashboard');
+// })->name('admin.dashboard');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -7,6 +7,10 @@
 <script src="{{ asset('assets/admin/js/sweetalert/success_alert.js') }}"></script>
 {{-- Delete alert --}}
 <script src="{{ asset('assets/admin/js/sweetalert/delete_alert.js') }}"></script>
+{{-- Footer --}}
+<script src="{{ asset('assets/frontend/jquery/footer.js') }}"></script>
 
 <!-- Slick JS -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

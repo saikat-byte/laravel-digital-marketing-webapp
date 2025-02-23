@@ -1,0 +1,45 @@
+/* Back to Top Button - Fixed at Bottom Right */
+.back-to-top {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background-color: #000;
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    border-radius: 50%;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    opacity: 0.8;
+    text-decoration: none;
+    z-index: 1000;
+}
+
+.back-to-top:hover {
+    background-color: #333;
+    opacity: 1;
+}
+
+/* WhatsApp Chat Icon - Fixed at Bottom Left */
+.whatsapp-chat {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    background-color: #25D366; /* WhatsApp green */
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    border-radius: 50%;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    opacity: 0.8;
+    text-decoration: none;
+    z-index: 1000;
+}
+
+.whatsapp-chat:hover {
+    background-color: #128C7E;
+    opacity: 1;
+}

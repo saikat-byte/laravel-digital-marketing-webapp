@@ -3,6 +3,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 {{-- Jquery UI CSS using for drag and drop --}}
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
 <!-- Fonts and icons -->
 <script src="{{ asset('assets/admin/js/plugin/webfont/webfont.min.js') }}"></script>
 <script>
