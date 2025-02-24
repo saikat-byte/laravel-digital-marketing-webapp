@@ -3,32 +3,33 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('meta_title', config('app.name'))</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ $seo->meta_title ?? $page->name }}</title>
+    <meta name="description" content="{{ $seo->meta_description ?? '' }}">
+    <meta name="keywords" content="{{ $seo->meta_keywords ?? '' }}">
 
-    <meta name="description" content="@yield('meta_description', 'Default website description.')">
-    <meta name="keywords" content="@yield('meta_keywords', 'default, keywords')">
-    <meta name="robots" content="@yield('meta_robots', 'index, follow')">
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="{{ $seo->og_title ?? '' }}">
+    <meta property="og:description" content="{{ $seo->og_description ?? '' }}">
+    <meta property="og:image" content="{{ isset($seo->og_image) ? asset('storage/' . $seo->og_image) : '' }}">
+    <link rel="canonical" href="{{ $seo->canonical_url ?? url()->current() }}">
 
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="@yield('og_title', config('app.name'))">
-    <meta property="og:description" content="@yield('og_description', 'Default website description.')">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:image" content="@yield('og_image', asset('assets/frontend/media/common/default-og-image.jpg'))">
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="{{ $seo->twitter_card ?? '' }}">
+    <meta name="twitter:title" content="{{ $seo->twitter_title ?? '' }}">
+    <meta name="twitter:description" content="{{ $seo->twitter_description ?? '' }}">
+    <meta name="twitter:image" content="{{ isset($seo->twitter_image) ? asset('storage/' . $seo->twitter_image) : '' }}">
 
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('twitter_title', config('app.name'))">
-    <meta name="twitter:description" content="@yield('twitter_description', 'Default website description.')">
-    <meta name="twitter:image" content="@yield('twitter_image', asset('assets/frontend/media/common/default-twitter-image.jpg'))">
+    <!-- Structured Data -->
+    @if(isset($seo->structured_data) && $seo->structured_data)
+        <script type="application/ld+json">
+            {!! is_array($seo->structured_data) ? json_encode($seo->structured_data) : $seo->structured_data !!}
+        </script>
+    @endif
 
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}">
 
-    {{-- <!-- JSON-LD Structured Data -->
-    {!! $page->seo->getStructuredDataHtml() !!}
-    @section('title', $page->seo->meta_title ?? 'Home')    <title>@yield('title')</title> --}}
     @include('frontend.includes.head-links')
     @yield('custom_css')
 </head>

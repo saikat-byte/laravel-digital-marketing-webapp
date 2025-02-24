@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Page Title (SEO)</label>
+                            <label>Page Title</label>
                             <input type="text" class="form-control" name="title" value="{{ $page->title }}">
                         </div>
 
@@ -47,7 +47,7 @@
                 <div class="card-body">
                     <p><b>Page Name:</b> This is the page name displayed in the menu.</p>
                     <p><b>Slug:</b> This will be auto-generated and cannot be changed.</p>
-                    <p><b>Page Title:</b> This is used for SEO optimization.</p>
+                    <p><b>Page Title:</b> This is page title.</p>
                     <p><b>Status:</b> If set to Inactive, the page will not be visible.</p>
                     <p><b>Page Order:</b> Helps arrange the pages in the menu.</p>
                 </div>
@@ -199,11 +199,11 @@
                     <h4 class="card-title">Instructions</h4>
                 </div>
                 <div class="card-body">
-                    <p><b>Page Name:</b> This is the page name displayed in the menu.</p>
+                    <p><b>Page Section:</b> A section will be created within the page.</p>
                     <p><b>Slug:</b> This will be auto-generated and cannot be changed.</p>
-                    <p><b>Page Title:</b> This is used for SEO optimization.</p>
-                    <p><b>Status:</b> If set to Inactive, the page will not be visible.</p>
-                    <p><b>Page Order:</b> Helps arrange the pages in the menu.</p>
+                    <p><b>Section type:</b> The type of the section must be selected.</p>
+                    <p><b>Status:</b> If set to Inactive, the section will not be visible.</p>
+                    <p><b>Section Order:</b> Helps arrange the section in the menu.</p>
                 </div>
             </div>
         </div>

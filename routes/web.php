@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\HeaderFooterController;
 use App\Http\Controllers\Admin\HolidayController;
+use App\Http\Controllers\Admin\PageSeoSettingController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Frontend\AppointmentController;
 use App\Http\Controllers\Frontend\BlogController;
@@ -168,13 +169,22 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::delete('/appointments/{id}', [AdminAppointmentController::class, 'destroy'])
         ->name('admin.appointments.destroy');
 
-    // Holidays management routes
+
+    /*==========Holidays management routes==========*/
+
     Route::get('/holidays', [HolidayController::class, 'index'])->name('admin.holidays.index');
     Route::get('/holidays/create', [HolidayController::class, 'create'])->name('admin.holidays.create');
     Route::post('/holidays', [HolidayController::class, 'store'])->name('admin.holidays.store');
     Route::get('/holidays/{id}/edit', [HolidayController::class, 'edit'])->name('admin.holidays.edit');
     Route::put('/holidays/{id}', [HolidayController::class, 'update'])->name('admin.holidays.update');
     Route::delete('/holidays/{id}', [HolidayController::class, 'destroy'])->name('admin.holidays.destroy');
+
+    /*==========SEO Settings management==========*/
+    Route::get('/seo/{pageId}/edit', [PageSeoSettingController::class, 'edit'])->name('seo.edit');
+    Route::put('/seo/{pageId}', [PageSeoSettingController::class, 'update'])->name('seo.update');
+
+    // SEO settings full list show
+    Route::get('/seo', [PageSeoSettingController::class, 'index'])->name('seo.index');
 
 
     // Subscription management for admin

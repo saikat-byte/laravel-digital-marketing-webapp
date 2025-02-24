@@ -22,8 +22,9 @@ class PageSeoSetting extends Model
         'twitter_description',
         'twitter_image',
         'canonical_url',
-        'structured_data'
+        'structured_data',
     ];
+
 
     protected $casts = [
         'structured_data' => 'array'
@@ -34,6 +35,8 @@ class PageSeoSetting extends Model
     {
         return $this->belongsTo(Page::class);
     }
+
+
 
     // Helper Methods
     public function getMetaTags(): array

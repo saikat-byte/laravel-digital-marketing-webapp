@@ -1,4 +1,7 @@
 /* Banner section Start */
+html, body {
+    overflow-x: hidden;
+}
 
 .banner-section {
   position: relative;

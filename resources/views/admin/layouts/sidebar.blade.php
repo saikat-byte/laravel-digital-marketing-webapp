@@ -24,7 +24,7 @@
             <ul class="nav nav-secondary">
                 <!-- Dashboard:for all user -->
                 <li class="nav-item active">
-                    <a href="{{ route('admin.dashboard') }}">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <i class="fas fa-home"></i>
                         <p>Dashboard</p>
                     </a>
@@ -48,7 +48,7 @@
                     <div class="collapse" id="header_footer">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="{{ route('header_footer.index') }}">
+                                <a href="{{ route('header_footer.index') }}" class="nav-link {{ request()->routeIs('header_footer.index') ? 'active' : '' }}">
                                     <span class="sub-item">Update Header & Footer</span>
                                 </a>
                             </li>
@@ -66,14 +66,14 @@
                         <ul class="nav nav-collapse">
                             {{-- All Pages with their Sections --}}
                             <li>
-                                <a href="{{ route('page.index') }}">
+                                <a href="{{ route('page.index') }}" class="nav-link {{ request()->routeIs('page.index') ? 'active' : '' }}">
                                     <span class="sub-item">All Pages</span>
                                 </a>
                             </li>
 
                             {{-- Add New Page --}}
                             <li>
-                                <a href="{{ route('page.create') }}">
+                                <a href="{{ route('page.create') }}" class="nav-link {{ request()->routeIs('page.create') ? 'active' : '' }}">
                                     <span class="sub-item">Add New Page</span>
                                 </a>
                             </li>
@@ -88,7 +88,7 @@
 
                             @foreach(App\Models\Page::where('status', 1)->get() as $page)
                             <li>
-                                <a href="{{ route('page.edit', $page->id) }}">
+                                <a href="{{ route('page.edit', $page->id) }}" class="nav-link {{ request()->routeIs('page.edit', $page->id) ? 'active' : '' }}">
                                     <span class="sub-item">
                                         <i class="fas fa-angle-right"></i>
                                         {{ ucfirst($page->name) }}
@@ -96,6 +96,23 @@
                                 </a>
                             </li>
                             @endforeach
+                        </ul>
+                    </div>
+                </li>
+                {{-- Manage SEO --}}
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#seo_manage">
+                        <i class="fas fa-search"></i>
+                        <p>Manage SEO</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="seo_manage">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('seo.index') }}">
+                                    <span class="sub-item">List</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -148,7 +165,7 @@
                 @if(auth()->user()->isAdmin() || auth()->user()->isModerator())
                 {{-- Post --}}
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#post">
+                    <a data-bs-toggle="collapse" href="#post" class="nav-link {{ request()->routeIs('post.*') ? 'active' : '' }}">
                         <i class="fas fa-edit"></i>
                         <p>Post</p>
                         <span class="caret"></span>
@@ -156,12 +173,12 @@
                     <div class="collapse" id="post">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="{{ route('post.index') }}">
+                                <a href="{{ route('post.index') }}" class="nav-link {{ request()->routeIs('post.index') ? 'active' : '' }}">
                                     <span class="sub-item">List</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('post.create') }}">
+                                <a href="{{ route('post.create') }}" class="nav-link {{ request()->routeIs('post.create') ? 'active' : '' }}">
                                     <span class="sub-item">Create</span>
                                 </a>
                             </li>

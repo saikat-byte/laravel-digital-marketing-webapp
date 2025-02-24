@@ -5,7 +5,7 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container">
         <!-- Logo -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ route('frontend.page.show', ['slug' => 'home']) }}">
             <img src="{{ asset('storage/' . $header->logo) }}" alt="Cloudspace Solutions Logo">
         </a>
 
@@ -20,11 +20,14 @@
                 @if(optional($header)->nav_links)
                     @foreach($header->nav_links as $link)
                         <li class="nav-item">
-                            <a class="nav-link text-uppercase" href="{{ $link['url'] }}">{{ $link['name'] }}</a>
+                            <a class="nav-link text-uppercase {{ url()->current() == $link['url'] ? 'active' : '' }}" href="{{ $link['url'] }}">
+                                {{ $link['name'] }}
+                            </a>
                         </li>
                     @endforeach
                 @endif
             </ul>
+
         </div>
 
         <!-- Consultation button -->
