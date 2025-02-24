@@ -23,6 +23,7 @@
                             </h2>
                             <form action="{{ route('user.register.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
                                 <div class="row gy-2 overflow-hidden">
 
                                     <div class="col-12">

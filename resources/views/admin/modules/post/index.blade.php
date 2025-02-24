@@ -167,7 +167,7 @@
         // Category Delete alert
         handleDeleteButton("#basic-datatables", "#row_");
 
-        //Category edit/update Success alert
+        // Edit/Update Success and Error alerts
         @if(session('success'))
         showAlert('success', "{{ session('success') }}");
         @endif
@@ -176,7 +176,7 @@
         showAlert('error', "{{ session('error') }}");
         @endif
 
-        // zoom image
+        // Zoom image on hover
         $('.zoom-image').hover(
             function() {
                 $(this).css('transform', 'scale(2)'); // Zoom in on hover
@@ -186,19 +186,24 @@
             }
         );
 
-        // Delete post
-
-        // Add click event for delete button
-        $('.delete').on('click', function() {
-            var postId = $(this).data('id'); // Get post ID from the data_id attribute
-            var form = $('#form_' + postId); // Get the form corresponding to the post ID
-
-            // Confirm before deleting
-            if (confirm('Are you sure you want to delete this post?')) {
-                form.submit(); // Submit the form if confirmed
-            }
+        // Delete post confirmation using SweetAlert
+        $(document).on("click", ".delete", function(e) {
+            e.preventDefault();
+            var form = $(this).closest("form");
+            Swal.fire({
+                title: 'Are you sure?'
+                , text: "You won't be able to revert this!"
+                , icon: 'warning'
+                , showCancelButton: true
+                , confirmButtonColor: '#3085d6'
+                , cancelButtonColor: '#d33'
+                , confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
         });
-
     });
 
 </script>

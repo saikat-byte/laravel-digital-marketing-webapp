@@ -22,7 +22,7 @@ class CommentController extends Controller
             'user_id'           => Auth::id(),
             'parent_comment_id' => $request->input('parent_comment_id'), // null if top-level
             'content'           => $request->input('content'),
-            'rating'            => $request->input('rating'), // সঠিকভাবে insert হবে
+            'rating'            => $request->input('rating'), // rating insert
             'status'            => 0, // pending
         ]);
 

@@ -22,9 +22,9 @@
                             <h2 class="fs-6 fw-normal text-center text-secondary mb-4">
                                 Enter your details to login
                             </h2>
-                            <form action="#" method="POST">
+                            <form action="{{ route('user.login.store') }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
+                                <input type="hidden" name="redirect_url" value="{{ url()->previous() }}">
                                 {{-- <input type="hidden" name="post_slug" value="{{ $post->slug }}"> --}}
 
 

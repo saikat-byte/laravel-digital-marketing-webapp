@@ -4,6 +4,28 @@
 
 @section('custom_css')
 <link rel="stylesheet" href="{{ asset('assets/frontend/css/single-blog.css') }}">
+
+<!-- Custom CSS for coloring -->
+<style>
+    /* Parent categories: Blue color */
+    .category-item {
+        color: #0040ff; /* Main color */
+        font-weight: bold;
+    }
+    .category-item:hover {
+        color: #0030cc;
+        text-decoration: none;
+    }
+
+    /* Subcategories: Orange color */
+    .subcategory-item {
+        color: #ff6600; /* Main color */
+    }
+    .subcategory-item:hover {
+        color: #cc5200;
+        text-decoration: none;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -194,7 +216,7 @@
                     <!-- Write Comment Form -->
                     <div class="write-comment-form mt-4">
                         @if(Auth::check())
-                        <form action="{{ route('admin.comment.store', $post->id) }}" method="POST">
+                        <form action="{{ route('comment.store', $post->id) }}" method="POST">
                             @csrf
                             <input type="text" class="form-control mb-3" placeholder="Name" value="{{ Auth::user()->name }}" readonly>
                             <input type="email" class="form-control mb-3" placeholder="Email" value="{{ Auth::user()->email }}" readonly>
@@ -245,32 +267,37 @@
                 <!-- Categories Widget -->
                 <div class="card px-2 py-2 mb-3">
                     <h5>Categories</h5>
-                    <ul class="list-unstyled">
-                        @foreach($categories as $category)
-                        <li>
-                            <!-- Parent category link with collapse toggle -->
-                            <a href="{{ route('frontend.blog.search', ['category' => $category->slug]) }}" data-bs-toggle="collapse" data-bs-target="#subCategory{{ $category->id }}" aria-expanded="false" aria-controls="subCategory{{ $category->id }}">
+                    <div class="list-group">
+                        @foreach($categories->take(6) as $category)
+                            <!-- Parent Category Item with custom class -->
+                            <a href="{{ route('frontend.blog.search', ['category' => $category->slug]) }}"
+                               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category-item"
+                               data-bs-toggle="collapse"
+                               data-bs-target="#subCategory{{ $category->id }}"
+                               aria-expanded="false"
+                               aria-controls="subCategory{{ $category->id }}">
                                 {{ $category->title }}
                                 @if($category->subcategories->count())
-                                <i class="bi bi-caret-down-fill"></i>
+                                    <i class="bi bi-caret-down-fill"></i>
                                 @endif
                             </a>
 
-                            <!-- Subcategories list; collapsible -->
+                            <!-- Subcategories collapse -->
                             @if($category->subcategories->count())
-                            <ul class="list-unstyled collapse" id="subCategory{{ $category->id }}">
-                                @foreach($category->subcategories as $subCategory)
-                                <li class="ms-3">
-                                    <a href="{{ route('frontend.blog.search', ['category' => $category->slug, 'subcategory' => $subCategory->slug]) }}">
-                                        {{ $subCategory->title }}
-                                    </a>
-                                </li>
-                                @endforeach
-                            </ul>
+                                <div class="collapse" id="subCategory{{ $category->id }}">
+                                    <div class="list-group ms-3">
+                                        @foreach($category->subcategories as $subCategory)
+                                            <a href="{{ route('frontend.blog.search', ['category' => $category->slug, 'subcategory' => $subCategory->slug]) }}"
+                                               class="list-group-item list-group-item-action subcategory-item">
+                                                {{ $subCategory->title }}
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
                             @endif
-                        </li>
                         @endforeach
-                    </ul>
+                    </div>
+
                 </div>
 
 

@@ -37,7 +37,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title">All User List</h4>
-                        <a href="{{ route('admin.users.index') }}" class="btn btn-info"> Users List </a>
+                        <a href="{{ route('admin.users.create') }}" class="btn btn-info"> Create user </a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -71,7 +71,13 @@
                                     <td>{{ ucfirst($user->user_type) }}</td>
                                     <td>
                                         <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-success">Edit</a>
+                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline delete-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm delete-button">Delete</button>
+                                        </form>
                                     </td>
+
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -99,10 +105,44 @@
         , });
 
 
+        // Delete using AJAX with SweetAlert confirmation
+        $('.delete-button').on('click', function(e) {
+            e.preventDefault();
+            var form = $(this).closest('form');
+            Swal.fire({
+                title: 'Are you sure?'
+                , text: "This action cannot be undone!"
+                , icon: 'warning'
+                , showCancelButton: true
+                , confirmButtonColor: '#3085d6'
+                , cancelButtonColor: '#d33'
+                , confirmButtonText: 'Yes, delete it!'
+                , cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: form.attr('action')
+                        , method: 'POST'
+                        , data: form.serialize()
+                        , success: function(response) {
+                            Swal.fire('Deleted!', 'Usert has been deleted.', 'success')
+                                .then(() => {
+                                    location.reload(); // Reload page after deletion
+                                });
+                        }
+                        , error: function(xhr) {
+                            Swal.fire('Error!', 'There was an error deleting the comment.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+
+
+
     });
 
     @include('admin.partials.sweet-alert')
-
 
 </script>
 @endpush

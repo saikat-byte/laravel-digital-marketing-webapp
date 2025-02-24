@@ -130,34 +130,24 @@
                 <label for="tags">Tags</label>
                 <div class="checkbox-group border">
                     <div class="row">
-                        {{-- @foreach($tags as $tag)
+                        @foreach($tags as $tag)
                         <div class="col-lg-4">
                             <div class="form-check d-flex justify-content-start">
-                                <input type="checkbox" id="tag_{{ $tag->id }}" name="tag_ids[]" value="{{ $tag->id }}" class="form-check-input @error('tags') is-invalid @enderror"
-                        {{ in_array($tag->id, old('tag_ids', $post->tag->pluck('id')->toArray())) ? 'checked' : '' }}>
-                        <label for="tag_{{ $tag->id }}" class="form-check-label">{{ $tag->title }}</label>
+                                <input type="checkbox" id="tag_{{ $tag->id }}" name="tag_ids[]" value="{{ $tag->id }}" class="form-check-input @error('tags') is-invalid @enderror" {{ in_array($tag->id, old('tag_ids', isset($post) ? $post->tags->pluck('id')->toArray() : [])) ? 'checked' : '' }}>
+                                <label for="tag_{{ $tag->id }}" class="form-check-label">{{ $tag->title }}</label>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
-                @endforeach --}}
-
-                @foreach($tags as $tag)
-                <div class="col-lg-4">
-                    <div class="form-check d-flex justify-content-start">
-                        <input type="checkbox" id="tag_{{ $tag->id }}" name="tag_ids[]" value="{{ $tag->id }}" class="form-check-input @error('tags') is-invalid @enderror" {{ in_array($tag->id, old('tag_ids', isset($post) ? $post->tag->pluck('id')->toArray() : [])) ? 'checked' : '' }}>
-                        <label for="tag_{{ $tag->id }}" class="form-check-label">{{ $tag->title }}</label>
-                    </div>
-                </div>
-                @endforeach
+                @error('tags')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
+
+
         </div>
-        @error('tags')
-        <small class="text-danger">{{ $message }}</small>
-        @enderror
     </div>
-
-
-</div>
-</div>
 </div>
 
 

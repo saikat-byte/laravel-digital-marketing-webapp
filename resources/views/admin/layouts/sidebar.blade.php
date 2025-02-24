@@ -22,12 +22,16 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-secondary">
+                <!-- Dashboard:for all user -->
                 <li class="nav-item active">
-                    <a data-bs-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+                    <a href="{{ route('admin.dashboard') }}">
                         <i class="fas fa-home"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
+
+                @if(auth()->user()->isAdmin())
+                {{-- content --}}
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
@@ -95,6 +99,7 @@
                         </ul>
                     </div>
                 </li>
+                {{-- Common section --}}
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#common_section">
                         <i class="fas fa-puzzle-piece"></i>
@@ -116,6 +121,7 @@
                         </ul>
                     </div>
                 </li>
+                {{-- reviews --}}
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#reviews">
                         <i class="fas fa-star"></i>
@@ -137,69 +143,10 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#category">
-                        <i class="fas fa-th-large"></i>
-                        <p>Category</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse" id="category">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a href="{{ route('category.index') }}">
-                                    <span class="sub-item">List</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('category.create') }}">
-                                    <span class="sub-item">Create</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#base2">
-                        <i class="fas fa-th"></i>
-                        <p>Sub category</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse" id="base2">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a href="{{ route('sub-category.index') }}">
-                                    <span class="sub-item">List</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('sub-category.create') }}">
-                                    <span class="sub-item">Create</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#base3">
-                        <i class="fas fa-tag"></i>
-                        <p>Tag</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse" id="base3">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a href="{{ route('tag.index') }}">
-                                    <span class="sub-item">List</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('tag.create') }}">
-                                    <span class="sub-item">Create</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                {{-- Post --}}
+                @endif
+                @if(auth()->user()->isAdmin() || auth()->user()->isModerator())
+                {{-- Post --}}
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#post">
                         <i class="fas fa-edit"></i>
@@ -221,6 +168,75 @@
                         </ul>
                     </div>
                 </li>
+                {{-- category --}}
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#category">
+                        <i class="fas fa-th-large"></i>
+                        <p>Category</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="category">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('category.index') }}">
+                                    <span class="sub-item">List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('category.create') }}">
+                                    <span class="sub-item">Create</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                {{-- sub category --}}
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#base2">
+                        <i class="fas fa-th"></i>
+                        <p>Sub category</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="base2">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('sub-category.index') }}">
+                                    <span class="sub-item">List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('sub-category.create') }}">
+                                    <span class="sub-item">Create</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                {{-- Tags --}}
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#base3">
+                        <i class="fas fa-tag"></i>
+                        <p>Tag</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="base3">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('tag.index') }}">
+                                    <span class="sub-item">List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('tag.create') }}">
+                                    <span class="sub-item">Create</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                @endif
+                @if(auth()->user()->isAdmin())
+                {{-- Comments --}}
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#comment">
                         <i class="fas fa-comment"></i>
@@ -237,6 +253,7 @@
                         </ul>
                     </div>
                 </li>
+                {{-- Appointments --}}
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#appointment">
                         <i class="fas fa-calendar-check"></i>
@@ -258,6 +275,7 @@
                         </ul>
                     </div>
                 </li>
+                {{-- User list --}}
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#users">
                         <i class="fas fa-user"></i>
@@ -271,9 +289,15 @@
                                     <span class="sub-item">List</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('admin.users.create') }}">
+                                    <span class="sub-item">Create</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
+                {{-- Subscribers --}}
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#subscribers">
                         <i class="fas fa-user-check"></i>
@@ -290,6 +314,8 @@
                         </ul>
                     </div>
                 </li>
+                @endif
+
             </ul>
         </div>
     </div>

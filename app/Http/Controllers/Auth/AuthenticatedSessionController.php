@@ -26,18 +26,22 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+
         $request->authenticate();
-
         $request->session()->regenerate();
+        $user = auth()->user();
 
-        if (!auth()->user()->isAdmin()) {
+        if (!$user->isAdmin() && !$user->isModerator()) {
             auth()->logout();
             return redirect()->back()
                 ->withErrors(['email' => 'You are not authorized to access the admin dashboard.']);
         }
 
+        // Admin ও moderator
         return redirect()->intended(RouteServiceProvider::HOME);
     }
+
+
 
 
     /**

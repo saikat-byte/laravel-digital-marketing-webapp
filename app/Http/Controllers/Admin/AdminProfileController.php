@@ -22,7 +22,7 @@ class AdminProfileController extends Controller
         $validated = $request->validate([
             'name'       => 'required|string|max:255',
             'email'      => 'required|email|max:255|unique:users,email,' . $user->id,
-            'user_type'  => 'required|in:user,admin',
+            'user_type'  => 'required|in:user,moderator,admin',
             'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             // password is optional; if provided, it must be confirmed and at least 8 characters.
             'password'   => 'nullable|string|min:8|confirmed'

@@ -14,11 +14,18 @@ class User extends Authenticatable
 
     public const ADMIN = 'admin';
     public const USER = 'user';
+    public const MODERATOR = 'moderator';
 
     public function isAdmin()
     {
         return $this->user_type === self::ADMIN;
     }
+
+    public function isModerator()
+{
+    return $this->user_type === self::MODERATOR;
+}
+
 
     /**
      * The attributes that are mass assignable.

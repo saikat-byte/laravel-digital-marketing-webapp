@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
-@section('name', 'Admin Profile Edit')
-@section('title', 'Edit Admin Profile')
+@section('name', 'User Profile Edit')
+@section('title', 'User Profile')
 
 @section('content')
 <div class="page-inner">
@@ -52,7 +52,7 @@
                         <!-- Name Field -->
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}" required>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}">
                             @error('name')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -61,7 +61,7 @@
                         <!-- Email Field -->
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}">
                             @error('email')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -88,6 +88,7 @@
                             <select class="form-select" id="user_type" name="user_type">
                                 <option value="user" {{ old('user_type', $user->user_type) == 'user' ? 'selected' : '' }}>User</option>
                                 <option value="admin" {{ old('user_type', $user->user_type) == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="moderator" {{ old('user_type', $user->user_type) == 'moderator' ? 'selected' : '' }}>Moderator</option>
                             </select>
                             @error('user_type')
                             <span class="text-danger">{{ $message }}</span>
@@ -96,7 +97,6 @@
 
                         <!-- Profile Image Field with Preview -->
                         <div class="mb-3">
-                            <label for="image" class="form-label">Profile Image</label>
                             <div class="mb-2">
                                 <img id="imagePreview" src="{{ asset($user->image_path) }}" alt="Profile Image" class="avatar-img rounded-circle" style="max-width: 150px;">
                             </div>

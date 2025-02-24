@@ -41,7 +41,7 @@ Route::get('/', function () {
     return redirect()->route('frontend.page.show', ['slug' => 'home']);
 })->name('frontend.page.show');
 
-// Frontend route
+/*========== Frontend route ==========*/
 Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.page.show');
 // Blog
 Route::get('/blog/posts', [BlogController::class, 'index'])->name('frontend.blog.index');
@@ -52,31 +52,22 @@ Route::get('/blog/single/search', [BlogController::class, 'singleSearch'])->name
 Route::post('/comment/{postId}', [CommentController::class, 'store'])
     ->name('comment.store')
     ->middleware('auth');
-Route::post('/comments/{postId}', [CommentController::class, 'store'])
-    ->name('admin.comment.store')
-    ->middleware('auth');
-
 
 // User authentication routes
 Route::get('/user/register', [UserAuthController::class, 'showRegistrationForm'])->name('user.registration'); // login page route
 Route::post('/user/register', [UserAuthController::class, 'registerStore'])->name('user.register.store');
 Route::get('/user/login', [UserAuthController::class, 'showLoginForm'])->name('user.login'); // login page route
 Route::post('/user/login', [UserAuthController::class, 'loginStore'])->name('user.login.store'); // login page route
-
-
-
 // Appointment booking form
 Route::get('/appointment', [AppointmentController::class, 'create'])->name('appointment.create');
 
 // Appointment book (form submission)
 Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
-
 // Subscription management
 Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscriber.store');
 
 
-
-// Admin dashboard
+/*========== Admin dashboard ==========*/
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     /*========== Admin dashboard ==========*/
     Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -85,6 +76,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::put('/profile/{id}', [AdminProfileController::class, 'update'])->name('admin.profile.update');
 
     /*========== Users management ==========*/
+    // Create User Form
+    Route::get('/users/create', [AdminUserController::class, 'create'])->name('admin.users.create');
+    // Store New User
+    Route::post('/users', [AdminUserController::class, 'store'])->name('admin.users.store');
+    // List Users
     Route::get('/users/list', [AdminUserController::class, 'index'])
         ->name('admin.users.index');
     // Edit User
@@ -93,16 +89,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     // Update User
     Route::put('/users/{id}', [AdminUserController::class, 'update'])
         ->name('admin.users.update');
+    // Delete User
+    Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+
 
     /*========== Reviews manage by admin ==========*/
     Route::resource('reviews', ReviewController::class);
 
-    /*========== Post ==========*/
-    Route::resource('category', CategoryController::class);
-    Route::resource('tag', TagController::class);
-    Route::get('/get-subcategories/{id}', [SubCategoryController::class, 'getSubcategories']);
-    Route::resource('sub-category', SubCategoryController::class);
-    Route::resource('post', PostController::class);
 
     /*========== Pages==========*/
     Route::get('/pages', [PageController::class, 'index'])->name('page.index');
@@ -193,14 +186,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 });
 
 
-// Route::get('/admin/dashboard', function () {
-//     return view('admin.modules.dashboard');
-// })->name('admin.dashboard');
+// Common routes for admin and moderator (moderator limited access)
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin_or_mod']], function () {
+    Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    /*========== Post ==========*/
+    Route::resource('post', PostController::class);
+    Route::resource('category', CategoryController::class);
+    Route::get('/get-subcategories/{id}', [SubCategoryController::class, 'getSubcategories']);
+    Route::resource('sub-category', SubCategoryController::class);
+    Route::resource('tag', TagController::class);
+});
 
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
