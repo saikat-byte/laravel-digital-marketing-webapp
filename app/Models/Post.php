@@ -33,6 +33,11 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function seoSetting()
+    {
+        return $this->hasOne(PostSeoSetting::class);
+    }
+
     // comment relation
     public function comments()
     {

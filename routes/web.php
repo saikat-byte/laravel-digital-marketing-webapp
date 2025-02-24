@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\HeaderFooterController;
 use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\PageSeoSettingController;
+use App\Http\Controllers\Admin\PostSeoSettingController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Frontend\AppointmentController;
 use App\Http\Controllers\Frontend\BlogController;
@@ -179,13 +180,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::put('/holidays/{id}', [HolidayController::class, 'update'])->name('admin.holidays.update');
     Route::delete('/holidays/{id}', [HolidayController::class, 'destroy'])->name('admin.holidays.destroy');
 
-    /*==========SEO Settings management==========*/
-    Route::get('/seo/{pageId}/edit', [PageSeoSettingController::class, 'edit'])->name('seo.edit');
-    Route::put('/seo/{pageId}', [PageSeoSettingController::class, 'update'])->name('seo.update');
-
-    // SEO settings full list show
-    Route::get('/seo', [PageSeoSettingController::class, 'index'])->name('seo.index');
-
 
     // Subscription management for admin
     Route::get('/subscribers', [AdminSubscriberController::class, 'index'])->name('admin.subscribers.index');
@@ -205,6 +199,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin_or_mod']], fu
     Route::get('/get-subcategories/{id}', [SubCategoryController::class, 'getSubcategories']);
     Route::resource('sub-category', SubCategoryController::class);
     Route::resource('tag', TagController::class);
+
+    /*==========SEO Settings management==========*/
+    Route::get('/seo/{pageId}/edit', [PageSeoSettingController::class, 'edit'])->name('seo.edit');
+    Route::put('/seo/{pageId}', [PageSeoSettingController::class, 'update'])->name('seo.update');
+    Route::get('/seo', [PageSeoSettingController::class, 'index'])->name('seo.index');
+
+    /*==========SEO settings for posts==========*/
+    Route::get('/post-seo', [PostSeoSettingController::class, 'postSeoIndex'])->name('post.seo.index');
+    Route::get('/post-seo/{postId}/edit', [PostSeoSettingController::class, 'edit'])->name('post.seo.edit');
+    Route::put('/post-seo/{postId}', [PostSeoSettingController::class, 'update'])->name('post.seo.update');
 });
 
 

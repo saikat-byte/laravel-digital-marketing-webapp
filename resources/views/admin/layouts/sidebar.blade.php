@@ -113,6 +113,11 @@
                                     <span class="sub-item">List</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('post.seo.index') }}">
+                                    <span class="sub-item">Post Seo List</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

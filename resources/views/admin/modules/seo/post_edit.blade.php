@@ -1,12 +1,12 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Edit SEO Settings')
+@section('title', 'Edit Post SEO Settings')
 
 @section('content')
 <div class="page-inner">
-    <h3>Edit SEO Settings for: {{ $page->name }}</h3>
+    <h3>Edit SEO Settings for Post: {{ $post->title }}</h3>
 
-    <form action="{{ route('seo.update', $page->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('post.seo.update', $post->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -118,46 +118,44 @@
         </div>
 
         <!-- Structured Data (JSON-LD) -->
-        <!-- Structured Data (JSON-LD) -->
         <div class="form-group">
             <label for="structured_data">Structured Data (JSON-LD)</label>
-            <textarea class="form-control @error('structured_data') is-invalid @enderror" id="structured_data" name="structured_data" rows="4" style="resize: vertical; min-height: 150px;" placeholder="Enter valid JSON">
-            {{ old('structured_data', is_array($seo->structured_data) ? json_encode($seo->structured_data, JSON_PRETTY_PRINT) : $seo->structured_data) }}
-            </textarea>
+            <textarea class="form-control @error('structured_data') is-invalid @enderror" id="structured_data" name="structured_data" rows="4" style="resize: vertical; min-height: 150px;" placeholder='Enter valid JSON'>{{ old('structured_data', is_array($seo->structured_data) ? json_encode($seo->structured_data, JSON_PRETTY_PRINT) : $seo->structured_data) }}</textarea>
             @error('structured_data')
-            <div class="invalid-feedback">{{ $message }}</div>
+                <div class="invalid-feedback">{{ $message }}</div>
             @enderror
             <small class="form-text text-muted">
                 Example JSON-LD:
-                <pre style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 5px;">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Your Post Title Here",
-  "description": "A short description of your blog post goes here.",
-  "image": "https://example.com/path-to-your-featured-image.jpg",
-  "author": {
-    "@type": "Person",
-    "name": "Author Name"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Your Website Name",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://example.com/path-to-your-logo.jpg"
-    }
-  },
-  "datePublished": "2023-01-01T08:00:00+08:00",
-  "dateModified": "2023-01-01T09:00:00+08:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://example.com/your-blog-post-url"
-  }
-}
-        </pre>
+                <pre style="background: #f8f9fa; padding: 10px; border-radius: 5px;">
+        {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": "Your Post Title Here",
+          "description": "A short description of your blog post goes here.",
+          "image": "https://example.com/path-to-your-featured-image.jpg",
+          "author": {
+            "@type": "Person",
+            "name": "Author Name"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Your Website Name",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://example.com/path-to-your-logo.jpg"
+            }
+          },
+          "datePublished": "2023-01-01T08:00:00+08:00",
+          "dateModified": "2023-01-01T09:00:00+08:00",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://example.com/your-blog-post-url"
+          }
+        }
+                </pre>
             </small>
         </div>
+
 
 
         <button type="submit" class="btn btn-primary mt-3">Update SEO Settings</button>
