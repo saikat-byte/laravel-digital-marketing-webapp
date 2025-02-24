@@ -78,7 +78,6 @@ $footer = $footer ?? null;
                     @endif
                 </div>
             </div>
-            <a href="#" id="backToTop"><i class="fa fa-arrow-up"></i></a>
 
         </div>
 

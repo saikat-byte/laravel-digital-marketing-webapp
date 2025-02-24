@@ -124,17 +124,6 @@
 }
 
 
-/* Smooth Animation */
-/* @keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-100%);
-    } */
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
     .service-card {

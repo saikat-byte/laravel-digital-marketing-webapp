@@ -2,22 +2,22 @@
 
 /* ==================== Contact Hero Banner Start ================== */
 .contact-banner {
-    background: #000; 
+    background: #000;
     position: relative;
     overflow: hidden;
   }
 
   .banner-video {
     width: 100%;
-    height: 100vh;         
-    object-fit: cover;     
+    height: 100vh;
+    object-fit: cover;
     display: block;
   }
-  
+
   /*Responsive */
   @media (max-width: 992px) {
     .banner-video {
-      height: 70vh; 
+      height: 70vh;
     }
   }
   @media (max-width: 576px) {
@@ -28,7 +28,7 @@
   .banner-text {
     z-index: 2;
   }
-  
+
 /* ==================== Contact Hero Banner End ================== */
 /* ==================== Contact Page Form Right================== */
 
@@ -62,7 +62,7 @@
 .collaborate-section {
     position: relative;
     width: 100%;
-    height: 80vh; 
+    height: 80vh;
     overflow: hidden;
   }
   .collaborate-section .collaborate-section-content{
@@ -76,23 +76,23 @@
     width: 100%;
     height: 100%;
   }
-  
+
   .bg-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: cover;
     display: block;
   }
-  
+
   .gradient-overlay {
     position: absolute;
-    top: 0; 
-    left: 0; 
-    width: 100%; 
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
     background: linear-gradient(to right, rgba(0,0,255,0.6), rgba(0,255,255,0.2));
   }
-  
+
   /* Heading  */
   .collab-heading {
     font-size: 3rem;
@@ -100,7 +100,7 @@
     line-height: 1.2;
     z-index: 2;
   }
-  
+
   .get-quote-btn {
     border: 2px solid #fff;
     background: transparent;
@@ -110,13 +110,13 @@
     font-size: 1rem;
     border-radius: 4px;
     transition: all 0.3s ease;
-    z-index: 2; 
+    z-index: 2;
   }
   .get-quote-btn:hover {
     background: #fff;
     color: #000;
   }
-  
+
   /* Responsive */
   @media (max-width: 992px) {
     .collaborate-section {
@@ -138,7 +138,7 @@
         padding-bottom: 2rem;
     }
   }
-  
+
 /* ==================== Collaborate Section End ================== */
 
 /* ====================Client Logo section contact page Start ====================== */

@@ -176,9 +176,7 @@
         showAlert('error', "{{ session('error') }}");
         @endif
 
-    });
-
-    $(document).ready(function() {
+        // zoom image
         $('.zoom-image').hover(
             function() {
                 $(this).css('transform', 'scale(2)'); // Zoom in on hover
@@ -187,12 +185,11 @@
                 $(this).css('transform', 'scale(1)'); // Zoom out when hover ends
             }
         );
-    });
 
-    // Delete post
-    $(document).ready(function () {
+        // Delete post
+
         // Add click event for delete button
-        $('.delete').on('click', function () {
+        $('.delete').on('click', function() {
             var postId = $(this).data('id'); // Get post ID from the data_id attribute
             var form = $('#form_' + postId); // Get the form corresponding to the post ID
 
@@ -201,6 +198,7 @@
                 form.submit(); // Submit the form if confirmed
             }
         });
+
     });
 
 </script>

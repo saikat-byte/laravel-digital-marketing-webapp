@@ -9,6 +9,7 @@ use App\Models\Page;
 use App\Models\PageSection;
 use App\Models\PageSeoSetting;
 use App\Models\Post;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -43,9 +44,9 @@ class PageController extends Controller
             $posts = Post::orderBy('created_at', 'desc')->take(6)->get();
 
         }
-
+        $reviews = Review::latest()->get();
 
         // ✅ Return View Dynamically
-        return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections', 'sectionImage', 'downloadSection', 'contactForm', 'faq', 'watermark', 'contactFormRight', 'posts'));
+        return view("frontend.modules.{$slug}.index", compact('page', 'seo', 'sections', 'sectionImage', 'downloadSection', 'contactForm', 'faq', 'watermark', 'contactFormRight', 'posts','reviews'));
     }
 }

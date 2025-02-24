@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\HeaderFooterController;
+use App\Http\Controllers\Admin\HolidayController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Frontend\AppointmentController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\SubscriberController;
@@ -82,8 +84,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/profile', [AdminProfileController::class, 'edit'])->name('admin.profile.edit');
     Route::put('/profile/{id}', [AdminProfileController::class, 'update'])->name('admin.profile.update');
 
-
-
     /*========== Users management ==========*/
     Route::get('/users/list', [AdminUserController::class, 'index'])
         ->name('admin.users.index');
@@ -93,6 +93,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     // Update User
     Route::put('/users/{id}', [AdminUserController::class, 'update'])
         ->name('admin.users.update');
+
+    /*========== Reviews manage by admin ==========*/
+    Route::resource('reviews', ReviewController::class);
 
     /*========== Post ==========*/
     Route::resource('category', CategoryController::class);
@@ -171,6 +174,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     // Appointment Delete route
     Route::delete('/appointments/{id}', [AdminAppointmentController::class, 'destroy'])
         ->name('admin.appointments.destroy');
+
+    // Holidays management routes
+    Route::get('/holidays', [HolidayController::class, 'index'])->name('admin.holidays.index');
+    Route::get('/holidays/create', [HolidayController::class, 'create'])->name('admin.holidays.create');
+    Route::post('/holidays', [HolidayController::class, 'store'])->name('admin.holidays.store');
+    Route::get('/holidays/{id}/edit', [HolidayController::class, 'edit'])->name('admin.holidays.edit');
+    Route::put('/holidays/{id}', [HolidayController::class, 'update'])->name('admin.holidays.update');
+    Route::delete('/holidays/{id}', [HolidayController::class, 'destroy'])->name('admin.holidays.destroy');
 
 
     // Subscription management for admin

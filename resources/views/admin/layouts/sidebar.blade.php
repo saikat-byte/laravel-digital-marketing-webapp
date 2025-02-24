@@ -117,6 +117,27 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#reviews">
+                        <i class="fas fa-star"></i>
+                        <p>Reviews</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="reviews">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('reviews.index') }}">
+                                    <span class="sub-item">List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('reviews.create') }}">
+                                    <span class="sub-item">Create</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#category">
                         <i class="fas fa-th-large"></i>
                         <p>Category</p>
@@ -227,6 +248,11 @@
                             <li>
                                 <a href="{{ route('admin.appointments.index') }}">
                                     <span class="sub-item">List</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.holidays.index') }}">
+                                    <span class="sub-item">Holidays</span>
                                 </a>
                             </li>
                         </ul>
