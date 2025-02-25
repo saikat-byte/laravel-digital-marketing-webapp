@@ -1,10 +1,4 @@
 @if($section->status == 1)
-        @if(Session::has('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ Session::get('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
         <form action="{{ route('lead.submit') }}" method="POST" class="text-center" >
             @csrf
             <div class="mb-3">

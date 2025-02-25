@@ -29,7 +29,6 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-
                 @if(auth()->user()->isAdmin())
                 {{-- content --}}
                 <li class="nav-section">
@@ -337,6 +336,11 @@
                                     <span class="sub-item">List</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('admin.edit.showPdf') }}">
+                                    <span class="sub-item">Pdf file update</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -344,7 +348,7 @@
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#leads">
                         <i class="fas fa-handshake"></i>
-                        <p>Leads</p>
+                        <p>CRM Leads</p>
                         <span class="caret"></span>
                     </a>
                     <div class="collapse" id="leads">

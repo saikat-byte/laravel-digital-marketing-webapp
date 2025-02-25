@@ -37,7 +37,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title">Subscriber List</h4>
-                        <a href="{{ route('admin.subscribers.index') }}" class="btn btn-info"> Subscriber List </a>
+                        <a href="{{ route('admin.edit.showPdf') }}" class="btn btn-info"> Edit pdf</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -70,9 +70,6 @@
             </div>
         </div>
     </div>
-
-
-
 </div>
 
 @endsection

@@ -85,6 +85,7 @@
             time_24hr: false
         , });
     });
+    @include('frontend.partials.sweet-alert')
 
 </script>
 

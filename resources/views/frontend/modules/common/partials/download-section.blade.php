@@ -1,16 +1,4 @@
 @if($section->status == 1)
-@if (session('success'))
-<div class="alert alert-success">
-    {{ session('success') }}
-</div>
-@endif
-
-@if (session('error'))
-<div class="alert alert-danger">
-    {{ session('error') }}
-</div>
-@endif
-
 <section class="download-section text-center text-white py-5">
     <div class="container-fluid position-relative py-5">
         <!-- Content -->

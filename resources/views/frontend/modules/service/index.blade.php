@@ -94,6 +94,7 @@
             }
         );
     });
+    @include('frontend.partials.sweet-alert')
 
 </script>
 

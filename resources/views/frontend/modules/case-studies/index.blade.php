@@ -34,8 +34,11 @@
 {{-- added play button --}}
 <script src="{{ asset('assets/frontend/jquery/video-play-btn.js') }}"></script>
 
+@if (session('success'))
 <script>
 
+@include('frontend.partials.sweet-alert')
 </script>
+@endif
 
 @endpush

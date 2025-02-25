@@ -40,7 +40,8 @@
         , time_24hr: true
     });
 
-    @include('admin.partials.sweet-alert')
+    @include('frontend.partials.sweet-alert')
+
 
 </script>
 @endpush

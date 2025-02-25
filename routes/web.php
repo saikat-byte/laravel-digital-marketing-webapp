@@ -188,6 +188,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
     // Subscription management for admin
     Route::get('/subscribers', [AdminSubscriberController::class, 'index'])->name('admin.subscribers.index');
+    Route::get('/download-pdf-file', [AdminSubscriberController::class, 'showPdf'])->name('admin.edit.showPdf');
+    Route::put('/update-pdf-file', [AdminSubscriberController::class, 'updatePdf'])->name('admin.edit.updatePdf');
 
     // Display header & footer management page
     Route::get('/header-footer', [HeaderFooterController::class, 'index'])->name('header_footer.index');

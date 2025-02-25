@@ -9,18 +9,26 @@ $footer = $footer ?? null;
             <!-- Footer Left Section -->
             <div class="col-lg-4 footer-left">
                 <div class="footer-logo">
-                    <img src="{{ asset('storage/' . (optional($footer)->logo ?? 'assets/frontend/media/common/logo/logo.jpg')) }}" alt="Cloudspace Solutions Logo">
+                    <a href="{{ route('frontend.page.show', ['slug' => 'home']) }}">
+                        <img src="{{ asset('storage/' . (optional($footer)->logo ?? 'assets/frontend/media/common/logo/logo.jpg')) }}" alt="Cloudspace Solutions Logo">
+                    </a>
                 </div>
                 <div class="subscribe-section">
                     <p class="text-muted footer-left-heading">Join our newsletter to stay up to date on features and releases.</p>
-                    <form>
+                    <form action="{{ route('lead.submit') }}" method="POST">
                         @csrf
                         <div class="row g-2 mb-3">
                             <div class="col-md-6">
-                                <input type="text" class="form-control" placeholder="Enter Your Name">
+                                <input type="text" class="form-control" name="name" placeholder="Enter Your Name">
+                                @error('name')
+                                <span>{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-md-6">
-                                <input type="email" class="form-control" placeholder="Enter Your Email">
+                                <input type="email" class="form-control" name="email" placeholder="Enter Your Email">
+                                @error('email')
+                                <span>{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <button type="submit" class="gradient-glow-button w-100">SUBSCRIBE</button>

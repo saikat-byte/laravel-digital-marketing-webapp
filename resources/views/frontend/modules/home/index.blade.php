@@ -1,19 +1,5 @@
 @extends('frontend.layouts.master-layout')
 @section('title', 'Home')
-{{-- @section('title', $seo->meta_title ?? $page->title)
-
-@section('meta')
-<meta name="description" content="{{ $seo->meta_description ?? '' }}">
-<meta name="keywords" content="{{ $seo->meta_keywords ?? '' }}">
-<meta property="og:title" content="{{ $seo->og_title ?? '' }}">
-<meta property="og:description" content="{{ $seo->og_description ?? '' }}">
-<meta property="og:image" content="{{ asset('storage/' . $seo->og_image) }}">
-<meta name="twitter:title" content="{{ $seo->twitter_title ?? '' }}">
-<meta name="twitter:description" content="{{ $seo->twitter_description ?? '' }}">
-<meta name="twitter:image" content="{{ asset('storage/' . $seo->twitter_image) }}">
-<link rel="canonical" href="{{ $seo->canonical_url ?? url()->current() }}">
-@endsection --}}
-
 @section('custom_css')
 <link rel="stylesheet" href="{{ asset('assets/frontend/css/index.css') }}">
 @endsection
@@ -142,4 +128,5 @@
 
 @push('custom_js')
 <script src="{{ asset('assets/frontend/jquery/stats-number.js') }}"></script>
+@include('frontend.partials.sweet-alert')
 @endpush
