@@ -18,6 +18,9 @@ class BlogController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
+            // default seo
+            $seo = new \App\Models\PostSeoSetting();
+
         // Active categories (for sidebar filtering, if needed)
         $categories = Category::where('status', 1)->get();
 
@@ -25,13 +28,16 @@ class BlogController extends Controller
         // such as tags, latest posts etc.
 
         // Return the Blog index view
-        return view('frontend.modules.blog.index', compact('posts', 'categories'));
+        return view('frontend.modules.blog.index', compact('posts', 'categories','seo'));
     }
 
     public function show($slug)
     {
         // Single blog post fetch
         $post = Post::with('approvedComments')->where('slug', $slug)->firstOrFail();
+
+        // default seo
+        $seo = $post->seoSetting ?? new \App\Models\PostSeoSetting();
 
         // Banner: single blog page banner image clicked post image
         $bannerImage = $post->post_image
@@ -60,39 +66,11 @@ class BlogController extends Controller
             'relatedPosts',
             'latestPosts',
             'categories',
-            'tags'
+            'tags','seo'
         ));
     }
 
-
-    // blog Search
-    // public function search(Request $request)
-    // {
-    //     $query = $request->input('search');
-
-    //     // Posts search logic: title or description keyword match
-    //     $posts = Post::where('status', 1)
-    //         ->where(function ($q) use ($query) {
-    //             $q->where('title', 'like', "%{$query}%")
-    //                 ->orWhere('description', 'like', "%{$query}%");
-    //         })
-    //         ->orderBy('created_at', 'desc')
-    //         ->paginate(10);
-
-    //     // Sidebar data fetch
-    //     $categories = Category::where('status', 1)->get();
-    //     $tags = Tag::where('status', 1)->get();
-    //     $latestPosts = Post::where('status', 1)
-    //         ->orderBy('created_at', 'desc')
-    //         ->take(5)
-    //         ->get();
-
-    //     // blog page confirmation fetch
-    //     $page = Page::where('slug', 'blog')->first();
-
-    //     // Return view with search results; pass $query for display if needed
-    //     return view('frontend.modules.blog.index', compact('posts', 'categories', 'tags', 'latestPosts', 'page', 'query'));
-    // }
+    // Search function for blog posts
 
     public function search(Request $request)
 {

@@ -34,7 +34,7 @@ class AppointmentController extends Controller
         $appointmentDate = Carbon::parse($request->appointment_date);
 
         // Check if the date is a weekend
-        if ($appointmentDate->isWeekend()) {
+        if ($appointmentDate->isSunday()) {
             return redirect()->back()
                 ->withErrors(['appointment_date' => 'Appointments cannot be booked on weekends.'])
                 ->withInput();

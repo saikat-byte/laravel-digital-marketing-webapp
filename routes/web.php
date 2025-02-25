@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Admin\AdminCommentController;
+use App\Http\Controllers\Admin\AdminLeadController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\AdminUserController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Admin\PostSeoSettingController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Frontend\AppointmentController;
 use App\Http\Controllers\Frontend\BlogController;
+use App\Http\Controllers\Frontend\LeadController;
 use App\Http\Controllers\Frontend\SubscriberController;
 use App\Http\Controllers\Frontend\UserAuthController;
 use App\Http\Controllers\ProfileController;
@@ -67,6 +69,9 @@ Route::get('/appointment', [AppointmentController::class, 'create'])->name('appo
 Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
 // Subscription management
 Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscriber.store');
+
+// Lead management
+Route::post('/lead/submit', [LeadController::class, 'submitLead'])->name('lead.submit');
 
 
 /*========== Admin dashboard ==========*/
@@ -209,8 +214,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin_or_mod']], fu
     Route::get('/post-seo', [PostSeoSettingController::class, 'postSeoIndex'])->name('post.seo.index');
     Route::get('/post-seo/{postId}/edit', [PostSeoSettingController::class, 'edit'])->name('post.seo.edit');
     Route::put('/post-seo/{postId}', [PostSeoSettingController::class, 'update'])->name('post.seo.update');
-});
 
+    // Lead for admin dashboard
+    Route::get('/leads', [AdminLeadController::class, 'index'])->name('admin.leads');
+});
 
 
 Route::middleware('auth')->group(function () {

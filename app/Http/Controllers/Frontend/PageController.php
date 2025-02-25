@@ -20,7 +20,7 @@ class PageController extends Controller
         $page = Page::where('slug', $slug)->firstOrFail();
 
         // ✅ Fetch Page SEO Data
-        $seo = PageSeoSetting::where('page_id', $page->id)->first();
+        $seo = PageSeoSetting::where('page_id', $page->id)->first() ?? new PageSeoSetting();
 
         // ✅ Fetch Active Sections
         $sections = PageSection::where('page_id', $page->id)->where('status', 1)->orderBy('order')->get();

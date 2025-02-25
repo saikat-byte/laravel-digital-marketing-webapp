@@ -99,6 +99,8 @@
                         </ul>
                     </div>
                 </li>
+                @endif
+                @if(auth()->user()->isAdmin() || auth()->user()->isModerator())
                 {{-- Manage SEO --}}
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#seo_manage">
@@ -110,7 +112,7 @@
                         <ul class="nav nav-collapse">
                             <li>
                                 <a href="{{ route('seo.index') }}">
-                                    <span class="sub-item">List</span>
+                                    <span class="sub-item">Seo List</span>
                                 </a>
                             </li>
                             <li>
@@ -121,6 +123,8 @@
                         </ul>
                     </div>
                 </li>
+                @endif
+                @if(auth()->user()->isAdmin())
                 {{-- Common section --}}
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#common_section">
@@ -331,6 +335,23 @@
                             <li>
                                 <a href="{{ route('admin.subscribers.index') }}">
                                     <span class="sub-item">List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                {{-- Leads --}}
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#leads">
+                        <i class="fas fa-handshake"></i>
+                        <p>Leads</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="leads">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('admin.leads') }}">
+                                    <span class="sub-item">Leads list</span>
                                 </a>
                             </li>
                         </ul>
