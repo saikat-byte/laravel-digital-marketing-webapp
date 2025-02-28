@@ -1,4 +1,4 @@
-// Create successfully
+
 @if(session('success'))
 Swal.fire({
     icon: 'success'

@@ -7,7 +7,6 @@
             <div class="col-lg-6 about-banner-content py-5">
                 <h1 class="display-4 fw-bold">{{ $section->heading }}</h1>
                 <p class="lead">{{ $section->sub_heading }}</p>
-                <a href="{{ $section->button_1_text ?? '#' }}" class="gradient-glow-button text-uppercase">{{ $section->button_1_text }}</a>
             </div>
         </div>
     </div>

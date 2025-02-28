@@ -43,7 +43,7 @@ use Illuminate\Support\Facades\Route;
 // Default Home Page
 Route::get('/', function () {
     return redirect()->route('frontend.page.show', ['slug' => 'home']);
-})->name('frontend.page.show');
+})->name('frontend.page.home');
 
 /*========== Frontend route ==========*/
 Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.page.show');

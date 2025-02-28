@@ -16,6 +16,7 @@ class PageController extends Controller
 {
     public function show($slug)
     {
+
         // ✅ Fetch Page by Slug
         $page = Page::where('slug', $slug)->firstOrFail();
 

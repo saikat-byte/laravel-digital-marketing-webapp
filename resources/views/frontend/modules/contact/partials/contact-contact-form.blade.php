@@ -1,3 +1,4 @@
+    @if($section->status == 1)
     <!-- Common contact form start -->
     <section class="contact-section pb-5 pt-5">
         <div class="container">
@@ -104,3 +105,4 @@
                 </div>
     </section>
     <!-- Common contact form End -->
+    @endif

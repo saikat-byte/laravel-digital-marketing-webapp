@@ -1,8 +1,9 @@
+@if($section->status == 1)
      <!-- Contact Hero Banner Section Start -->
      <section class="contact-banner container-fluid p-0">
         <div class="row g-0">
             <div class="col-12 position-relative">
-                <video class="banner-video" autoplay loop muted playsinline <!-- iOS Safari তে ইনলাইন প্লে -->
+                <video class="banner-video" autoplay loop muted playsinline <!-- iOS Safari inline play -->
                     poster="assets/images/video-poster.jpg"
                     >
                     <source src="{{ asset('assets/frontend/media/pages/contact/video/contact_map_video.mp4') }}" type="video/mp4" />
@@ -13,3 +14,4 @@
         </div>
     </section>
     <!-- Contact Hero Banner Section End -->
+@endif

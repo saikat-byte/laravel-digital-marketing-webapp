@@ -33,7 +33,7 @@ $footer = $footer ?? null;
                         </div>
                         <button type="submit" class="gradient-glow-button w-100">SUBSCRIBE</button>
                         <p class="mt-2 small text-muted">
-                            By subscribing you agree to our <a href="#" class="text-primary">Privacy Policy</a> and provide consent to receive updates from our company.
+                            By subscribing you agree to our <a href="{{ route('frontend.page.show', ['slug' => 'privacy-policy']) }}" class="text-primary">Privacy Policy</a> and provide consent to receive updates from our company.
                         </p>
                     </form>
                 </div>
@@ -92,8 +92,8 @@ $footer = $footer ?? null;
         <!-- Bottom Footer Section -->
         <div class="bottom-footer d-flex justify-content-start mt-4">
             <p>© 2024 CLOUDSPACE SOLUTIONS. ALL RIGHT RESERVED.</p>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms & Conditions</a>
+            <a href="{{ route('frontend.page.show', ['slug' => 'privacy-policy']) }}" class="text-primary">Privacy Policy</a>
+            <a href="{{ route('frontend.page.show', ['slug' => 'terms-condition']) }}" class="text-primary">Terms & Conditions</a>
         </div>
     </div>
 </footer>

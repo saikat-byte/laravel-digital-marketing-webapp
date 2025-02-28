@@ -1,3 +1,4 @@
+@if($section->status == 1)
 <!-- Collaborate Section Start -->
 <section class="collaborate-section position-relative">
     <!-- Overlay & Background Image Wrapper -->
@@ -22,3 +23,4 @@
     </div>
 </section>
 <!-- Collaborate Section End -->
+@endif
