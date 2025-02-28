@@ -9,9 +9,11 @@
 <style>
     /* Parent categories: Blue color */
     .category-item {
-        color: #0040ff; /* Main color */
+        color: #0040ff;
+        /* Main color */
         font-weight: bold;
     }
+
     .category-item:hover {
         color: #0030cc;
         text-decoration: none;
@@ -19,12 +21,15 @@
 
     /* Subcategories: Orange color */
     .subcategory-item {
-        color: #ff6600; /* Main color */
+        color: #ff6600;
+        /* Main color */
     }
+
     .subcategory-item:hover {
         color: #cc5200;
         text-decoration: none;
     }
+
 </style>
 @endsection
 
@@ -269,32 +274,26 @@
                     <h5>Categories</h5>
                     <div class="list-group">
                         @foreach($categories->take(6) as $category)
-                            <!-- Parent Category Item with custom class -->
-                            <a href="{{ route('frontend.blog.search', ['category' => $category->slug]) }}"
-                               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category-item"
-                               data-bs-toggle="collapse"
-                               data-bs-target="#subCategory{{ $category->id }}"
-                               aria-expanded="false"
-                               aria-controls="subCategory{{ $category->id }}">
-                                {{ $category->title }}
-                                @if($category->subcategories->count())
-                                    <i class="bi bi-caret-down-fill"></i>
-                                @endif
-                            </a>
-
-                            <!-- Subcategories collapse -->
+                        <!-- Parent Category Item with custom class -->
+                        <a href="{{ route('frontend.blog.search', ['category' => $category->slug]) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category-item" data-bs-toggle="collapse" data-bs-target="#subCategory{{ $category->id }}" aria-expanded="false" aria-controls="subCategory{{ $category->id }}">
+                            {{ $category->title }}
                             @if($category->subcategories->count())
-                                <div class="collapse" id="subCategory{{ $category->id }}">
-                                    <div class="list-group ms-3">
-                                        @foreach($category->subcategories as $subCategory)
-                                            <a href="{{ route('frontend.blog.search', ['category' => $category->slug, 'subcategory' => $subCategory->slug]) }}"
-                                               class="list-group-item list-group-item-action subcategory-item">
-                                                {{ $subCategory->title }}
-                                            </a>
-                                        @endforeach
-                                    </div>
-                                </div>
+                            <i class="bi bi-caret-down-fill"></i>
                             @endif
+                        </a>
+
+                        <!-- Subcategories collapse -->
+                        @if($category->subcategories->count())
+                        <div class="collapse" id="subCategory{{ $category->id }}">
+                            <div class="list-group ms-3">
+                                @foreach($category->subcategories as $subCategory)
+                                <a href="{{ route('frontend.blog.search', ['category' => $category->slug, 'subcategory' => $subCategory->slug]) }}" class="list-group-item list-group-item-action subcategory-item">
+                                    {{ $subCategory->title }}
+                                </a>
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
                         @endforeach
                     </div>
 

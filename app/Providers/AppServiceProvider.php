@@ -43,5 +43,13 @@ class AppServiceProvider extends ServiceProvider
 
         $categories = Category::with('subcategories')->where('status', 1)->latest()->get();
         view()->share(['categories'=> 'categories']);
+
+        // global seo
+        View::composer('*', function ($view) {
+            $data = $view->getData();
+            if (!isset($data['seo'])) {
+                $view->with('seo', new \App\Models\PageSeoSetting());
+            }
+        });
     }
 }
