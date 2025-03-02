@@ -1,3 +1,4 @@
+@if($section->status == 1)
 <section class="contact-section">
     <div class="container-fluid">
         <div class="row d-flex justify-content-center align-items-center">
@@ -20,3 +21,4 @@
         </div>
     </div>
 </section>
+@endif

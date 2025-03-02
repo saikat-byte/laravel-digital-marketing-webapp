@@ -8,6 +8,8 @@
     justify-content: center;
     color: white;
     overflow: hidden;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .hero-section video {
@@ -83,6 +85,9 @@
         margin: 5px 0;
         display: block;
     }
+    .hero-section {
+        height: auto;
+    }
 }
 
 @media (max-width: 576px) {
@@ -98,6 +103,9 @@
 
     .hero-buttons {
         text-align: center;
+    }
+    .hero-section video{
+        height: auto;
     }
 }
 
@@ -238,17 +246,18 @@
     justify-content: center;
     overflow: hidden;
     background: #1b1c22;
-  }
+}
 
-  .card-container {
+.card-container {
     position: relative;
     width: 1000px;
     height: 450px;
     margin: auto;
-  }
+}
 
-  .card-item {
-    position: absolute;         /* Carousel effect absolute */
+.card-item {
+    position: absolute;
+    /* Carousel effect absolute */
     width: 300px;
     height: 400px;
     background: linear-gradient(to bottom, #ffffff, #042e73);
@@ -268,42 +277,54 @@
     padding: 20px;
     box-sizing: border-box;
     overflow: hidden;
-  }
+}
 
-  /* Client Image */
-  .client-img {
+/* Client Image */
+.client-img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 15px;
     border: 3px solid #ffffff;
-  }
+}
 
-  /* Client Name */
-  .client-name {
+/* Client Name */
+.client-name {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 5px;
     color: #fff;
-  }
+}
 
-  /* Client Comment */
-  .client-comment {
+/* Client Comment */
+.client-comment {
     font-size: 14px;
     color: #ddd;
     margin-bottom: 10px;
     font-style: italic;
-  }
+}
 
-  /* Star Rating */
-  .stars {
+/* Star Rating */
+.stars {
     color: gold;
     font-size: 20px;
-  }
+}
 
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .card-container {
+        width: 90%;
+        height: 450px;
+        /* Fixed height to avoid collapse */
+    }
 
-
+    .card-item {
+        width: 90%;
+        height: 400px;
+        /* Fixed height for consistent layout */
+    }
+}
 
 
 /*============ Card Queue Section End============*/
@@ -371,7 +392,7 @@
     /* White background */
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px 0;
+    padding: 40px 0;
 
 }
 
@@ -464,7 +485,7 @@
     box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.2);
 }
 
-.blog-title{
+.blog-title {
     font-size: 14px;
     color: #fff;
 }

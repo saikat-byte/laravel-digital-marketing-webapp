@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        {{ optional($seo)->meta_title ?? (isset($post) ? $post->title : $page->name) }}
-    </title>
+    <meta name="title" content="{{ optional($seo)->meta_title ?? (isset($post) ? $post->title : $page->name) }}">
+    <title>@yield('title', (isset($post) ? $post->title : $page->name))</title>
     <meta name="description" content="{{ optional($seo)->meta_description ?? Str::limit(strip_tags(isset($post) ? ($post->excerpt ?? $post->content) : ($page->description ?? '')), 150) }}">
     <meta name="keywords" content="{{ optional($seo)->meta_keywords ?? '' }}">
 

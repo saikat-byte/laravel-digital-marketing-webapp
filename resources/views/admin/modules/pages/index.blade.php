@@ -167,11 +167,10 @@
                                 <td>{{ $page->deleted_at->diffForHumans() }}</td>
                                 <td>
                                     <a href="{{ route('page.restore', $page->id) }}" class="btn btn-warning btn-sm">Restore</a>
-                                    <form action="{{ route('page.force-delete', $page->id) }}" method="POST" style="display:inline;">
+                                    <form action="{{ route('page.force-delete', $page->id) }}" method="POST" class="delete-form" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to permanently delete this page?')">Delete Permanently
-                                        </button>
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete Permanently</button>
                                     </form>
 
                                 </td>
@@ -254,6 +253,7 @@
                 }
             });
         });
+
         // Delete form submission event handler
         $(".delete-form").on("submit", function(e) {
             e.preventDefault();
@@ -275,7 +275,6 @@
                 }
             });
         });
-
 
         // Page Drag & Drop order change
         $("#sortable-pages").sortable({
@@ -306,9 +305,6 @@
             });
         }
     });
-
-
-
 
 
     });

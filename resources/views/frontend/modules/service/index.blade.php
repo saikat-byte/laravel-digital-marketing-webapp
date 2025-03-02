@@ -103,6 +103,4 @@
 @push('custom_js')
 {{-- Frequently ask question (Accordion Code) --}}
 <script src="{{ asset('assets/frontend/jquery/faq-ask.js') }}"></script>
-{{-- video play button --}}
-<script src="{{ asset('assets/frontend/jquery/video-play-btn.js') }}"></script>
 @endpush

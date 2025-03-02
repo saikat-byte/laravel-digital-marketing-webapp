@@ -1,45 +1,123 @@
-/* Back to Top Button - Fixed at Bottom Right */
-.back-to-top {
+/* ==================== Footer Start ==================== */
+
+/* General Footer Styling */
+.footer {
+    background-color: var(--primary-bg);
+    /* Adjust padding for responsiveness */
+}
+
+.footer-logo img {
+    max-width: 180px;
+    margin-bottom: 1rem;
+}
+
+.footer-left .footer-left-heading {
+    font-size: .8rem;
+}
+
+.footer h6 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--heading-text);
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer ul li {
+    margin: 0.5rem 0;
+}
+
+.footer ul li a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: var(--sub-heading-text);
+    transition: color 0.3s;
+}
+
+.footer ul li a:hover {
+    color: var(--primary-text);
+}
+
+.social-icons a {
+    font-size: 1.2rem;
+    color: var(--heading-text);
+    margin-right: 0.5rem;
+}
+
+.social-icons a:hover {
+    color: var(--sub-heading-text);
+}
+
+/* Bottom Footer */
+.bottom-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--secondary-text);
+}
+
+.bottom-footer a {
+    margin-left: 0.5rem;
+    text-decoration: none;
+    color: var(--primary-text);
+}
+
+.bottom-footer a:hover {
+    text-decoration: underline;
+}
+
+
+
+ /* Icon Container */
+ #iconContainer {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    background-color: #000;
-    color: #fff;
-    width: 45px;
-    height: 45px;
-    line-height: 45px;
-    text-align: center;
-    border-radius: 50%;
-    transition: background-color 0.3s ease, opacity 0.3s ease;
-    opacity: 0.8;
-    text-decoration: none;
+    display: none; /* Initially Hidden */
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
     z-index: 1000;
-}
-
-.back-to-top:hover {
-    background-color: #333;
-    opacity: 1;
-}
-
-/* WhatsApp Chat Icon - Fixed at Bottom Left */
-.whatsapp-chat {
-    position: fixed;
-    left: 20px;
-    bottom: 20px;
-    background-color: #25D366; /* WhatsApp green */
+  }
+  /* Common Style for Both Icons */
+  #iconContainer a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
     color: #fff;
-    width: 45px;
-    height: 45px;
-    line-height: 45px;
-    text-align: center;
     border-radius: 50%;
-    transition: background-color 0.3s ease, opacity 0.3s ease;
-    opacity: 0.8;
     text-decoration: none;
-    z-index: 1000;
-}
+    font-size: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  /* WhatsApp Icon Style */
+  .whatsapp-chat {
+    background-color: #25D366;
+  }
+  .whatsapp-chat:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  /* Back to Top Icon Style */
+  .back-to-top  .fa-arrow-up{
+    font-size: 24px;
 
-.whatsapp-chat:hover {
-    background-color: #128C7E;
-    opacity: 1;
-}
+  }
+  .back-to-top {
+    background-color: #007BFF;
+  }
+  .back-to-top:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+
+/* ==================== Footer End ==================== */

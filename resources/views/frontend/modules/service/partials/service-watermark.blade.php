@@ -1,3 +1,4 @@
+@if($section->status == 1)
 <section class="container-fluid watermark-section">
     <div class="row">
         <div class="col-lg-12 text-center">
@@ -6,3 +7,4 @@
         </div>
     </div>
 </section>
+@endif

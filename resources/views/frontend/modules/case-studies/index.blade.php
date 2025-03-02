@@ -31,8 +31,6 @@
 @endsection
 
 @push('custom_js')
-{{-- added play button --}}
-<script src="{{ asset('assets/frontend/jquery/video-play-btn.js') }}"></script>
 
 @if (session('success'))
 <script>

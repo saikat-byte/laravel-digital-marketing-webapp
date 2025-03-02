@@ -28,7 +28,6 @@ use App\Http\Controllers\Frontend\SubscriberController;
 use App\Http\Controllers\Frontend\UserAuthController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,7 +49,7 @@ Route::get('/{slug}', [FrontendPageController::class, 'show'])->name('frontend.p
 // Blog
 Route::get('/blog/posts', [BlogController::class, 'index'])->name('frontend.blog.index');
 Route::get('/blog/search', [BlogController::class, 'search'])->name('frontend.blog.search');
-Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('frontend.blog.show');
+Route::get('/blog/posts/{slug}', [BlogController::class, 'show'])->name('frontend.blog.show');
 Route::get('/blog/single/search', [BlogController::class, 'singleSearch'])->name('frontend.singleblog.search');
 // comment
 Route::post('/comment/{postId}', [CommentController::class, 'store'])

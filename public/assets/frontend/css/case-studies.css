@@ -138,6 +138,10 @@ html, body {
 .left-side {
   padding-left: 200px;
 }
+#playButton {
+    background: transparent;
+    border: none;
+}
 
 /* responsive*/
 @media (max-width: 768px) {

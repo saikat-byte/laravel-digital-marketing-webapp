@@ -203,9 +203,6 @@ class PageController extends Controller
     }
 
 
-
-
-
     // Page Active inactive using toggle
     public function toggleStatus(Page $page)
     {
@@ -218,10 +215,6 @@ class PageController extends Controller
             'message' => 'Page status updated successfully!'
         ]);
     }
-
-
-    //
-
 
 
     // Soft Delete Page

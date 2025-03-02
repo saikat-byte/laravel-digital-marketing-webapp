@@ -290,7 +290,7 @@
                                 <td>{{ $section->deleted_at->diffForHumans() }}</td>
                                 <td>
                                     <a href="{{ route('page.sections.restore', ['id' => $section->id]) }}" class="btn btn-warning btn-sm">Restore</a>
-                                    <form action="{{ route('page.sections.force-delete', ['id' => $section->id]) }}" method="POST" class="delete-btn" style="display:inline;">
+                                    <form action="{{ route('page.sections.force-delete', ['id' => $section->id]) }}" method="POST" class="delete-form" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Delete Permanently</button>

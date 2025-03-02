@@ -9,8 +9,9 @@
                 <div class="video-wrapper position-relative">
                     <video id="videoElement" class="w-100 rounded" src="{{ asset('storage/' . $section->video) }}" muted></video>
                     <div id="playButtonWrapper" class="play-button position-absolute top-50 start-50 translate-middle">
-                        <button id="playButton" class="gradient-glow-button">
-                            <i id="playIcon" class="fa fa-play"></i>
+                        <button id="playButton">
+                           <!-- Image icon for play button -->
+                        <img id="playIcon" width="50" height="50" src="{{ asset('assets/image/icons/play_button.png') }}" alt="Play Icon">
                         </button>
                     </div>
                 </div>

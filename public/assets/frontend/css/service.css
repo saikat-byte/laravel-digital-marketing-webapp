@@ -77,13 +77,15 @@
     height: 40vh;
     flex-shrink: 0;
     border-radius: 10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     position: relative;
     cursor: pointer;
-    backface-visibility: hidden; /* helpful */
-    transform-style: preserve-3d;/* helpful */
-  }
+    backface-visibility: hidden;
+    /* helpful */
+    transform-style: preserve-3d;
+    /* helpful */
+}
 
 .card-slider,
 .service-card {
@@ -136,38 +138,7 @@
 
 
 
-/*==================== Why Choose Us Section Start ======================*/
-.why-choose-us {
-    background: var(--primary-bg);
-    padding: 5rem 0;
-}
 
-.video-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    /* Adds spacing around the container */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-    /* Softer and more professional shadow */
-    border-radius: 15px;
-    /* Slightly rounded corners for elegance */
-    background-color: #1b1c22;
-    /* A subtle background to blend with a modern UI */
-    overflow: hidden;
-    /* Ensures content stays within rounded corners */
-    padding: 10px;
-    /* Adds subtle internal spacing */
-}
-
-.video-container video {
-    width: 100%;
-    /* Ensures the video takes full width */
-    border-radius: 10px;
-    /* Smooth corners for the video */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Subtle shadow for the video itself */
-}
-
-/*==================== Why Choose Us Section End ======================*/
 
 /* ==============Service Contact form Start ====================== */
 .service-contact {
