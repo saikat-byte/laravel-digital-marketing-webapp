@@ -1,5 +1,5 @@
 @if($section->status == 1)
-<section class="testimonials-section py-5">
+<section class="case_study_testimonials-section py-5">
     <div class="container-fluid">
 
         <!-- Heading -->
@@ -16,7 +16,7 @@
                     @foreach($posts as $post)
                         <div class="testimonial-card"
                              style="background-image: url('{{ asset('assets/image/postimage/thumbnail/'.pathinfo($post->post_image, PATHINFO_FILENAME).'_thumb'.'.'.pathinfo($post->post_image, PATHINFO_EXTENSION)) }}" alt="{{ $post->post_image }}');">
-                            <div class="card-content">
+                            <div class="testimonial-card-content">
                                 <p class="blog-title text-uppercase">{{ $post->title }}</p>
                                 <a href="{{ route('frontend.blog.show', $post->slug) }}" class="gradient-glow-button read-more">Read more</a>
                             </div>
@@ -33,7 +33,7 @@
                     @foreach($posts as $post)
                         <div class="testimonial-card"
                              style="background-image: url('{{ asset('assets/image/postimage/thumbnail/'.pathinfo($post->post_image, PATHINFO_FILENAME).'_thumb'.'.'.pathinfo($post->post_image, PATHINFO_EXTENSION)) }}" alt="{{ $post->post_image }}');">
-                            <div class="card-content">
+                            <div class="testimonial-card-content">
                                 <p class="blog-title text-uppercase">{{ $post->title }}</p>
                                 <a href="{{ route('frontend.blog.show', $post->slug) }}" class="gradient-glow-button read-more">Read more</a>
                             </div>

@@ -19,93 +19,92 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+
     z-index: 1;
 }
 
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 2;
-}
 
 .hero-content {
     position: relative;
     z-index: 3;
-    text-align: left;
+    padding: 20px;
 }
 
 .hero-content h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 10px;
-    color: var(--sub-heading-text);
+    color: var(--sub-heading-text, #fff);
 }
 
-.hero-content h2 {
-    font-size: 3rem;
+.hero-content .sub-heading {
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 15px;
-    color: var(--secondary-text);
 }
 
-.hero-content p {
-    font-size: 1rem;
-    color: var(--secondary-text);
+.hero-content .paragraph {
+    font-size: 1.2rem;
+    color: var(--gray-text, #ddd);
     margin-bottom: 20px;
+    text-align: justify;
 }
 
-.hero-buttons .btn {
+.hero-buttons a {
     margin: 0 10px;
     padding: 10px 20px;
     font-size: 1rem;
     border-radius: 6px;
+    text-decoration: none;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero-content h1 {
-        font-size: 1.5rem;
-    }
-
-    .hero-content h2 {
         font-size: 2rem;
     }
-
-    .hero-content p {
-        font-size: 0.9rem;
+    .hero-content .sub-heading {
+        font-size: 1.5rem;
     }
-
-    .hero-buttons .btn {
+    .hero-content .paragraph {
+        font-size: 1rem;
+        text-align: justify;
+    }
+    .hero-buttons a {
         font-size: 0.9rem;
         padding: 8px 15px;
         margin: 5px 0;
-        display: block;
+        display: inline-block;
     }
     .hero-section {
         height: auto;
+        padding: 50px 0;
+        padding-right: 30px;
+        padding-right: 30px;
+        object-fit: cover;
     }
 }
 
 @media (max-width: 576px) {
     .hero-content {
-        text-align: center;
+        text-align: justify;
+        padding: 10px;
     }
-
     .hero-content h1,
-    .hero-content h2,
-    .hero-content p {
-        text-align: center;
+    .hero-content .sub-heading,
+    .hero-content .paragraph {
+        text-align: justify;
     }
-
     .hero-buttons {
-        text-align: center;
+        text-align: justify;
     }
-    .hero-section video{
-        height: auto;
+    .hero-section video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 }
 
@@ -330,57 +329,95 @@
 /*============ Card Queue Section End============*/
 
 /*================== About Section Start==================*/
-
+/* Banner Section */
 .about-section {
     position: relative;
-    /* background: url('/assets/frontend/media/pages/home/images/home_service.jpg') no-repeat center center; */
     background-size: cover;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    /* Align elements vertically */
-    justify-content: flex-start;
-    /* Keep heading at the top */
-    align-items: center;
-    text-align: center;
-    padding: 2rem 0;
-}
-
-/* Overlay */
-.about-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
+    background-position: center;
+    height: auto;
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent overlay */
-    z-index: 1;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 
-/* Heading Styling */
-.about-section h1 {
-    font-size: 2.5rem;
+
+/* Content Container (above overlay) */
+.about-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 1rem;
+    /* Horizontal padding to avoid edge collision */
+}
+
+.banner-heading .heading {
+    font-size: clamp(2rem, 5vw, 3rem);
+    /* Responsive font-size */
     font-weight: 700;
-    color: #ffffff;
-    margin-top: 2rem;
-    /* Space from the top */
-    z-index: 2;
-    /* Above overlay */
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--heading-text);
 }
 
-/* Button Styling */
-.button-row {
-    position: absolute;
-    bottom: 2rem;
-    /* Place button at the bottom */
-    left: 50%;
-    /* Move to the horizontal center */
-    transform: translateX(-50%);
-    /* Adjust for perfect center alignment */
-    z-index: 2;
-    /* Above overlay */
+/* Card Styling */
+.card-content {
+    background: linear-gradient(to right, #ffffff1A, #9c9bb41A, #5d65df1A);
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    max-width: 1200px;
+    width: 100%;
+    padding: 2rem;
+    margin: 0 auto;
+}
+
+.card-content h2 {
+    color: var(--heading-text);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.card-content .paragraph {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    color: var(--gray-text);
+    text-align: justify;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .card-content h3 {
+        font-size: 1.75rem;
+    }
+
+    .card-content .paragraph{
+        font-size: 1rem;
+        text-align: justify;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-content {
+        padding: 1rem;
+    }
+
+    .banner-heading h1 {
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
+    }
+
+    .card-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .card-content .paragraph {
+        font-size: 0.95rem;
+        text-align: justify;
+    }
 }
 
 
@@ -446,9 +483,6 @@
         font-size: 14px;
     }
 }
-
-
-
 
 /*=============== Testimonials Section Start ===============*/
 .testimonials-section {

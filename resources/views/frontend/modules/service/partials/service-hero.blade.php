@@ -10,10 +10,10 @@
             <!-- Right Column with Gradient Background -->
             <div class="col-lg-6 banner-right d-flex flex-column justify-content-start align-items-start">
                 <div class="content-wrapper">
-                    <h1 class="fw-bold">{{ $section->heading }}</h1>
-                    <h3 class="mb-3 fs-4">{{ $section->sub_heading }}</h3>
-                    <p class="mb-4">{{ $section->paragraph }}</p>
-                    <a href="#" class="gradient-glow-button text-uppercase">{{ $section->button_1_text }}</a>
+                    <h1 class="fw-bold heading">{{ $section->heading }}</h1>
+                    <h3 class="mb-3 fs-4 sub-heading">{{ $section->sub_heading }}</h3>
+                    <p class="mb-4 paragraph">{{ $section->paragraph }}</p>
+                    <a href="{{ $section->button_1_link }}" class="gradient-glow-button text-uppercase">{{ $section->button_1_text }}</a>
                 </div>
             </div>
         </div>

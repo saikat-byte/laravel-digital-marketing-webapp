@@ -1,16 +1,17 @@
 @if($section->status == 1)
-<!-- About Banner section start -->
-<section class="about-banner pt-5" style="background-image: url('{{ asset('storage/' . $section->image) }}')">
-    <div class="about-banner-overlay"></div>
-    <div class="container">
-        <div class="row pt-5">
-            <div class="col-lg-6 about-banner-content py-5">
-                <h1 class="display-4 fw-bold">{{ $section->heading }}</h1>
-                <p class="lead">{{ $section->sub_heading }}</p>
-                <a href="{{ $section->button_1_text ?? '#' }}" class="gradient-glow-button text-uppercase">{{ $section->button_1_text }}</a>
-            </div>
-        </div>
+<section class="about-section" style="background-image: url('{{ asset('storage/' . $section->image) }}');">
+  {{-- <div class="overlay"></div> --}}
+  <div class="about-content container d-flex flex-column justify-content-start align-items-center h-100">
+    <!-- Banner Heading (full-width, single line) -->
+    <div class="banner-heading text-center w-100">
+      <h1 class="heading">{{ $section->heading }}</h1>
     </div>
+    <!-- Card with gap below heading -->
+    <div class="card-content text-center mt-4">
+      <h3>{{ $section->sub_heading }}</h3>
+      <p class="paragraph">{{ $section->paragraph }}</p>
+      <a href="{{ $section->button_1_link }}" class="gradient-glow-button text-uppercase">{{ $section->button_1_text }}</a>
+    </div>
+  </div>
 </section>
-<!-- About Banner section End -->
 @endif

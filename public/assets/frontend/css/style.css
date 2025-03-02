@@ -31,7 +31,7 @@ body, html {
     /* Gray */
     --border-color: #0731A8;
     /* linear gradient */
-    --overlay-color: rgba(0, 0, 0, 0.6);
+    --overlay-color: rgba(0, 0, 0, 0.4);
 
     /* ===== Buttons ===== */
     --btn-bg-color: var(--linear-bg);
@@ -121,6 +121,21 @@ img {
     max-width: 100%;
     height: auto;
 }
+
+.paragraph {
+    color: var(--gray-text) !important;
+    text-align: justify;
+}
+
+.heading {
+    color: var(--heading-text) !important;
+   }
+
+.sub-heading {
+  color: var(--sub-heading-text) !important;
+
+}
+
 
 /* ==================== Buttons Start ==================== */
 
