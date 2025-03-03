@@ -2,12 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
 
 }
+
 /* ==================== Global Variables ==================== */
 :root {
     /* ===== Colors ===== */
@@ -129,10 +131,10 @@ img {
 
 .heading {
     color: var(--heading-text) !important;
-   }
+}
 
 .sub-heading {
-  color: var(--sub-heading-text) !important;
+    color: var(--sub-heading-text) !important;
 
 }
 
@@ -245,13 +247,14 @@ textarea:focus {
     outline: none;
 }
 
-/* ==================== Navbar Start ==================== */
 
+/* ==================== Navbar Start ==================== */
 .navbar {
     background-color: var(--primary-bg);
     padding: var(--spacing-small) var(--spacing-medium);
     box-shadow: var(--shadow-light);
 }
+
 
 .navbar-brand {
     display: flex;
@@ -264,8 +267,60 @@ textarea:focus {
     height: 40px;
 }
 
+.navbar-toggler {
+    border: 2px solid var(--heading-text);
+    border-radius: 5px;
+    background: transparent;
+    padding: 5px 10px;
+    transition: border-color 0.3s ease;
+}
+
+
+.navbar-toggler:hover {
+    border-color: var(--heading-text);
+
+}
+
+.navbar-toggler i {
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+    color: var(--heading-text);
+    margin: 0 3px;
+}
+
+.navbar-toggler:hover i {
+    color: var(--heading-text);
+
+}
+
+.hamburger-icon {
+    display: inline-block;
+}
+
+.close-icon {
+    display: none;
+}
+
+.navbar-toggler:not(.collapsed) .hamburger-icon {
+    display: none;
+}
+
+.navbar-toggler:not(.collapsed) .close-icon {
+    display: inline-block;
+}
+
+.navbar-light .navbar-toggler-icon,
+.navbar-dark .navbar-toggler-icon {
+    background-image: none !important;
+}
+
+.navbar-toggler:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .navbar-nav {
-    margin: 0 auto;
+    margin: 0;
     display: flex;
     gap: var(--spacing-small);
 }
@@ -281,6 +336,7 @@ textarea:focus {
     color: var(--secondary-text);
 }
 
+
 /* Responsive Adjustments */
 @media (max-width: 991px) {
     .navbar-nav {
@@ -293,6 +349,7 @@ textarea:focus {
         padding: var(--spacing-small);
     }
 
+    /* Collapse menu will stack items vertically */
     .navbar-nav {
         flex-direction: column;
         align-items: center;
@@ -301,6 +358,7 @@ textarea:focus {
 }
 
 /* ==================== Navbar End ==================== */
+
 /* ==================== Download section Start ======================= */
 .download-section {
     background: var(--linear-bg);
@@ -854,5 +912,7 @@ textarea:focus {
     border: none;
 }
 
-/*==================== Common video Section Start======================*/
 
+
+
+/*==================== Common video Section Start======================*/

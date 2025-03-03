@@ -9,14 +9,14 @@
     <div class="container hero-content">
         <div class="row">
             <div class="col-md-12 col-lg-4">
-                <h1>{{ $section->heading }}</h1>
-                <h3 class="sub-heading">{{ $section->sub_heading }}</h3>
+                <h3 class="sub-heading">{{ $section->heading }}</h3>
+                <h1 >{{ $section->sub_heading }}</h1>
                 <p class="paragraph">{{ $section->paragraph }}</p>
-                <div class="row pb-5">
+                <div class="row pb-5 pe-3">
                         @if($section->multi_image && is_array($section->multi_image))
                         @foreach($section->multi_image as $image)
-                        <div class="col-6 pt-3 text-center">
-                            <a href=""><img src="{{ asset('storage/' . $image) }}" alt="{{ $section->heading }}" style="max-width: 200px; margin: 5px;"></a>
+                        <div class="col-6 text-center">
+                            <a href="#"><img src="{{ asset('storage/' . $image) }}" alt="{{ $section->heading }}" class="hero-icon-image"></a>
                         </div>
                         @endforeach
                         @else

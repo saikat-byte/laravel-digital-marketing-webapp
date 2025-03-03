@@ -27,6 +27,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
+    z-index: 2; /* ensuring content is above slider if needed */
 }
 
 .banner-right h1 {
@@ -48,14 +50,17 @@
     color: var(--secondary-text);
 }
 
+.banner-right .gradient-glow-button,
 .banner-right .btn-gradient {
     padding: var(--btn-padding);
     font-size: var(--font-medium);
     border-radius: var(--btn-border-radius);
     background: var(--primary-bg);
     color: var(--white-color);
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
 }
-
 
 /*============== Card Slider ==============*/
 .card-slider-wrapper {
@@ -64,6 +69,7 @@
     left: 0;
     overflow: hidden;
     width: 100%;
+    z-index: 5;
 }
 
 .card-slider {
@@ -81,19 +87,12 @@
     overflow: hidden;
     position: relative;
     cursor: pointer;
-    backface-visibility: hidden;
-    /* helpful */
-    transform-style: preserve-3d;
-    /* helpful */
 }
 
 .card-slider,
 .service-card {
-    backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;
-    transform-style: preserve-3d;
 }
-
 
 .service-card img {
     width: 100%;
@@ -125,20 +124,101 @@
     animation-play-state: paused;
 }
 
+/*============ Responsive Design ============*/
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* For devices with max-width 780px */
+@media (max-width: 780px) {
+    .service-banner {
+        flex-direction: column;
+        height: auto; /* let height adjust with content */
+        background: #fff;
+    }
+    .row.h-100 {
+        height: auto;
+    }
+    .banner-left,
+    .banner-right {
+        width: 100%;
+        height: auto;
+    }
+    .banner-right {
+        padding: 20px;
+
+    }
+    /* Reposition Card Slider below the main content */
+    .card-slider-wrapper {
+        position: relative;
+        bottom: auto;
+        margin-top: 20px;
+    }
     .service-card {
         width: 250px;
-        height: 300px;
+        height: 300px; /* adjust height for better mobile view */
+    }
+    /* Adjust font sizes and button padding */
+    .banner-right h1 {
+        font-size: 1.8rem;
+    }
+    .banner-right h3 {
+        font-size: 1.4rem;
+    }
+    .banner-right p {
+        font-size: 1rem;
+    }
+    .gradient-glow-button {
+        padding: 10px 20px;
+        font-size: 1rem;
     }
 }
 
-/*============ Service Banner End============*/
+/* For devices with max-width 576px */
+@media (max-width: 576px) {
+    .banner-right {
+        padding: 15px;
+    }
+    .banner-right h1 {
+        font-size: 1.5rem;
+    }
+    .banner-right h3 {
+        font-size: 1.2rem;
+    }
+    .banner-right p {
+        font-size: 0.9rem;
+    }
+    .gradient-glow-button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    .service-card {
+        width: 220px;
+        height: 280px;
+    }
+}
 
-
-
-
+/* For devices with max-width 360px */
+@media (max-width: 360px) {
+    .banner-right {
+        padding: 10px;
+    }
+    .banner-right h1 {
+        font-size: 1.3rem;
+    }
+    .banner-right h3 {
+        font-size: 1rem;
+    }
+    .banner-right p {
+        font-size: 0.8rem;
+    }
+    .gradient-glow-button {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    .service-card {
+        width: 200px;
+        height: 260px;
+    }
+}
+/*============ Service Banner End ============*/
 
 /* ==============Service Contact form Start ====================== */
 .service-contact {
