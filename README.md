@@ -1,5 +1,5 @@
 # Clone the repository
-git clone https://github.com/saikat-byte/cloudspace_project.git
+git clone https://github.com/saikat-byte/laravel-digital-marketing-webapp.git
 
 # Go to project folder
 cd your-repo-name
