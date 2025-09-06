@@ -45,9 +45,9 @@ It includes a full blogging platform, CRM integration, WhatsApp API, appointment
 - Mail queue system for bulk email sending
 
 ### 🔗 API & Integration
-- REST API endpoints (Posts, Users, Comments)
+- REST API endpoints
 - Third-party API integration (CRM, WhatsApp, Mail)
-- Secure authentication (JWT / Sanctum)
+- Secure authentication
 
 ### 📈 Advanced Features
 - SEO-friendly URL structure
