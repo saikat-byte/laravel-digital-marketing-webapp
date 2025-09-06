@@ -73,7 +73,7 @@ It includes a full blogging platform, CRM integration, WhatsApp API, appointment
 ### Steps
 ```bash
 # 1. Clone the repository
-git clone https://github.com/USERNAME/REPO-NAME.git
+git clone https://github.com/saikat-byte/laravel-digital-marketing-webapp.git
 
 cd REPO-NAME
 
