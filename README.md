@@ -9,7 +9,7 @@ It includes a full blogging platform, CRM integration, WhatsApp API, appointment
 - **Framework**: Laravel 10 (Blade templates for frontend + backend)
 - **Database**: MySQL
 - **Authentication**: Laravel Breeze
-- **APIs**: WhatsApp API, CRM API, REST API
+- **APIs**: WhatsApp API, CRM API
 - **Mailing**: Laravel Mail, Queue, SMTP
 
 ---
@@ -18,7 +18,7 @@ It includes a full blogging platform, CRM integration, WhatsApp API, appointment
 
 ### 📝 Core Blog Features
 - User authentication (Register, Login, Logout)
-- Role-based access control (Admin, Moderators, User)
+- Role-based access control (Admin, Moderators, Subscriber)
 - Create, edit, soft delete, and restore blog posts, comments..
 - Rich text editor for blog content
 - Upload & manage images/videos
@@ -58,7 +58,7 @@ It includes a full blogging platform, CRM integration, WhatsApp API, appointment
 
 ### 💡 Extra
 - Fully responsive
-- Role-specific dashboards (Admin, Moderator, Subscriber)
+- Role-specific dashboards (Admin, Moderator)
 
 ---
 
