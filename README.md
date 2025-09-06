@@ -21,3 +21,18 @@ php artisan migrate
 php artisan serve
 
 
+# 🚀 Features
+
+## Admin Dashboard for managing blogs, categories, and users
+
+## Frontend for public blog view and user interaction
+
+## Email Subscription system
+
+## WhatsApp API Integration for communication
+
+## CRM API Integration for customer management
+
+## Blade Template Engine for frontend & backend UI
+
+## Appointment fuctionality
