@@ -2,7 +2,7 @@
 
 A complete digital marketing web application built with **Laravel 10** (frontend + backend).  
 It includes a full blogging platform, CRM integration, WhatsApp API, appointment system, subscription management, email automation, and more.  
-
+# Author: Saikat Golder
 ---
 
 ## 🚀 Tech Stack
