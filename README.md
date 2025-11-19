@@ -95,3 +95,5 @@ php artisan serve
 
 # 7. (Optional) Compile assets
 npm run dev
+
+# Developer Saikat Golder
